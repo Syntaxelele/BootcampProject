@@ -1,4 +1,4 @@
 package bootcamp.project.controllers;
 
-public class RegisterController {
+public class RegisterAndLogController {
 }
