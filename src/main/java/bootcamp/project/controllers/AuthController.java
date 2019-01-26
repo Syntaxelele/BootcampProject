@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
 
-    @GetMapping("/index")
+    @GetMapping("/start")
     public String Submit(User user) {
-        return "/index";
+        return "start";
 
     }
-    @PostMapping("/index")
-    public String Register(User user, @RequestParam(name = "Auth") String button) {
+    @PostMapping("/start")
+    public String Doors(User user, @RequestParam(name = "Auth") String button) {
         if (button.equals("submit")){
+
+
+            //parbauda, vai eksiste
             return "StudentMenu";
         }
         else {
