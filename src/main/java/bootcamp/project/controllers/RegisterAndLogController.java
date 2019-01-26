@@ -23,18 +23,6 @@ public class RegisterAndLogController {
 	//StudentRepo studentRepo;
 	
 	
-	@GetMapping("/index") 
-	public String testing() {
-		
-		User u1 = new User("Janis", "Berzins", "Janis", "password", 2, "janis@somewhere.com");
-		
-		userRepo.save(u1);
-		
-		userRepo.save(new User("Marta", "Apina", "marta", "123", 2, "marta@somewhere.com"));
-		userRepo.save(new User("Baiba", "Jauka", "baiba", "321", 1, "baiba@somewhere.com"));
-		System.out.println("dsadasdasdasd");
-		return "showAllUsers";
-	}
 	
 	
 	@GetMapping("/testingStudentAuth")
@@ -62,10 +50,10 @@ public class RegisterAndLogController {
 
 	@GetMapping("/showAllUsers")
 	public String showAllStudentsToView(Model model) {
-		User u1 = new User("Janis", "Berzins", "Janis", "password", 2, "janis@somewhere.com");
-		User u2 = new User("Marta", "Apina", "marta", "123", 2, "marta@somewhere.com");
-		userRepo.save(u1);
-		userRepo.save(u2);
+		//User u1 = new User("Janis", "Berzins", "Janis", "password", 2, "janis@somewhere.com");
+		//User u2 = new User("Marta", "Apina", "marta", "123", 2, "marta@somewhere.com");
+		//userRepo.save(u1);
+		//userRepo.save(u2);
 		System.out.println("dsadasdasdasd");
 		
 		Iterable<User> userFromDB = userRepo.findAll();
@@ -75,15 +63,9 @@ public class RegisterAndLogController {
 	}
 	
 	
-	@GetMapping("/testing") 
-	public String myFirstSpringControllerFunction() {
-		
-		User u1 = new User("Janis", "Berzins", "Janis", "password", 2, "janis@somewhere.com");
-		
-		userRepo.save(u1);
-		return "showAllUsers";
-	}
 	
+	
+
 	
 	//SHOW USER BY NAME
 		@GetMapping("/showUserByName")
