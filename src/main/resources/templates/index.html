@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>INDEX</title>
-</head>
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-<p>testing my branch</p>
+<form action="#" th:action="@{/index}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>User</td>
+            <td><input type="text"  value=""/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="text"   value=""/></td>
+        </tr>
+        <tr>
+            <td><button type="submit" name="Auth" th:value="submit" >Submit</button></td>
+            <td><button type="submit" name="Auth" th:value="register">Register</button></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
