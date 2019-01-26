@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html xmlns:th="https://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>INDEX</title>
-</head>
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <form action="#" th:action="@{/index}" th:object ="${user}" method="post">
-        Username: <input type="text" name="Username" th:field="*{name}" value=""><br>
-        Password: <input type="text" name="Password" th:field="*{password}" value=""><br>
-
-        <div>
-            <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
-                   checked>
-            <label for="Professor">Professor</label>
-        </div>
-
-        <div>
-            <input type="radio" id="Student" name="Prof/Stud" value="Student">
-            <label for="Student">Student</label><br>
-
-        <input type="submit" name = "Auth" value="Submit">
-        <input type="submit" name = "Auth" value="Register">
-        </div>
-    </form>
-
+<form action="#" th:action="@{/index}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>User</td>
+            <td><input type="text"  value=""/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="text"   value=""/></td>
+        </tr>
+        <tr>
+            <td><button type="submit" name="Auth" th:value="submit" >Submit</button></td>
+            <td><button type="submit" name="Auth" th:value="register">Register</button></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
