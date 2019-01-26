@@ -41,7 +41,21 @@ public class User {
 	@Column(name="email")
     private String email;
 	
-	
+	public User() {
+	}
+
+	public User(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname,
+			@NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password,
+			@NotNull @Size(min = 1, max = 1) byte role, @NotNull String email) {
+		super();
+		this.name = name;
+		this.lastname = lastname;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.email = email;
+	}
+
 	public long getId_u() {
 		return id_u;
 	}
@@ -52,13 +66,23 @@ public class User {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		String tempName = name;
+		if (tempName.contains("(a-zA-Z)+")) {
+			this.name = tempName;
+		} else {
+			System.out.println("Wrong input");
+		}
 	}
 	public String getLastname() {
 		return lastname;
 	}
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		String tempLastname = lastname;
+		if (tempLastname.contains("(a-zA-Z)+")) {
+			this.lastname = tempLastname;
+		} else {
+			System.out.println("Wrong input");
+		}
 	}
 	public String getUsername() {
 		return username;
