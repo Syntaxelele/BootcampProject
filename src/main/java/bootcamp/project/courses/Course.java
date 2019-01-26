@@ -80,10 +80,6 @@ public class Course {
 
     }
 
-    public int getCourseID() {
-        return courseID;
-    }
-
     public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
@@ -166,5 +162,22 @@ public class Course {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID=" + courseID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", professor=" + professor +
+                ", courseCode='" + courseCode + '\'' +
+                ", evaluation='" + evaluation + '\'' +
+                ", CP=" + CP +
+                ", prereq='" + prereq + '\'' +
+                ", objective='" + objective + '\'' +
+                ", outcome='" + outcome + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

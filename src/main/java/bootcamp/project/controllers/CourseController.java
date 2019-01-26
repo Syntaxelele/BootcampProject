@@ -31,12 +31,14 @@ public class CourseController {
         Iterable<Course> courseFromDB = courseRepo.findAll();
         model.addAttribute("courseTests", courseFromDB);
         System.out.println("1231231231231");
-        return  "courseTest";
+        return  "coursetest";
 
     }
     @GetMapping(value = "/showAllCourses")
     public String showAllCoursesToView(Model model){
         model.addAttribute("allCourses", courseRepo.findAll());
+        courseRepo.findAll().forEach(course -> System.out.println(course));
+
         return "showallcourses";
     }
 }

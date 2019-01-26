@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>show all courses</title>
+</head>
+<body>
+<table>
+    <th:block th:each="course : ${allCourses}">
+        <tr>
+            <td th:text="${course.get}"></td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>
