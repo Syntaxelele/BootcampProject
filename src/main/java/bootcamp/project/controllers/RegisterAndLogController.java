@@ -85,5 +85,6 @@ public class RegisterAndLogController {
 	public String registerOrLogin(User user) {
 		
 	}*/
-	
+	//new controller
+
 }
