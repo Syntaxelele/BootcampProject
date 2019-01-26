@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show All Students</title>
+</head>
+<body>
+<table>
+    <th:block th:each="cour : ${allCourses}">
+        <tr>
+            <td th:text="${cour.getTitle()}">TEST</td>
+            <td th:text="${cour.getProfessor()}">...</td>
+            <td th:text="${cour.getCourseCode()}">...</td>
+            <td th:text="${cour.getCP()}">...</td>
+            <td th:text="${cour.getDescription()}">...</td>
+            <td th:text="${cour.getEvaluation()}">...</td>
+            <td th:text="${cour.getContent()}">...</td>
+            <td th:text="${cour.getObjective()}">...</td>
+            <td th:text="${cour.getOutcome()}">...</td>
+            <td th:text="${cour.getPrereq()}">...</td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
