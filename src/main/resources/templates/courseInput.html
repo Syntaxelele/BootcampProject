@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<form action="#" th:action="@{/insertNewStudent}" th:object="${student}" method="post">
+    <table>
+        <tr>
+            <td>Course title:</td>
+            <td><input type="text" th:field="*{tit}" placeholder="title"/></td>
+            <td th:if="${#fields.hasErrors('tit')}" th:errors="*{tit}">title error</td>
+        </tr>
+        <tr>
+            <td>Course Description:</td>
+            <td><input type="text" th:field="*{desc}" placeholder="description"/></td>
+            <td th:if="${#fields.hasErrors('desc')}" th:errors="*{desc}">description error</td>
+        <tr>
+            <td>Course Professor ID:</td>
+            <td><input type="text" th:field="*{prof}" placeholder="professor id"/></td>
+            <td th:if="${#fields.hasErrors('prof')}" th:errors="*{prof}">professor id error</td>
+        </tr>
+        <tr>
+            <td>Course Code:</td>
+            <td><input type="text" th:field="*{code}" placeholder="code"/></td>
+            <td th:if="${#fields.hasErrors('code')}" th:errors="*{code}">code error</td>
+        </tr>
+        <tr>
+            <td>Course Evaluation:</td>
+            <td><input type="text" th:field="*{eval}" placeholder="evaluation"/></td>
+            <td th:if="${#fields.hasErrors('eval')}" th:errors="*{eval}">evaluation error</td>
+        </tr>
+        <tr>
+            <td>CP:</td>
+            <td><input type="text" th:field="*{cp}" placeholder="cp"/></td>
+            <td th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}">cp error</td>
+        </tr>
+        <tr>
+            <td>Prerequisites:</td>
+            <td><input type="text" th:field="*{prer}" placeholder="prerequisites"/></td>
+            <td th:if="${#fields.hasErrors('prer')}" th:errors="*{prer}">prerequisite error</td>
+        </tr>
+        <tr>
+            <td>Course objective:</td>
+            <td><input type="text" th:field="*{obj}" placeholder="objective"/></td>
+            <td th:if="${#fields.hasErrors('obj')}" th:errors="*{obj}">objective error</td>
+        </tr>
+        <tr>
+            <td>Course Outcome:</td>
+            <td><input type="text" th:field="*{outc}" placeholder="outcome"/></td>
+            <td th:if="${#fields.hasErrors('outc')}" th:errors="*{outc}">outcome error</td>
+        </tr>
+        <tr>
+            <td>Course Content:</td>
+            <td><input type="text" th:field="*{cont}" placeholder="content"/></td>
+            <td th:if="${#fields.hasErrors('cont')}" th:errors="*{cont}">content error</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit course</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
