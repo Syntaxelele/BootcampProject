@@ -12,7 +12,7 @@ import bootcamp.project.repo.CourseRepo;
 public class CourseController {
    @Autowired
    CourseRepo courseRepo;
-
+//-----------------------------------COURSE OUTPUT------------------------------//
     @GetMapping(value = "/hello")
     public String courseTesting(Model model){
 
@@ -34,10 +34,16 @@ public class CourseController {
 
     }
     @GetMapping(value = "/showAllCourses")
-    public String showAllCoursesToView(Model model){
+    public String showAllCoursesToView(Model model) {
         model.addAttribute("allCourses", courseRepo.findAll());
         courseRepo.findAll().forEach(course -> System.out.println(course));
 
         return "showAllCourses";
     }
+    //----------------------------------------------------------------------//
+    //---------------------------COURSE INPUT--------------------------//
+
+
+
+
 }
