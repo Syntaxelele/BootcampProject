@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "courseTable")
 public class Course {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "courseID")
     private int courseID;
 
@@ -51,6 +51,34 @@ public class Course {
     @Column(name = "courseContent")
     private String content;
 
+    public Course() {
+        title = "";
+        description = "";
+        professor = 0;
+        courseCode = "";
+        evaluation = "";
+        CP = 0;
+        prereq = "";
+        objective = "";
+        outcome = "";
+        content = "";
+    }
+    public Course
+            (String tit, String desc, int prof, String code,
+             String eval, int cp, String prer, String obj, String outc, String cont) {
+
+        setTitle(tit);
+        setDescription(desc);
+        setProfessor(prof);
+        setCourseCode(code);
+        setEvaluation(eval);
+        setCP(cp);
+        setPrereq(prer);
+        setObjective(obj);
+        setOutcome(outc);
+        setContent(cont);
+
+    }
 
     public int getCourseID() {
         return courseID;

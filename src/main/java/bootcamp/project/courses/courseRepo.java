@@ -1,4 +1,6 @@
 package bootcamp.project.courses;
 
-public interface courseRepo {
+import org.springframework.data.repository.CrudRepository;
+
+public interface courseRepo extends CrudRepository<Course, String> {
 }
