@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//test
 @Entity
 @Table(name="userTable")
 public class User {
@@ -33,7 +32,7 @@ public class User {
 	@NotNull
 	@Column(name="password")
 	@Size(min = 6, max = 30)
-    private char [] password;
+    private String password;
 	@NotNull
 	@Column(name="role")
 	@Size(min = 1, max = 1)
@@ -67,10 +66,10 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	public byte getRole() {
