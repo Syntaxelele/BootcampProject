@@ -16,7 +16,7 @@ import bootcamp.project.users.User;
 @Controller
 public class RegisterAndLogController {
 	
-	private ArrayList<User> usersList = new ArrayList<>();
+	//private ArrayList<User> usersList = new ArrayList<>();
 	
 	@Autowired
 	UserRepo userRepo;
