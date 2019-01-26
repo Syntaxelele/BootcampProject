@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>INDEX</title>
 </head>
 <body>
-    <form action="/">
-        Username: <input type="text" name="Username" value=""><br>
-        Password: <input type="text" name="Password" value=""><br>
+    <form action="#" th:action="@{/index}" th:object ="${user}" method="post">
+        Username: <input type="text" name="Username" th:field="*{name}" value=""><br>
+        Password: <input type="text" name="Password" th:field="*{password}" value=""><br>
 
         <div>
             <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
@@ -17,11 +17,12 @@
 
         <div>
             <input type="radio" id="Student" name="Prof/Stud" value="Student">
-            <label for="Student">Student</label>
-        </div>
+            <label for="Student">Student</label><br>
 
-        <input type="submit" value="Submit">
-        <input type="submit" value="Register">
+        <input type="submit" name = "Auth" value="Submit">
+        <input type="submit" name = "Auth" value="Register">
+        </div>
     </form>
+
 </body>
 </html>
