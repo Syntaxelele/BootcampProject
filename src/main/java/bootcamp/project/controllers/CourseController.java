@@ -30,7 +30,7 @@ public class CourseController {
         Iterable<Course> courseFromDB = courseRepo.findAll();
         model.addAttribute("courseTests", courseFromDB);
         System.out.println("1231231231231");
-        return  "coursetest";
+        return  "courseTest";
 
     }
     @GetMapping(value = "/showAllCourses")
@@ -38,6 +38,6 @@ public class CourseController {
         model.addAttribute("allCourses", courseRepo.findAll());
         courseRepo.findAll().forEach(course -> System.out.println(course));
 
-        return "showallcourses";
+        return "showAllCourses";
     }
 }

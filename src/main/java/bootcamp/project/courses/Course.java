@@ -80,10 +80,6 @@ public class Course {
 
     }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
-
     public String getTitle() {
         return title;
     }
