@@ -1,4 +1,4 @@
-package userRepo;
+package bootcamp.project.repo;
 
 import org.springframework.data.repository.CrudRepository;
 

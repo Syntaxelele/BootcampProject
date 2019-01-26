@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,9 +38,11 @@ public class User {
     private String password;
 	@NotNull
 	@Column(name="role")
-	@Size(min = 1, max = 1)
-    private byte role;	
+	@Max(3)
+	@Min(1)
+    private int role;	
 	@NotNull
+	@Email
 	@Column(name="email")
     private String email;
 	
@@ -46,7 +51,7 @@ public class User {
 
 	public User(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname,
 			@NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password,
-			@NotNull @Size(min = 1, max = 1) byte role, @NotNull String email) {
+			@NotNull @Max(3) @Min(1) int role, @NotNull @Email String email) {
 		super();
 		this.name = name;
 		this.lastname = lastname;
@@ -88,7 +93,12 @@ public class User {
 		return username;
 	}
 	public void setUsername(String username) {
-		this.username = username;
+		String tempUsername = username;
+		if (tempUsername.contains("(a-zA-Z)+")) {
+			this.username = tempUsername;
+		} else {
+			System.out.println("Wrong input");
+		}
 	}
 	public String getPassword() {
 		return password;
@@ -96,7 +106,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public byte getRole() {
+	public int getRole() {
 		return role;
 	}
 	public void setRole(byte role) {
