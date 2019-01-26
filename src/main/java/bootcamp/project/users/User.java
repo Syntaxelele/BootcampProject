@@ -13,39 +13,39 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="userTable")
+@Table(name = "userTable")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_u")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_u")
 	private long id_u;
 	@NotNull
-	@Column(name="name")
+	@Column(name = "name")
 	@Size(min = 2, max = 30)
-    private String name;
+	private String name;
 	@NotNull
-	@Column(name="lastname")
+	@Column(name = "lastname")
 	@Size(min = 2, max = 30)
-    private String lastname;
+	private String lastname;
 	@NotNull
-	@Column(name="username")
+	@Column(name = "username")
 	@Size(min = 2, max = 30)
-    private String username;
+	private String username;
 	@NotNull
-	@Column(name="password")
+	@Column(name = "password")
 	@Size(min = 6, max = 30)
-    private String password;
+	private String password;
 	@NotNull
-	@Column(name="role")
+	@Column(name = "role")
 	@Max(3)
 	@Min(1)
-    private int role;	
+	private int role;
 	@NotNull
 	@Email
-	@Column(name="email")
-    private String email;
-	
+	@Column(name = "email")
+	private String email;
+
 	public User() {
 	}
 
@@ -64,12 +64,15 @@ public class User {
 	public long getId_u() {
 		return id_u;
 	}
+
 	public void setId_u(long id_u) {
 		this.id_u = id_u;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		String tempName = name;
 		if (tempName.contains("(a-zA-Z)+")) {
@@ -78,9 +81,11 @@ public class User {
 			System.out.println("Wrong input");
 		}
 	}
+
 	public String getLastname() {
 		return lastname;
 	}
+
 	public void setLastname(String lastname) {
 		String tempLastname = lastname;
 		if (tempLastname.contains("(a-zA-Z)+")) {
@@ -89,9 +94,11 @@ public class User {
 			System.out.println("Wrong input");
 		}
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		String tempUsername = username;
 		if (tempUsername.contains("(a-zA-Z)+")) {
@@ -100,21 +107,34 @@ public class User {
 			System.out.println("Wrong input");
 		}
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public int getRole() {
 		return role;
 	}
-	public void setRole(byte role) {
-		this.role = role;
+
+	public void setRole(int role) {
+		int tempRole = role;
+		if (tempRole >= 1 && tempRole < 4) {
+			this.role = tempRole;
+		} else {
+			this.role = 1;
+
+		}
+
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
