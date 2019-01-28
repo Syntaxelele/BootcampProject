@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Show All Students</title>
+    <title>Show All Courses</title>
 </head>
 <body>
 <table>
     <th:block th:each="cour : ${allCourses}">
         <tr>
-            <td th:text="${cour.getTitle()}">TEST</td>
+            <td th:text="${cour.getTitle()}">...</td>
             <td th:text="${cour.getProfessor()}">...</td>
             <td th:text="${cour.getCourseCode()}">...</td>
             <td th:text="${cour.getCP()}">...</td>
