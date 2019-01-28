@@ -1,9 +1,7 @@
 package bootcamp.project.users;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -18,16 +16,9 @@ import bootcamp.project.courses.Course;
 @Table(name="professorTable")
 public class Professor extends User {
 	
-	//@Id
-	//@OneToOne
-	//@JoinColumn(name="id_u")
-	//private long id_p;
-	
 	@OneToOne
 	@JoinColumn(name="courseID")
 	private Course course;
-	
-	//private int role = 1;
 
 	public Professor(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname,
 			@NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password,
@@ -51,6 +42,4 @@ public class Professor extends User {
 				+ getLastname() + ", getUsername()=" + getUsername() + ", getRole()=" + getRole() + ", getEmail()="
 				+ getEmail() + "]";
 	}
-	
-	
 }

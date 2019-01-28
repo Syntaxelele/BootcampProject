@@ -102,7 +102,6 @@ public class CourseController {
                         + course.getContent()
         );
         courseRepo.save(course);
-        System.out.println("Tests tests tests");
         return "redirect:/showAllCourses";
     }
 }

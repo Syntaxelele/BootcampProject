@@ -22,15 +22,9 @@ public class RegisterAndLogController {
 
 	@GetMapping("/showAllUsers")
 	public String showAllStudentsToView(Model model) {
-		//User u1 = new User("Janis", "Berzins", "Janis", "password", 2, "janis@somewhere.com");
-		//User u2 = new User("Marta", "Apina", "marta", "123", 2, "marta@somewhere.com");
-		//userRepo.save(u1);
-		//userRepo.save(u2);
-		
 		Iterable<Student> userFromDB = studentRepo.findAll();
 		model.addAttribute("allUsers", userFromDB);
 		return "showAllUsers";
-
 	}
 	
 	//SHOW USER BY NAME
@@ -45,12 +39,10 @@ public class RegisterAndLogController {
 	
 	@GetMapping("/logStud")
 	public String createNewStudent(Student student) {
-
 		return "StudentMenu";
 	}	
 	@GetMapping("/logProf")
 	public String createNewProfessor(Professor professor) {
-
 		return "indexView";
 	}
 	/*@PostMapping("/")
@@ -60,18 +52,15 @@ public class RegisterAndLogController {
 	//new controller
     @GetMapping("/RegView")
     public String Registerer(Student student, Professor professor) {
-        return "start";
-
+        return "RegView";
     }
     @PostMapping("/RegView")
     public String Register(Student student, Professor professor, @RequestParam(name = "Reg") String button) {
-
-    	return"start";
+    	return"RegView";
     }
 
 	@GetMapping("/showCourses")
 	public String createNewStuden2t(Student student) {
-
 		return "showAllCourses";
 	}
 }
