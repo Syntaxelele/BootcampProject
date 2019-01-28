@@ -1,6 +1,7 @@
 package bootcamp.project.controllers;
 
-import bootcamp.project.repo.UserRepo;
+import bootcamp.project.repo.ProfessorRepo;
+import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuthController {
 	
 	@Autowired
-	UserRepo userRepo;
+	StudentRepo studentRepo; 
+	@Autowired
+	ProfessorRepo professorRepo;
 	
     @GetMapping("/start")
     public String Submit(User user) {
@@ -24,12 +27,18 @@ public class AuthController {
     public String Doors(User user, @RequestParam(name = "Auth") String button) {
         if (button.equals("submit")){
 
-    		User findbyNameAndPassw = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+    		User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
     		
     		if(findbyNameAndPassw == null)
     		{
-    			System.out.println("User not found");
-    			return "index";
+        		findbyNameAndPassw = professorRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+    			if (findbyNameAndPassw == null) {
+            		System.out.println("User not found");
+        			return "index";
+    			} else {
+    			System.out.println(findbyNameAndPassw.getUsername());
+    			return "ProfessorMenu";
+    			}
     		}
     		else
     		{
