@@ -1,7 +1,14 @@
 package bootcamp.project.courses;
 
+//-------------------------------IMPORTS-------------------------------------//
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+//------------------------------------------------------------------------//
 
 @Entity
 @Table(name = "courseTable")
@@ -63,10 +70,10 @@ public class Course {
         outcome = "";
         content = "";
     }
+
     public Course
             (String courseTitle, String courseDesc, int courseProf, String courseCod, String courseEval,
              int courseCp, String coursePrer, String courseObjec, String courseOutc, String courseCont) {
-
         setTitle(courseTitle);
         setDescription(courseDesc);
         setProfessor(courseProf);
@@ -78,6 +85,11 @@ public class Course {
         setOutcome(courseOutc);
         setContent(courseCont);
 
+
+    }
+
+    public int getCourseID() {
+        return courseID;
     }
 
     public String getTitle() {

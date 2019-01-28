@@ -63,7 +63,7 @@ public class CourseController {
             return "courseInput";
         }
         System.out.println(
-                        course.getTitle() + " "
+                         course.getTitle() + " "
                         + course.getDescription() + " "
                         + course.getProfessor() + " "
                         + course.getCourseCode() + " "
