@@ -79,6 +79,7 @@ public class User {
 		if (tempName.contains("(a-zA-Z)+")) {
 			this.name = tempName;
 		} else {
+			this.name = "";
 			System.out.println("Wrong input");
 		}
 	}
@@ -92,6 +93,7 @@ public class User {
 		if (tempLastname.contains("(a-zA-Z)+")) {
 			this.lastname = tempLastname;
 		} else {
+			this.lastname = "";
 			System.out.println("Wrong input");
 		}
 	}
@@ -105,6 +107,7 @@ public class User {
 		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
 			this.username = tempUsername;
 		} else {
+			this.username = "";
 			System.out.println("Wrong input");
 		}
 	}
@@ -126,7 +129,7 @@ public class User {
 		if (tempRole >= 1 && tempRole < 4) {
 			this.role = tempRole;
 		} else {
-			this.role = 1;
+			this.role = 2;
 
 		}
 
