@@ -16,8 +16,8 @@ import javax.validation.Valid;
 public class CourseController {
     @Autowired
     CourseRepo courseRepo;
-
-    //-----------------------------------COURSE OUTPUT------------------------------//
+/*
+    //-----------------------------------COURSE OUTPUT TEST------------------------------//
     @GetMapping(value = "/course")
     public String courses(Model model) {
 
@@ -38,6 +38,7 @@ public class CourseController {
         return "courseTest";
 
     }
+    */
 
     @GetMapping(value = "/showAllCourses")
     public String showAllCoursesToView(Model model) {
