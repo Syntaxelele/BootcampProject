@@ -15,25 +15,21 @@
     </script>
 </head>
 <body>
-
-    <form name="f" action="#" th:action="@{/RegView}" th:object="${user}" method="post">
-        Username: <input type="text" name="Username" th:field="*{username}"  required/><br>
-        E-mail:   <input type="text" name="Email" th:field="*{email}" required/><br>
-        Password: <input type="password" name="password" th:field="*{password}" required/><br>
-        Password: <input type="password" name="confirm_password"  id="confirm_password" required/><br>
-
+    <form action="#" method="post" name="f" th:action="@{/RegView}" th:object="${student}"> <!-- object=student un object=professor vajag-->
+        Username: <input name="Username" required th:field="*{username}" type="text"/><br>
+        E-mail:   <input name="Email" required th:field="*{email}" type="text"/><br>
+        Password: <input name="password" required th:field="*{password}" type="password"/><br>
+        Password: <input id="confirm_password" name="confirm_password" required type="password"/><br>
         <div>
-            <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
-                   checked>
+            <input checked id="Professor" name="Prof/Stud" type="radio"
+                   value="Professor">
             <label for="Professor">Professor</label>
         </div>
-
         <div>
-            <input type="radio" id="Student" name="Prof/Stud" value="Student">
+            <input id="Student" name="Prof/Stud" type="radio" value="Student">
             <label for="Student">Student</label>
         </div>
-
-        <button type="submit"  name="Reg"th:value="Reg" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
+        <button id="submit" name="Reg" onclick="checkpassword()" th:value="Reg" type="submit" value="checkpassword()">Register</button>
     </form>
 </div>
 

@@ -2,12 +2,7 @@ package bootcamp.project.users;
 
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -19,13 +14,9 @@ import bootcamp.project.courses.Grade;
 @Entity
 @Table(name="studentTable")
 public class Student extends User {
-	
-	//@Id
-	//@OneToOne
-	//@JoinColumn(name="id_u")
-	//private long id_s;
-	
-	private int role = 2;
+	public Student(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname, @NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password, @NotNull @Max(3) @Min(1) int role, @NotNull @Email String email) {
+		super(name, lastname, username, password, role, email);
+	}
 
 	public Collection<Grade> getGrades() {
 		return grades;
@@ -33,12 +24,11 @@ public class Student extends User {
 	public void setGrades(Collection<Grade> grades) {
 		this.grades = grades;
 	}
+
 	@OneToMany
 	@JoinColumn(name="id_g")
 	private Collection<Grade> grades;
-	
-	
-	
+
 	public Student() {
 	}
 	

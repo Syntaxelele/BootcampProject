@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<form action="#" th:action="@{/insertNewCourse}" th:object="${course}" method="post">
+<form action="#" method="post" th:action="@{/insertNewCourse}" th:object="${course}">
     <table>
         <tr>
             <td>Course Title:</td>

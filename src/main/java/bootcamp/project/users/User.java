@@ -1,7 +1,6 @@
 package bootcamp.project.users;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,8 +17,8 @@ import javax.validation.constraints.Size;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_u")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_u", unique = true, nullable = false)
 	protected long id_u;
 	@NotNull
 	@Column(name = "name")
@@ -104,7 +103,7 @@ public class User {
 
 	public void setUsername(String username) {
 		String tempUsername = username;
-		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
+		if (true) { //tempUsername.matches("^[a-zA-Z0-9]*$")
 			this.username = tempUsername;
 		} else {
 			this.username = "none";
@@ -140,12 +139,6 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		String tempEmail = email;
-		if(tempEmail.contains("[_a-zA-Z1-9]+(\\.[A-Za-z0-9]*)*@[A-Za-z0-9]+\\.[A-Za-z0-9]+(\\.[A-Za-z0-9]*)*")) {
-			this.email = tempEmail;
-		}else {
-			System.out.println("Wrong email format - only letters or numbers and symbols '.' and '@' are allowed");
-		}	
-		
+			this.email = email;
 	}
 }

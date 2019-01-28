@@ -3,12 +3,17 @@
 <body>
 
 
-<table>
+<table border="1">
+   <th>Name</th>
+   <th>Lastname</th>
+   <th>Username</th>
+   <th>Email</th>
    <th:block th:each="user : ${allUsers}">
       <tr>
+         <td th:text="${user.getName()}">...</td>
+         <td th:text="${user.getLastname()}">...</td>
          <td th:text="${user.getUsername()}">...</td>
-         <td th:text="${user.getPassword()}">...</td>
-      
+         <td th:text="${user.getEmail()}">...</td>
       </tr>
    </th:block>
 </table>
