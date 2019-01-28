@@ -7,6 +7,7 @@
 <table>
     <th:block th:each="cour : ${allCourses}">
         <tr>
+            <td th:text="${cour.getCourseID()}">...</td>
             <td th:text="${cour.getTitle()}">...</td>
             <td th:text="${cour.getProfessor()}">...</td>
             <td th:text="${cour.getCourseCode()}">...</td>
