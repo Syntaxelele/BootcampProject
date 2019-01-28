@@ -44,10 +44,10 @@ public class CourseController {
         System.out.println("1231231231231");
         return "courseTest";
 
-    } */
+    }
 //------------------------SHOW ALL COURSES---------------------------------------//
     
-   /* @GetMapping("/oneCourse/{id}")
+     @GetMapping("/oneCourse/{id}")
     public String showOneCourse(@PathVariable(Model model) {
     	
     	Optional<Course> course =courseRepo.findById((long)1);

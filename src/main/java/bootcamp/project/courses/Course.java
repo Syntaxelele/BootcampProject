@@ -1,7 +1,9 @@
 package bootcamp.project.courses;
 
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,9 +26,9 @@ public class Course {
     @Column(name = "courseDesc")
     private String description;
 
-	@NotNull
-	@OneToOne(mappedBy="course")
-	private Professor courseProfessor;
+  //  @NotNull
+    @OneToOne(mappedBy = "course")
+    private Professor courseProfessor;
 
     @NotNull
     @Column(name = "courseCode")
@@ -57,11 +59,11 @@ public class Course {
     private String content;
 
     @OneToMany
-	@JoinColumn(name="id_g")
-	private Collection<Grade> gradesInCourse;
-    
+    @JoinColumn(name = "id_g")
+    private Collection<Grade> gradesInCourse;
 
-	public Course() {
+
+    public Course() {
         title = "";
         description = "";
         courseProfessor = null;
@@ -75,60 +77,64 @@ public class Course {
         gradesInCourse = null;
     }
 
- public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
-			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
-			@NotNull String objective, @NotNull String outcome, @NotNull String content) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.courseProfessor = courseProfessor;
-		this.courseCode = courseCode;
-		this.evaluation = evaluation;
-		CP = cP;
-		this.prereq = prereq;
-		this.objective = objective;
-		this.outcome = outcome;
-		this.content = content;
-	}
+    public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
+                  @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
+                  @NotNull String objective, @NotNull String outcome, @NotNull String content) {
+        super();
+        this.title = title;
+        this.description = description;
+        this.courseProfessor = courseProfessor;
+        this.courseCode = courseCode;
+        this.evaluation = evaluation;
+        this.CP = cP;
+        this.prereq = prereq;
+        this.objective = objective;
+        this.outcome = outcome;
+        this.content = content;
+    }
 
     public long getCourseID() {
         return courseID;
     }
-    
+
     public String getTitle() {
-		return title;
-	}
+        return title;
+    }
 
     public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
-			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
-			@NotNull String objective, @NotNull String outcome, @NotNull String content,
-			Collection<Grade> gradesInCourse) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.courseProfessor = courseProfessor;
-		this.courseCode = courseCode;
-		this.evaluation = evaluation;
-		CP = cP;
-		this.prereq = prereq;
-		this.objective = objective;
-		this.outcome = outcome;
-		this.content = content;
-		this.gradesInCourse = gradesInCourse;
-	}
-    
-	public Course(@NotNull String title, @NotNull Professor courseProfessor) {
-		super();
-		this.title = title;
-		this.courseProfessor = courseProfessor;
-	}
+                  @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
+                  @NotNull String objective, @NotNull String outcome, @NotNull String content,
+                  Collection<Grade> gradesInCourse) {
+        super();
+        this.title = title;
+        this.description = description;
+        this.courseProfessor = courseProfessor;
+        this.courseCode = courseCode;
+        this.evaluation = evaluation;
+        this.CP = cP;
+        this.prereq = prereq;
+        this.objective = objective;
+        this.outcome = outcome;
+        this.content = content;
+        this.gradesInCourse = gradesInCourse;
+    }
 
-	public Course(@NotNull String title, @NotNull Professor courseProfessor, Collection<Grade> gradesInCourse) {
-		super();
-		this.title = title;
-		this.courseProfessor = courseProfessor;
-		this.gradesInCourse = gradesInCourse;
-	}
+    public Course(@NotNull String title, @NotNull Professor courseProfessor) {
+        super();
+        this.title = title;
+        this.courseProfessor = courseProfessor;
+    }
+
+    public Course(@NotNull String title, @NotNull Professor courseProfessor, Collection<Grade> gradesInCourse) {
+        super();
+        this.title = title;
+        this.courseProfessor = courseProfessor;
+        this.gradesInCourse = gradesInCourse;
+    }
+
+    public void setCourseID(long courseID) {
+        this.courseID = courseID;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -137,27 +143,23 @@ public class Course {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
     public Professor getCourseProfessor() {
-		return courseProfessor;
-	}
-	public void setCourseProfessor(Professor courseProfessor) {
-		this.courseProfessor = courseProfessor;
-	}
-	
-	public Collection<Grade> getGradesInCourse() {
-		return gradesInCourse;
-	}
-	public void setGradesInCourse(Collection<Grade> gradesInCourse) {
-		this.gradesInCourse = gradesInCourse;
-	}
-	
-	public String getCourseCode() {
+        return courseProfessor;
+    }
+
+    public void setCourseProfessor(Professor courseProfessor) {
+        this.courseProfessor = courseProfessor;
+    }
+
+    public String getCourseCode() {
         return courseCode;
     }
+
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
@@ -165,6 +167,7 @@ public class Course {
     public String getEvaluation() {
         return evaluation;
     }
+
     public void setEvaluation(String evaluation) {
         this.evaluation = evaluation;
     }
@@ -172,6 +175,7 @@ public class Course {
     public int getCP() {
         return CP;
     }
+
     public void setCP(int CP) {
         this.CP = CP;
     }
@@ -179,6 +183,7 @@ public class Course {
     public String getPrereq() {
         return prereq;
     }
+
     public void setPrereq(String prereq) {
         this.prereq = prereq;
     }
@@ -186,6 +191,7 @@ public class Course {
     public String getObjective() {
         return objective;
     }
+
     public void setObjective(String objective) {
         this.objective = objective;
     }
@@ -193,6 +199,7 @@ public class Course {
     public String getOutcome() {
         return outcome;
     }
+
     public void setOutcome(String outcome) {
         this.outcome = outcome;
     }
@@ -200,15 +207,24 @@ public class Course {
     public String getContent() {
         return content;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
 
+    public Collection<Grade> getGradesInCourse() {
+        return gradesInCourse;
+    }
+
+    public void setGradesInCourse(Collection<Grade> gradesInCourse) {
+        this.gradesInCourse = gradesInCourse;
+    }
+
     @Override
-	public String toString() {
-		return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
-				+ ", courseProfessor=" + courseProfessor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
-				+ ", CP=" + CP + ", prereq=" + prereq + ", objective=" + objective + ", outcome=" + outcome
-				+ ", content=" + content + "]";
-	}
+    public String toString() {
+        return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
+                + ", courseProfessor=" + courseProfessor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
+                + ", CP=" + CP + ", prereq=" + prereq + ", objective=" + objective + ", outcome=" + outcome
+                + ", content=" + content + "]";
+    }
 }
