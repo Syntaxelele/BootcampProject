@@ -87,7 +87,6 @@ public class Course {
         setObjective(obj);
         setOutcome(outc);
         setContent(cont);
-
     }
 
     public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
