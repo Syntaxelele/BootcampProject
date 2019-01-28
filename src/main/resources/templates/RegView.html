@@ -3,14 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>INDEX</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+      function checkpassword() {
+
+      var p=f.password.value;
+      var cp=f.confirm_password.value;
+      if(p==cp)
+          location.replace("/start")
+      else alert("mismatch!")
+      }
+
+  </script>
 </head>
 <body>
-<form action="#" th:action="@{/RegView}" th:object="${user}" method="post">
-    Username: <input type="text" name="Username" value=""><br>
-    ID:       <input type="text" name="ID" value=""><br>
-    E-mail:   <input type="text" name="Email" value=""><br>
-    Password: <input type="text" name="password" value=""><br>
-    Password: <input type="text" name="password" value=""><br>
+<div class="container-fluid">
+
+<form name="f" action="#" th:action="@{/RegView}" th:object="${user}" method="post">
+    Username: <input type="text" name="Username" th:field="*{username}" value=""><br>
+    E-mail:   <input type="text" name="Email" th:field="*{email}"value=""><br>
+    Password: <input type="password" name="password" th:field="*{password}" ><br>
+    Password: <input type="password" name="confirm_password"  id="confirm_password" ><br>
+
     <div>
         <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
                checked>
@@ -22,7 +36,9 @@
         <label for="Student">Student</label>
     </div>
 
-    <td><button type="submit" name="Reg" th:value="register">Register</button></td>
+<button type="submit"  name="Reg"th:value="Reg" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
 </form>
+</div>
+
 </body>
 </html>

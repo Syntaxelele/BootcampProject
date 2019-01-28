@@ -24,9 +24,9 @@ public class Course {
     @Column(name = "courseDesc")
     private String description;
 
-    @NotNull
-    @OneToOne(mappedBy="course")
-    private Professor courseProfessor;
+	@NotNull
+	@OneToOne(mappedBy="course")
+	private Professor courseProfessor;
 
     @NotNull
     @Column(name = "courseCode")
@@ -57,11 +57,11 @@ public class Course {
     private String content;
 
     @OneToMany
-    @JoinColumn(name="id_g")
-    private Collection<Grade> gradesInCourse;
+	@JoinColumn(name="id_g")
+	private Collection<Grade> gradesInCourse;
+    
 
-
-    public Course() {
+	public Course() {
         title = "";
         description = "";
         courseProfessor = null;
@@ -75,60 +75,61 @@ public class Course {
         gradesInCourse = null;
     }
 
-    public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
-                  @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
-                  @NotNull String objective, @NotNull String outcome, @NotNull String content) {
-        super();
-        this.title = title;
-        this.description = description;
-        this.courseProfessor = courseProfessor;
-        this.courseCode = courseCode;
-        this.evaluation = evaluation;
-        CP = cP;
-        this.prereq = prereq;
-        this.objective = objective;
-        this.outcome = outcome;
-        this.content = content;
-    }
+ public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
+			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
+			@NotNull String objective, @NotNull String outcome, @NotNull String content) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.courseProfessor = courseProfessor;
+		this.courseCode = courseCode;
+		this.evaluation = evaluation;
+		CP = cP;
+		this.prereq = prereq;
+		this.objective = objective;
+		this.outcome = outcome;
+		this.content = content;
+	}
 
     public long getCourseID() {
         return courseID;
     }
-
+    
     public String getTitle() {
-        return title;
-    }
+		return title;
+	}
 
     public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
-                  @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
-                  @NotNull String objective, @NotNull String outcome, @NotNull String content,
-                  Collection<Grade> gradesInCourse) {
-        super();
-        this.title = title;
-        this.description = description;
-        this.courseProfessor = courseProfessor;
-        this.courseCode = courseCode;
-        this.evaluation = evaluation;
-        CP = cP;
-        this.prereq = prereq;
-        this.objective = objective;
-        this.outcome = outcome;
-        this.content = content;
-        this.gradesInCourse = gradesInCourse;
-    }
+			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
+			@NotNull String objective, @NotNull String outcome, @NotNull String content,
+			Collection<Grade> gradesInCourse) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.courseProfessor = courseProfessor;
+		this.courseCode = courseCode;
+		this.evaluation = evaluation;
+		CP = cP;
+		this.prereq = prereq;
+		this.objective = objective;
+		this.outcome = outcome;
+		this.content = content;
+		this.gradesInCourse = gradesInCourse;
+	}
+    
+	public Course(@NotNull String title, @NotNull Professor courseProfessor) {
+		super();
+		this.title = title;
+		this.courseProfessor = courseProfessor;
+	}
 
-    public Course(@NotNull String title, @NotNull Professor courseProfessor) {
-        super();
-        this.title = title;
-        this.courseProfessor = courseProfessor;
-    }
+	public Course(@NotNull String title, @NotNull Professor courseProfessor, Collection<Grade> gradesInCourse) {
+		super();
+		this.title = title;
+		this.courseProfessor = courseProfessor;
+		this.gradesInCourse = gradesInCourse;
+	}
 
-    public Course(@NotNull String title, @NotNull Professor courseProfessor, Collection<Grade> gradesInCourse) {
-        super();
-        this.title = title;
-        this.courseProfessor = courseProfessor;
-        this.gradesInCourse = gradesInCourse;
-    }
     public void setTitle(String title) {
         this.title = title;
     }
@@ -141,20 +142,20 @@ public class Course {
     }
 
     public Professor getCourseProfessor() {
-        return courseProfessor;
-    }
-    public void setCourseProfessor(Professor courseProfessor) {
-        this.courseProfessor = courseProfessor;
-    }
-
-    public Collection<Grade> getGradesInCourse() {
-        return gradesInCourse;
-    }
-    public void setGradesInCourse(Collection<Grade> gradesInCourse) {
-        this.gradesInCourse = gradesInCourse;
-    }
-
-    public String getCourseCode() {
+		return courseProfessor;
+	}
+	public void setCourseProfessor(Professor courseProfessor) {
+		this.courseProfessor = courseProfessor;
+	}
+	
+	public Collection<Grade> getGradesInCourse() {
+		return gradesInCourse;
+	}
+	public void setGradesInCourse(Collection<Grade> gradesInCourse) {
+		this.gradesInCourse = gradesInCourse;
+	}
+	
+	public String getCourseCode() {
         return courseCode;
     }
     public void setCourseCode(String courseCode) {
@@ -204,10 +205,10 @@ public class Course {
     }
 
     @Override
-    public String toString() {
-        return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
-                + ", courseProfessor=" + courseProfessor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
-                + ", CP=" + CP + ", prereq=" + prereq + ", objective=" + objective + ", outcome=" + outcome
-                + ", content=" + content + "]";
-    }
+	public String toString() {
+		return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
+				+ ", courseProfessor=" + courseProfessor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
+				+ ", CP=" + CP + ", prereq=" + prereq + ", objective=" + objective + ", outcome=" + outcome
+				+ ", content=" + content + "]";
+	}
 }
