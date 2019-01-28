@@ -33,7 +33,7 @@ public class TestUser {
 	public void testIfUsernameIsWrong() {
 		User user = new User();
 		user.setUsername("noob^%@");
-		assertEquals("", user.getUsername());
+		assertEquals("none", user.getUsername());
 	}
 	
 	@Test

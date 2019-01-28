@@ -107,7 +107,7 @@ public class User {
 		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
 			this.username = tempUsername;
 		} else {
-			this.username = "";
+			this.username = "none";
 			System.out.println("Wrong input");
 		}
 	}
