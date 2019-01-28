@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -12,14 +13,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
+@MappedSuperclass
 @Table(name = "userTable")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_u")
-	private long id_u;
+	protected long id_u;
 	@NotNull
 	@Column(name = "name")
 	@Size(min = 2, max = 30)
@@ -101,7 +102,7 @@ public class User {
 
 	public void setUsername(String username) {
 		String tempUsername = username;
-		if (tempUsername.contains("(a-zA-Z)+")) {
+		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
 			this.username = tempUsername;
 		} else {
 			System.out.println("Wrong input");
@@ -136,6 +137,12 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		String tempEmail = email;
+		if(tempEmail.contains("[_a-zA-Z1-9]+(\\.[A-Za-z0-9]*)*@[A-Za-z0-9]+\\.[A-Za-z0-9]+(\\.[A-Za-z0-9]*)*")) {
+			this.email = tempEmail;
+		}else {
+			System.out.println("Wrong email format - only letters or numbers and symbols '.' and '@' are allowed");
+		}	
+		
 	}
 }
