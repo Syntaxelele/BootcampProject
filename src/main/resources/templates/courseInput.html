@@ -15,7 +15,9 @@
         <tr>
             <td>Course Professor ID:</td>
             <td><input type="text" th:field="*{courseProfessor}" placeholder="courseProfessor id"/></td>
-            <td th:if="${#fields.hasErrors('courseProfessor')}" th:errors="*{courseProfessor}">courseProfessor id error</td>
+            <td th:if="${#fields.hasErrors('courseProfessor')}" th:errors="*{courseProfessor}">courseProfessor id
+                error
+            </td>
         </tr>
         <tr>
             <td>Course Code:</td>

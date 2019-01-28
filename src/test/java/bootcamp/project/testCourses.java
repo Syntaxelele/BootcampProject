@@ -70,5 +70,4 @@ public class testCourses {
         assertEquals("CourseTITLE", CT3.getTitle());
 
     }
-}
-*/
+}*/

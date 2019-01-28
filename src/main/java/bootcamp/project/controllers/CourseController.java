@@ -57,15 +57,15 @@ public class CourseController {
     	
     	
     }*/
-    
-    
+
+
     @GetMapping("/oneCourse/{id}")
     public String showOneCourse(@PathVariable(required = false, name = "id") int id, Model model) {
-    	//model.addAttribute("course", courseList.get(id));
-    	Long idL = (long)id;
-		Optional<Course>courseFromDB = courseRepo.findById(idL);
-		model.addAttribute("course", courseFromDB.get());
-    	return "showMyCourse";
+        //model.addAttribute("course", courseList.get(id));
+        Long idL = (long) id;
+        Optional<Course> courseFromDB = courseRepo.findById(idL);
+        model.addAttribute("course", courseFromDB.get());
+        return "showMyCourse";
     }
 
     @GetMapping(value = "/showAllCourses")
@@ -90,7 +90,7 @@ public class CourseController {
             return "courseInput";
         }
         System.out.println(
-                         course.getTitle() + " "
+                course.getTitle() + " "
                         + course.getDescription() + " "
                         + course.getCourseProfessor() + " "
                         + course.getCourseCode() + " "
