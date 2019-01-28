@@ -75,40 +75,29 @@ public class Course {
         gradesInCourse = null;
     }
 
-    public Course
-            (String courseTitle, String courseDesc, int courseProf, String courseCod, String courseEval,
-             int courseCp, String coursePrer, String courseObjec, String courseOutc, String courseCont) {
-        setTitle(courseTitle);
-        setDescription(courseDesc);
-        setCourseProfessor(courseProf);
-        setCourseCode(courseCod);
-        setEvaluation(courseEval);
-        setCP(courseCp);
-        setPrereq(coursePrer);
-        setObjective(courseObjec);
-        setOutcome(courseOutc);
-        setContent(courseCont);
-    }
+ public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
+			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
+			@NotNull String objective, @NotNull String outcome, @NotNull String content) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.courseProfessor = courseProfessor;
+		this.courseCode = courseCode;
+		this.evaluation = evaluation;
+		CP = cP;
+		this.prereq = prereq;
+		this.objective = objective;
+		this.outcome = outcome;
+		this.content = content;
+	}
 
-    public int getCourseID() {
+    public long getCourseID() {
         return courseID;
     }
-
+    
     public String getTitle() {
-            (String tit, String desc, /*int prof,*/ String code,
-             String eval, int cp, String prer, String obj, String outc, String cont) {
-
-        setTitle(tit);
-        setDescription(desc);
-        //setCourseProfessor(prof);
-        setCourseCode(code);
-        setEvaluation(eval);
-        setCP(cp);
-        setPrereq(prer);
-        setObjective(obj);
-        setOutcome(outc);
-        setContent(cont);
-    }
+		return title;
+	}
 
     public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
 			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
@@ -140,9 +129,9 @@ public class Course {
 		this.courseProfessor = courseProfessor;
 		this.gradesInCourse = gradesInCourse;
 	}
-	public String getTitle() {
+/*	public String getTitle() {
         return title;
-    }
+    }*/
     public void setTitle(String title) {
         this.title = title;
     }
