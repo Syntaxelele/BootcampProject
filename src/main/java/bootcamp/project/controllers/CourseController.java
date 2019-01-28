@@ -13,8 +13,8 @@ public class CourseController {
    @Autowired
    CourseRepo courseRepo;
 //-----------------------------------COURSE OUTPUT------------------------------//
-    @GetMapping(value = "/hello")
-    public String courseTesting(Model model){
+    @GetMapping(value = "/course")
+    public String courses(Model model){
 
         System.out.println("logging info");
 

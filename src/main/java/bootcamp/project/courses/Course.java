@@ -64,19 +64,19 @@ public class Course {
         content = "";
     }
     public Course
-            (String tit, String desc, int prof, String code,
-             String eval, int cp, String prer, String obj, String outc, String cont) {
+            (String courseTitle, String courseDesc, int courseProf, String courseCod, String courseEval,
+             int courseCp, String coursePrer, String courseObjec, String courseOutc, String courseCont) {
 
-        setTitle(tit);
-        setDescription(desc);
-        setProfessor(prof);
-        setCourseCode(code);
-        setEvaluation(eval);
-        setCP(cp);
-        setPrereq(prer);
-        setObjective(obj);
-        setOutcome(outc);
-        setContent(cont);
+        setTitle(courseTitle);
+        setDescription(courseDesc);
+        setProfessor(courseProf);
+        setCourseCode(courseCod);
+        setEvaluation(courseEval);
+        setCP(courseCp);
+        setPrereq(coursePrer);
+        setObjective(courseObjec);
+        setOutcome(courseOutc);
+        setContent(courseCont);
 
     }
 

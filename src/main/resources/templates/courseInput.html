@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<form action="#" th:action="@{/insertNewStudent}" th:object="${student}" method="post">
+<form action="#" th:action="@{/insertNewCourse}" th:object="${course}" method="post">
     <table>
         <tr>
             <td>Course title:</td>
-            <td><input type="text" th:field="*{tit}" placeholder="title"/></td>
+            <td><input type="text" th:field="*{courseTitle}" placeholder="title"/></td>
             <td th:if="${#fields.hasErrors('tit')}" th:errors="*{tit}">title error</td>
         </tr>
         <tr>
