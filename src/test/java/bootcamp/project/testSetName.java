@@ -22,9 +22,18 @@ public class testSetName {
 		user.setLastname("Liepa");
 		assertEquals("Liepa", user.getLastname());
 	}
-	/*@Test
-	public void testUsername() {
+	
+	@Test
+	public void testIfUsernameEquals() {
 		User user = new User();
-		user.setUsername(username);
-	}*/
+		user.setUsername("noob123");
+		assertEquals("noob123", user.getUsername());
+	}
+	@Test
+	public void testIfUsernameIsWrong() {
+		User user = new User();
+		user.setUsername("noob^%@");
+		assertEquals(null, user.getUsername());
+	}
+	
 }

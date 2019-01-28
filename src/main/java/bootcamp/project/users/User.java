@@ -102,7 +102,7 @@ public class User {
 
 	public void setUsername(String username) {
 		String tempUsername = username;
-		if (tempUsername.contains("(a-zA-Z)+")) {
+		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
 			this.username = tempUsername;
 		} else {
 			System.out.println("Wrong input");
@@ -137,6 +137,12 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		String tempEmail = email;
+		if(tempEmail.contains("[_a-zA-Z1-9]+(\\.[A-Za-z0-9]*)*@[A-Za-z0-9]+\\.[A-Za-z0-9]+(\\.[A-Za-z0-9]*)*")) {
+			this.email = tempEmail;
+		}else {
+			System.out.println("Wrong email format - only letters or numbers and symbols '.' and '@' are allowed");
+		}	
+		
 	}
 }
