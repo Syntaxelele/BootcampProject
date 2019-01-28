@@ -8,12 +8,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import bootcamp.project.users.User;
 
 @SpringBootTest
-public class testSetName {
+public class TestUser {
 	@Test
 	public void TestName() {
 		User user = new User();
 		user.setName("Janis987");
-		assertEquals(null, user.getName());
+		assertEquals("", user.getName());
 	}
 
 	@Test
@@ -33,7 +33,22 @@ public class testSetName {
 	public void testIfUsernameIsWrong() {
 		User user = new User();
 		user.setUsername("noob^%@");
-		assertEquals(null, user.getUsername());
+		assertEquals("none", user.getUsername());
+	}
+	
+	@Test
+	public void testSetRole() {
+		User user = new User();
+		user.setRole(3);
+		assertEquals(3, user.getRole());
+			
+	}
+	@Test
+	public void testSetRoleMax() {
+		User user = new User();
+		user.setRole(4);
+		assertEquals(1, user.getRole());
+			
 	}
 	
 }
