@@ -26,7 +26,7 @@ public class Course {
     @Column(name = "courseDesc")
     private String description;
 
-  //  @NotNull
+    //@NotNull
     @OneToOne(mappedBy = "course")
     private Professor courseProfessor;
 

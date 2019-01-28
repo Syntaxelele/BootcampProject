@@ -33,16 +33,20 @@ public class SimpleController {
 	@GetMapping("hellotests")
 	public String testDBModel() {
 
-		Professor pr1 = new Professor("Baiba", "Jauká", "baibaa", "parole", 1, "emails@email.lv");
+		Professor pr1 = new Professor("Baiba", "Jauká", "baibaa",
+				"parole", 1, "emails@email.lv");
 		professorRepo.save(pr1);
 
-		Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis", "parolee", 1, "epasts@epasts.lv");
+		Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis",
+				"parolee", 1, "epasts@epasts.lv");
 		professorRepo.save(pr2);
 
-		Course c1 = new Course("math", "desc", pr1, "1", "test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+		Course c1 = new Course("math", "desc", pr1, "1",
+				"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");
 		courseRepo.save(c1);
 
-		Course c2 = new Course("java", "desc", pr2, "1", "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+		Course c2 = new Course("java", "desc", pr2, "1",
+				"test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
 		courseRepo.save(c2);
 
 		Grade g1 = new Grade(1, c1);
