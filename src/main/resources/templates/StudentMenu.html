@@ -3,8 +3,8 @@
 <head>
 </head>
 <body>
-<form name="a" action="#" th:action="@{/StudView}" th:object="${user}" method="post">
-<button type="button" name="ShowCour"th:value="ShowCour">Show all courses</button>
+<form  action="#" th:action="@{/logStud}" th:object="${Student}" method="post">
+<button type="button"  onclick="showAllCourses" >Show all courses</button>
 <button type="button">See my grades</button>
 
 

@@ -5,6 +5,7 @@
 </head>
 <body>
 <table>
+    <form  action="#" name="ShowCour" th:action="@{/ShowCour}" th:object="${Student}" method="get">
     <th:block th:each="course : ${allCourses}">
         <tr>
             <td th:text="${course.getCourseID()}">...</td>
