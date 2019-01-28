@@ -46,7 +46,7 @@ public class RegisterAndLogController {
 	@GetMapping("/logStud")
 	public String createNewStudent(Student student) {
 
-		return "indexView";
+		return "StudentMenu";
 	}	
 	@GetMapping("/logProf")
 	public String createNewProfessor(Professor professor) {
@@ -68,4 +68,10 @@ public class RegisterAndLogController {
 
     	return"start";
     }
+
+	@GetMapping("/showCourses")
+	public String createNewStuden2t(Student student) {
+
+		return "showAllCourses";
+	}
 }
