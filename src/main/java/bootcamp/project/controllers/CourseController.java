@@ -18,9 +18,9 @@ public class CourseController {
 
         System.out.println("logging info");
 
-        Course c1 = new Course("thisIsTitle","thisIsDesc",2,"C123","thisIsEval",9,
+        Course c1 = new Course("thisIsTitle","thisIsDesc",/*2,*/"C123","thisIsEval",9,
                 "thisIsPrereq","thisIsObjective","thisIsoutcome", "thisIsContent");
-        Course c2 = new Course("thisIsTitle2","thisIsDesc2",3,"C155","thisIsEval2",8,
+        Course c2 = new Course("thisIsTitle2","thisIsDesc2",/*3,*/"C155","thisIsEval2",8,
                 "thisIsPrereq2","thisIsObjective2","thisIsoutcome2", "thisIsContent2");
         courseRepo.save(c1);
         courseRepo.save(c2);

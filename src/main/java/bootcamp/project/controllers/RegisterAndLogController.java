@@ -7,14 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import bootcamp.project.repo.UserRepo;
-import bootcamp.project.users.User;
+import bootcamp.project.repo.ProfessorRepo;
+import bootcamp.project.repo.StudentRepo;
+import bootcamp.project.users.Professor;
+import bootcamp.project.users.Student;
 
 @Controller
 public class RegisterAndLogController {
 	
 	@Autowired
-	UserRepo userRepo;
+	StudentRepo studentRepo; 
+	@Autowired
+	ProfessorRepo professorRepo;
 
 	@GetMapping("/showAllUsers")
 	public String showAllStudentsToView(Model model) {
@@ -23,7 +27,7 @@ public class RegisterAndLogController {
 		//userRepo.save(u1);
 		//userRepo.save(u2);
 		
-		Iterable<User> userFromDB = userRepo.findAll();
+		Iterable<Student> userFromDB = studentRepo.findAll();
 		model.addAttribute("allUsers", userFromDB);
 		return "showAllUsers";
 
@@ -39,8 +43,13 @@ public class RegisterAndLogController {
 	}
 */
 	
-	@GetMapping("/")
-	public String createNewStudent(User user) {
+	@GetMapping("/logStud")
+	public String createNewStudent(Student student) {
+
+		return "indexView";
+	}	
+	@GetMapping("/logProf")
+	public String createNewProfessor(Professor professor) {
 
 		return "indexView";
 	}
@@ -50,12 +59,12 @@ public class RegisterAndLogController {
 	}*/
 	//new controller
     @GetMapping("/RegView")
-    public String Registerer(User user) {
+    public String Registerer(Student student, Professor professor) {
         return "start";
 
     }
     @PostMapping("/RegView")
-    public String Register(User user, @RequestParam(name = "Reg") String button) {
+    public String Register(Student student, Professor professor, @RequestParam(name = "Reg") String button) {
 
     	return"start";
     }
