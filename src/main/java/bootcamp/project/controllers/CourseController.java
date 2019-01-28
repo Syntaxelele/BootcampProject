@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import bootcamp.project.repo.CourseRepo;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
@@ -93,7 +92,7 @@ public class CourseController {
         System.out.println(
                          course.getTitle() + " "
                         + course.getDescription() + " "
-                        + course.getProfessor() + " "
+                        + course.getCourseProfessor() + " "
                         + course.getCourseCode() + " "
                         + course.getEvaluation() + " "
                         + course.getCP() + " "

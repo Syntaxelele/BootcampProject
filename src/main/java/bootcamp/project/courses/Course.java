@@ -77,6 +77,7 @@ public class Course {
         gradesInCourse = null;
     }
 
+<<<<<<< HEAD
     public Course
             (String courseTitle, String courseDesc, Professor courseProfessor, String courseCod, String courseEval,
              int courseCp, String coursePrer, String courseObjec, String courseOutc, String courseCont) {
@@ -91,10 +92,34 @@ public class Course {
         setOutcome(courseOutc);
         setContent(courseCont);
     }
+=======
+ public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
+			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
+			@NotNull String objective, @NotNull String outcome, @NotNull String content) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.courseProfessor = courseProfessor;
+		this.courseCode = courseCode;
+		this.evaluation = evaluation;
+		CP = cP;
+		this.prereq = prereq;
+		this.objective = objective;
+		this.outcome = outcome;
+		this.content = content;
+	}
+>>>>>>> 3811db2e24115c17b268d65ef5da9295ea6f91f7
 
     public long getCourseID() {
         return courseID;
     }
+<<<<<<< HEAD
+=======
+    
+    public String getTitle() {
+		return title;
+	}
+>>>>>>> 3811db2e24115c17b268d65ef5da9295ea6f91f7
 
     public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
                 @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
@@ -115,6 +140,7 @@ public class Course {
         }
     
 	public Course(@NotNull String title, @NotNull Professor courseProfessor) {
+<<<<<<< HEAD
             super();
             this.title = title;
             this.courseProfessor = courseProfessor;
@@ -211,3 +237,101 @@ public class Course {
                     + ", content=" + content + "]";
         }
     }
+=======
+		super();
+		this.title = title;
+		this.courseProfessor = courseProfessor;
+	}
+
+	public Course(@NotNull String title, @NotNull Professor courseProfessor, Collection<Grade> gradesInCourse) {
+		super();
+		this.title = title;
+		this.courseProfessor = courseProfessor;
+		this.gradesInCourse = gradesInCourse;
+	}
+/*	public String getTitle() {
+        return title;
+    }*/
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Professor getCourseProfessor() {
+		return courseProfessor;
+	}
+	public void setCourseProfessor(Professor courseProfessor) {
+		this.courseProfessor = courseProfessor;
+	}
+	
+	public Collection<Grade> getGradesInCourse() {
+		return gradesInCourse;
+	}
+	public void setGradesInCourse(Collection<Grade> gradesInCourse) {
+		this.gradesInCourse = gradesInCourse;
+	}
+	
+	public String getCourseCode() {
+        return courseCode;
+    }
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public String getEvaluation() {
+        return evaluation;
+    }
+    public void setEvaluation(String evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public int getCP() {
+        return CP;
+    }
+    public void setCP(int CP) {
+        this.CP = CP;
+    }
+
+    public String getPrereq() {
+        return prereq;
+    }
+    public void setPrereq(String prereq) {
+        this.prereq = prereq;
+    }
+
+    public String getObjective() {
+        return objective;
+    }
+    public void setObjective(String objective) {
+        this.objective = objective;
+    }
+
+    public String getOutcome() {
+        return outcome;
+    }
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
+
+    public String getContent() {
+        return content;
+    }
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+	public String toString() {
+		return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
+				+ ", courseProfessor=" + courseProfessor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
+				+ ", CP=" + CP + ", prereq=" + prereq + ", objective=" + objective + ", outcome=" + outcome
+				+ ", content=" + content + "]";
+	}
+}
+>>>>>>> 3811db2e24115c17b268d65ef5da9295ea6f91f7
