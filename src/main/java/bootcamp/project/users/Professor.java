@@ -27,7 +27,7 @@ public class Professor extends User {
 	@JoinColumn(name="courseID")
 	private Course course;
 	
-	private int role = 1;
+	//private int role = 1;
 
 	public Professor(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname,
 			@NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password,

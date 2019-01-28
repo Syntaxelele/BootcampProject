@@ -129,9 +129,7 @@ public class Course {
 		this.courseProfessor = courseProfessor;
 		this.gradesInCourse = gradesInCourse;
 	}
-/*	public String getTitle() {
-        return title;
-    }*/
+
     public void setTitle(String title) {
         this.title = title;
     }
