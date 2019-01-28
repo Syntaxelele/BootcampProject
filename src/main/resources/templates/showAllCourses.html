@@ -5,19 +5,19 @@
 </head>
 <body>
 <table>
-    <th:block th:each="cour : ${allCourses}">
+    <th:block th:each="course : ${allCourses}">
         <tr>
-            <td th:text="${cour.getCourseID()}">...</td>
-            <td th:text="${cour.getTitle()}">...</td>
-            <td th:text="${cour.getProfessor()}">...</td>
-            <td th:text="${cour.getCourseCode()}">...</td>
-            <td th:text="${cour.getCP()}">...</td>
-            <td th:text="${cour.getDescription()}">...</td>
-            <td th:text="${cour.getEvaluation()}">...</td>
-            <td th:text="${cour.getContent()}">...</td>
-            <td th:text="${cour.getObjective()}">...</td>
-            <td th:text="${cour.getOutcome()}">...</td>
-            <td th:text="${cour.getPrereq()}">...</td>
+            <td th:text="${course.getCourseID()}">...</td>
+            <td th:text="${course.getTitle()}">...</td>
+            <td th:text="${course.getCourseProfessor()}">...</td>
+            <td th:text="${course.getCourseCode()}">...</td>
+            <td th:text="${course.getCP()}">...</td>
+            <td th:text="${course.getDescription()}">...</td>
+            <td th:text="${course.getEvaluation()}">...</td>
+            <td th:text="${course.getContent()}">...</td>
+            <td th:text="${course.getObjective()}">...</td>
+            <td th:text="${course.getOutcome()}">...</td>
+            <td th:text="${course.getPrereq()}">...</td>
         </tr>
     </th:block>
 </table>
