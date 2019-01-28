@@ -1,4 +1,4 @@
-package bootcamp.project;
+/*package bootcamp.project;
 //----------------------------IMPORTS----------------------------------//
 
 import bootcamp.project.courses.Course;
@@ -55,3 +55,4 @@ public class testCourses {
 
     }
 }
+*/
