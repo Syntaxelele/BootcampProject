@@ -8,27 +8,33 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import bootcamp.project.repo.CourseRepo;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class CourseController {
-   @Autowired
-   CourseRepo courseRepo; 
-   
-//-----------------------------------COURSE OUTPUT------------------------------//
+    @Autowired
+    CourseRepo courseRepo;
+
+    //-----------------------------------COURSE OUTPUT TEST------------------------------//
+/*
     @GetMapping(value = "/course")
-    public String courses(Model model){
+    public String courses(Model model) {
 
         System.out.println("logging info");
-
-        Course c1 = new Course("thisIsTitle","thisIsDesc",2,"C123","thisIsEval",9,
+        
+        Course c1 = new Course("thisIsTitle","thisIsDesc","C123","thisIsEval",9,
                 "thisIsPrereq","thisIsObjective","thisIsoutcome", "thisIsContent");
-        Course c2 = new Course("thisIsTitle2","thisIsDesc2",3,"C155","thisIsEval2",8,
+        Course c2 = new Course("thisIsTitle2","thisIsDesc2","C155","thisIsEval2",8,
                 "thisIsPrereq2","thisIsObjective2","thisIsoutcome2", "thisIsContent2");
+
         courseRepo.save(c1);
         courseRepo.save(c2);
 
@@ -37,10 +43,10 @@ public class CourseController {
         Iterable<Course> courseFromDB = courseRepo.findAll();
         model.addAttribute("courseTests", courseFromDB);
         System.out.println("1231231231231");
-        return  "courseTest";
+        return "courseTest";
 
-    }
-    
+    } */
+//------------------------SHOW ALL COURSES---------------------------------------//
     
    /* @GetMapping("/oneCourse/{id}")
     public String showOneCourse(@PathVariable(Model model) {
@@ -62,9 +68,7 @@ public class CourseController {
 		model.addAttribute("course", courseFromDB.get());
     	return "showMyCourse";
     }
-    
-    
-    
+
     @GetMapping(value = "/showAllCourses")
     public String showAllCoursesToView(Model model) {
         model.addAttribute("allCourses", courseRepo.findAll());
@@ -72,10 +76,37 @@ public class CourseController {
 
         return "showAllCourses";
     }
+
     //----------------------------------------------------------------------//
     //---------------------------COURSE INPUT--------------------------//
 
+    @GetMapping(value = "/insertNewCourse")
+    public String insertCourseView(Course course) {
+        return "courseInput";
+    }
 
-
-
+    @PostMapping(value = "/insertNewCourse")
+    public String getCourseFromView(@Valid Course course, BindingResult result) {
+        if (result.hasErrors()) {
+            return "courseInput";
+        }
+        System.out.println(
+                        course.getTitle() + " "
+                        + course.getDescription() + " "
+                        + course.getProfessor() + " "
+                        + course.getCourseCode() + " "
+                        + course.getEvaluation() + " "
+                        + course.getCP() + " "
+                        + course.getPrereq() + " "
+                        + course.getObjective() + " "
+                        + course.getOutcome() + " "
+                        + course.getContent()
+        );
+        courseRepo.save(course);
+        System.out.println("Tests tests tests");
+        return "redirect:/showAllCourses";
+    }
 }
+
+
+
