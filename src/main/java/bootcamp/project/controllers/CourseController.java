@@ -5,6 +5,7 @@ import bootcamp.project.courses.Course;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.users.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import bootcamp.project.repo.CourseRepo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -23,8 +25,11 @@ public class CourseController {
     @Autowired
     CourseRepo courseRepo;
 
-    //-----------------------------------COURSE OUTPUT TEST------------------------------//
+    @Autowired
+    ProfessorRepo professorRepo;
 
+    //-----------------------------------COURSE OUTPUT TEST------------------------------//
+/*
     @GetMapping(value = "/course")
     public String courses(Model model) {
 
@@ -51,7 +56,7 @@ public class CourseController {
         System.out.println("1231231231231");
         return "courseTest";
 
-    }
+    }*/
 //------------------------SHOW COURSES---------------------------------------//
 
     @GetMapping("/oneCourse/{id}")
@@ -103,14 +108,20 @@ public class CourseController {
     //--------------------------------------------------------------------//
     //-----------------------REGISTER TO COURSES--------------------------//
 
-/*
+
     @GetMapping(value = "/registerToCourse")
-    public String registerToCourseView(Model model) {
-        model.addAttribute("regToCourses", );
+    public String registerToCourseView(Model model/*, @RequestParam(name ="CourseID", value = "none",
+            required = false)String CourseID*/) {
+
+        Iterable<Course> courseFromDB = courseRepo.findAll();
+        model.addAttribute("courseTests", courseFromDB);
         return "registerToCourse";
     }
-*/
+    //@PostMapping
+
 }
+
+
 
 
 

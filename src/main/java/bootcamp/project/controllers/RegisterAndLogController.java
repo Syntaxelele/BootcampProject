@@ -71,7 +71,7 @@ public class RegisterAndLogController {
 	}
 
 	@GetMapping("/showCourses")
-	public String createNewStudent(Student student) {
+	public String createNewStudent2(Student student) {
 		return "showAllCourses";
 	}
 
@@ -87,6 +87,3 @@ public class RegisterAndLogController {
 
 
 }
-	
-
-
