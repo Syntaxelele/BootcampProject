@@ -11,12 +11,13 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
+import bootcamp.project.users.User;
 
 @Controller
 public class RegisterAndLogController {
-	
+
 	@Autowired
-	StudentRepo studentRepo; 
+	StudentRepo studentRepo;
 	@Autowired
 	ProfessorRepo professorRepo;
 
@@ -26,45 +27,63 @@ public class RegisterAndLogController {
 		model.addAttribute("allUsers", userFromDB);
 		return "showAllUsers";
 	}
-	
-	//SHOW USER BY NAME
-/*	@GetMapping("/showUserByName")
-	public String showUserByName(
-			@RequestParam(name = "username", defaultValue = "Janis", required = false) String username, Model model) {
-		//Iterable<User> userResult = userRepo.findByName(username);
-	//	model.addAttribute("allUsers", userResult);
-		return "showAllUsers";
-	}
-*/
-	
+
+	// SHOW USER BY NAME
+	/*
+	 * @GetMapping("/showUserByName") public String showUserByName(
+	 * 
+	 * @RequestParam(name = "username", defaultValue = "Janis", required = false)
+	 * String username, Model model) { //Iterable<User> userResult =
+	 * userRepo.findByName(username); // model.addAttribute("allUsers", userResult);
+	 * return "showAllUsers"; }
+	 */
+
 	@GetMapping("/logStud")
-	public String createNewStudent(Student student) {
+	public String doorsStudent(Student student) {
 		return "StudentMenu";
-	}	
-	@GetMapping("/logProf")
-	public String createNewProfessor(Professor professor) {
-		return "indexView";
 	}
-	/*@PostMapping("/")
-	public String registerOrLogin(User user) {
-		
-	}*/
-	//new controller
-    @GetMapping("/RegView")
-    public String Registerer(Student student, Professor professor) {
-        return "RegView";
-    }
-    @PostMapping("/RegView")
-    public String Register(Student student, Professor professor, @RequestParam(name = "Reg") String button) {
-    	return"RegView";
-    }
+
+	@PostMapping("/logStud")
+	public String ShowCourses(Student student, Professor professor, @RequestParam(name = "ShowCours") String button) {
+		return "showAllCourses";
+	}
+
+	@GetMapping("/logProf")
+	public String doorsProfessor(Professor professor) {
+		return "professorMenu";
+
+	}
+
+	/*
+	 * @PostMapping("/") public String registerOrLogin(User user) {
+	 * 
+	 * }
+	 */
+	// new controller
+	@GetMapping("/RegView")
+	public String Registerer(Student student, Professor professor) {
+		return "RegView";
+	}
+
+	@PostMapping("/RegView")
+	public String Register(Student student, Professor professor, @RequestParam(name = "Reg") String button) {
+		return "RegView";
+	}
 
 	@GetMapping("/showCourses")
 	public String createNewStudent2(Student student) {
 		return "showAllCourses";
 	}
-	@PostMapping("/logStud")
-	public String ShowCourses(Student student, Professor professor, @RequestParam(name = "ShowCours") String button) {
-		return"showAllCourses";
+
+	@PostMapping("/logProf")
+	public String doorsForProf(Professor professor, @RequestParam(name = "choice") String button) {
+		if (button.equals("ShowCours")) {
+			return "redirect:/showAllCourses";
+		} 
+		else {
+			return "redirect:/insertNewCourse";
+		}
 	}
+
+
 }
