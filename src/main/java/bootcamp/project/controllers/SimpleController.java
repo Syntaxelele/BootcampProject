@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import bootcamp.project.users.Professor;
@@ -18,61 +19,88 @@ import bootcamp.project.repo.StudentRepo;
 @Controller
 public class SimpleController {
 
-	@Autowired
-	StudentRepo studentRepo;
+    @Autowired
+    StudentRepo studentRepo;
 
-	@Autowired
-	ProfessorRepo professorRepo;
+    @Autowired
+    ProfessorRepo professorRepo;
 
-	@Autowired
-	CourseRepo courseRepo;
+    @Autowired
+    CourseRepo courseRepo;
 
-	@Autowired
-	GradeRepo gradeRepo;
+    @Autowired
+    GradeRepo gradeRepo;
 
-	@GetMapping("hellotests")
-	public void testDBModel() {
-		Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "inbox@inbox.lv");
-		Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "inboax@inbox.lv");
-		Student s3 = new Student("Roberts", "Ziema", "dsafas", "passwdsadasords", 2, "inbaaox@inbox.lv");
-		studentRepo.save(s1);
-		studentRepo.save(s2);
-		studentRepo.save(s3);
-		Professor pr1 = new Professor("Baiba", "Jauká", "baibaa",
-				"parole", 1, "emails@email.lv");
-		professorRepo.save(pr1);
-		Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis",
-				"parolee", 1, "epasts@epasts.lv");
-		professorRepo.save(pr2);
-		Course c1 = new Course("math", "desc", pr1, "1",
-				"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");
-		courseRepo.save(c1);
-		Course c2 = new Course("java", "desc", pr2, "1",
-				"test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
-		courseRepo.save(c2);
-		
-		pr1.setCourse(c2);
-		pr2.setCourse(c1);
+    @GetMapping("hellotests")
+    public void testDBModel() {
+        Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "inbox@inbox.lv");
+        Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "inboax@inbox.lv");
+        Student s3 = new Student("Roberts", "Ziema", "dsafas", "passwdsadasords", 2, "inbaaox@inbox.lv");
+        Student s4 = new Student("Anna", "Panna", "dsafas", "passwdsadasords", 2, "inbaaoxasd@inbox.lv");
+        studentRepo.save(s1);
+        studentRepo.save(s2);
+        studentRepo.save(s3);
+        studentRepo.save(s4);
+        Professor pr1 = new Professor("Baiba", "Jauká", "baibaa",
+                "parole", 1, "emails@email.lv");
+        professorRepo.save(pr1);
+        Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis",
+                "parolee", 1, "epasts@epasts.lv");
+        professorRepo.save(pr2);
+        //-----------------------------------------------------------------------------------------------------------//
+        Professor pr3 = new Professor("Zigiiitis", "Jaukums", "ziguciitis",
+                "parole", 1, "emails@emails.lv");
+        professorRepo.save(pr3);
+        Professor pr4 = new Professor("Ilze", "Kalna", "ilzhuks",
+                "parolee", 1, "epastss@epastss.com");
+        professorRepo.save(pr4);
+        //--------------------------------------------------------------------------------------------------------//
+        Course c1 = new Course("Math", "desc", pr1, "11",
+                "test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        courseRepo.save(c1);
+        Course c2 = new Course("Java", "desc", pr2, "22",
+                "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        courseRepo.save(c2);
 
-		Grade g1 = new Grade(1, c1, s1);
-		Grade g2 = new Grade(9, c1, s2);
-		Grade g3 = new Grade(4, c2, s3);
-		Grade g4 = new Grade(5, c2, s2);
-		Grade g5 = new Grade(5, c1, s1);
-		gradeRepo.save(g1);
-		gradeRepo.save(g2);
-		gradeRepo.save(g3);
-		gradeRepo.save(g4);
-		gradeRepo.save(g5);
+        //---------------------------------------------------------------------------------------------------------//
+        Course c3 = new Course("Python", "desc", pr3, "33",
+                "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        courseRepo.save(c3);
+        Course c4 = new Course("Science", "desc", pr4, "44",
+                "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        courseRepo.save(c4);
 
-		ArrayList<Grade> gradesForJanis = new ArrayList<Grade>();
-		gradesForJanis.add(g1);
-		gradesForJanis.add(g3);
-		ArrayList<Grade> gradesForLiga = new ArrayList<Grade>();
-		gradesForLiga.add(g2);
-		gradesForLiga.add(g4);
-		ArrayList<Grade> gradesForRoberts = new ArrayList<Grade>();
-		gradesForRoberts.add(g5);
+        pr1.setCourse(c2);
+        pr2.setCourse(c1);
+        pr3.setCourse(c4);
+        pr4.setCourse(c3);
+
+        Grade g1 = new Grade(1, c1, s1);
+        Grade g2 = new Grade(9, c1, s2);
+        Grade g3 = new Grade(4, c2, s3);
+        Grade g4 = new Grade(5, c2, s2);
+        Grade g5 = new Grade(3, c1, s1);
+        Grade g6 = new Grade(6, c3, s4);
+        Grade g7 = new Grade(8, c4, s2);
+        Grade g8 = new Grade(4, c3, s2);
+
+        gradeRepo.save(g1);
+        gradeRepo.save(g2);
+        gradeRepo.save(g3);
+        gradeRepo.save(g4);
+        gradeRepo.save(g5);
+        gradeRepo.save(g6);
+        gradeRepo.save(g7);
+        gradeRepo.save(g8);
+
+        ArrayList<Grade> gradesForJanis = new ArrayList<Grade>();
+        gradesForJanis.add(g1);
+        gradesForJanis.add(g3);
+        ArrayList<Grade> gradesForLiga = new ArrayList<Grade>();
+        gradesForLiga.add(g2);
+        gradesForLiga.add(g4);
+        ArrayList<Grade> gradesForRoberts = new ArrayList<Grade>();
+        gradesForRoberts.add(g5);
 
 		/*
 		for (Student s : studentRepo.findAll())
@@ -111,6 +139,6 @@ public class SimpleController {
 		System.out.println("Show all courses");
 		courseRepo.findAll().forEach(course->System.out.println(course.getTitle()));
 		*/
-	}
+    }
 
 }

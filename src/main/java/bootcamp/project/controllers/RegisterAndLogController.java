@@ -60,7 +60,7 @@ public class RegisterAndLogController {
     }
 
 	@GetMapping("/showCourses")
-	public String createNewStuden2t(Student student) {
+	public String createNewStudent2(Student student) {
 		return "showAllCourses";
 	}
 	@PostMapping("/logStud")
