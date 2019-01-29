@@ -14,8 +14,8 @@
             <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">courseDescription error</td>
         <tr>
             <td>Course Professor ID:</td>
-            <td><input type="text" th:field="*{courseProfessor}" placeholder="courseProfessor id"/></td>
-            <td th:if="${#fields.hasErrors('courseProfessor')}" th:errors="*{courseProfessor}">courseProfessor id
+            <td><input type="text" th:field="*{professor}" placeholder="professor id"/></td>
+            <td th:if="${#fields.hasErrors('professor')}" th:errors="*{professor}">courseProfessor id
                 error
             </td>
         </tr>

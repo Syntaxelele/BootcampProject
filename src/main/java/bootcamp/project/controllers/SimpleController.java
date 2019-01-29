@@ -50,6 +50,9 @@ public class SimpleController {
 		Course c2 = new Course("java", "desc", pr2, "1",
 				"test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
 		courseRepo.save(c2);
+		
+		pr1.setCourse(c2);
+		pr2.setCourse(c1);
 
 		Grade g1 = new Grade(1, c1, s1);
 		Grade g2 = new Grade(9, c1, s2);

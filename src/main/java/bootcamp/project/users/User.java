@@ -103,7 +103,7 @@ public class User {
 
 	public void setUsername(String username) {
 		String tempUsername = username;
-		if (true) { //tempUsername.matches("^[a-zA-Z0-9]*$")
+		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
 			this.username = tempUsername;
 		} else {
 			this.username = "none";

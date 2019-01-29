@@ -20,13 +20,14 @@ public class Professor extends User {
 	@JoinColumn(name="courseID")
 	private Course course;
 
-	public Professor(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname,
-			@NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password,
-			@NotNull @Max(3) @Min(1) int role, @NotNull @Email String email, Course course) {
-		super(name, lastname, username, password, role, email);
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
 		this.course = course;
 	}
-	
+
 	public Professor(@NotNull @Size(min = 2, max = 30) String name, @NotNull @Size(min = 2, max = 30) String lastname,
 			@NotNull @Size(min = 2, max = 30) String username, @NotNull @Size(min = 6, max = 30) String password,
 			@NotNull @Max(3) @Min(1) int role, @NotNull @Email String email) {
@@ -38,8 +39,6 @@ public class Professor extends User {
 
 	@Override
 	public String toString() {
-		return "Professor [id_p=" + id_u + ", course=" + course + ", getName()=" + getName() + ", getLastname()="
-				+ getLastname() + ", getUsername()=" + getUsername() + ", getRole()=" + getRole() + ", getEmail()="
-				+ getEmail() + "]";
+		return " " + getName() + " " + getLastname() + ", " + getEmail();
 	}
 }
