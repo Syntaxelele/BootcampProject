@@ -5,6 +5,7 @@ import bootcamp.project.courses.Course;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import bootcamp.project.users.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +24,25 @@ public class CourseController {
     CourseRepo courseRepo;
 
     //-----------------------------------COURSE OUTPUT TEST------------------------------//
-/*
+
     @GetMapping(value = "/course")
     public String courses(Model model) {
 
         System.out.println("logging info");
-        
-        Course c1 = new Course("thisIsTitle","thisIsDesc","C123","thisIsEval",9,
-                "thisIsPrereq","thisIsObjective","thisIsoutcome", "thisIsContent");
-        Course c2 = new Course("thisIsTitle2","thisIsDesc2","C155","thisIsEval2",8,
-                "thisIsPrereq2","thisIsObjective2","thisIsoutcome2", "thisIsContent2");
+
+        Professor prof1 = new Professor("Janis", "Latname", "Username", "Password", 1, "email@email.com");
+        Course c1 = new Course("thisIsTitle", "thisIsDesc", prof1, "CourseCode", "CourseEvaluation", 12, "Prerequisites", "Objective", "Outcome", "Content");
+        Professor prof2 = new Professor("Janis2", "Latname2", "Username2", "Password2", 1, "email2@email.com");
+        Course c2 = new Course("thisIsTitle2", "thisIsDesc2", prof2, "CourseCode2", "CourseEvaluation2", 12, "Prerequisites2", "Objective2", "Outcome2", "Content2");
+        Professor prof3 = new Professor("Janis3", "Latname3", "Username3", "Password3", 1, "email3@email.com");
+        Course c3 = new Course("thisIsTitle", "thisIsDesc", prof3, "CourseCode", "CourseEvaluation", 12, "Prerequisites3", "Objective3", "Outcome3", "Content3");
+        Professor prof4 = new Professor("Janis4", "Latname4", "Username4", "Password4", 1, "email4@email.com");
+        Course c4 = new Course("thisIsTitle4", "thisIsDesc4", prof4, "CourseCode4", "CourseEvaluation4", 12, "Prerequisites4", "Objective4", "Outcome4", "Content4");
 
         courseRepo.save(c1);
         courseRepo.save(c2);
+        courseRepo.save(c3);
+        courseRepo.save(c4);
 
         System.out.println("testtesttesttest");
 
@@ -45,19 +52,7 @@ public class CourseController {
         return "courseTest";
 
     }
-//------------------------SHOW ALL COURSES---------------------------------------//
-    
-     @GetMapping("/oneCourse/{id}")
-    public String showOneCourse(@PathVariable(Model model) {
-    	
-    	Optional<Course> course =courseRepo.findById((long)1);
-    	model.addAttribute("course", course.get());
-    	
-    	return "showMyCourse";
-    	
-    	
-    }*/
-
+//------------------------SHOW COURSES---------------------------------------//
 
     @GetMapping("/oneCourse/{id}")
     public String showOneCourse(@PathVariable(required = false, name = "id") int id, Model model) {
@@ -104,6 +99,17 @@ public class CourseController {
         courseRepo.save(course);
         return "redirect:/showAllCourses";
     }
+
+    //--------------------------------------------------------------------//
+    //-----------------------REGISTER TO COURSES--------------------------//
+
+/*
+    @GetMapping(value = "/registerToCourse")
+    public String registerToCourseView(Model model) {
+        model.addAttribute("regToCourses", );
+        return "registerToCourse";
+    }
+*/
 }
 
 
