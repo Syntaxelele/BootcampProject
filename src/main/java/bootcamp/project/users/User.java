@@ -75,11 +75,11 @@ public class User {
 
 	public void setName(String name) {
 		String tempName = name;
-		if (tempName.contains("(a-zA-Z)+")) {
+		if (tempName.matches("[a-zA-Z]+")) {
 			this.name = tempName;
 		} else {
 			this.name = "";
-			System.out.println("Wrong input");
+			System.out.println("Wrong input1");
 		}
 	}
 
@@ -89,11 +89,11 @@ public class User {
 
 	public void setLastname(String lastname) {
 		String tempLastname = lastname;
-		if (tempLastname.contains("(a-zA-Z)+")) {
+		if (tempLastname.matches("[a-zA-Z]+")) {
 			this.lastname = tempLastname;
 		} else {
 			this.lastname = "";
-			System.out.println("Wrong input");
+			System.out.println("Wrong input2");
 		}
 	}
 
@@ -103,11 +103,11 @@ public class User {
 
 	public void setUsername(String username) {
 		String tempUsername = username;
-		if (tempUsername.matches("^[a-zA-Z0-9]*$")) {
+		if (tempUsername.matches("[a-zA-Z0-9]")) {
 			this.username = tempUsername;
 		} else {
-			this.username = "none";
-			System.out.println("Wrong input");
+			this.username = "";
+			System.out.println("Wrong input3");
 		}
 	}
 

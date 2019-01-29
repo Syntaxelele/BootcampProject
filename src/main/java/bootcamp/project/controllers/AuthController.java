@@ -35,7 +35,7 @@ public class AuthController {
     			findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
     			if (findbyNameAndPassw == null) {
             		System.out.println("User not found");
-        			return "index";
+        			return "start";
     			} else {
     			System.out.println(findbyNameAndPassw.getUsername());
     			return "professorMenu";
