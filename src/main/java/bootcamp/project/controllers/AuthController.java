@@ -14,43 +14,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
-	
-	@Autowired
-	StudentRepo studentRepo; 
-	@Autowired
-	ProfessorRepo professorRepo;
-	
+
+    @Autowired
+    StudentRepo studentRepo;
+    @Autowired
+    ProfessorRepo professorRepo;
+
     @GetMapping("/start")
     public String Submit(Student student, Professor professor) {
         return "start";
-
     }
+
     @PostMapping("/start")
     public String Doors(Student student, Professor professor, @RequestParam(name = "Auth") String button) {
-        if (button.equals("submit")){
-
-    		User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
-    		
-    		if(findbyNameAndPassw == null){
-    			findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
-    			if (findbyNameAndPassw == null) {
-            		System.out.println("User not found");
-        			return "start";
-    			} else {
-    			System.out.println(findbyNameAndPassw.getUsername());
-    			return "professorMenu";
-    			}
-    		}
-    		else
-    		{
-    			System.out.println(findbyNameAndPassw.getUsername());
-    			return "StudentMenu";
-    		}
-            
-        }
-        else {
+        if (button.equals("submit")) {
+            User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+            if (findbyNameAndPassw == null) {
+                findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+                if (findbyNameAndPassw == null) {
+                    System.out.println("User not found");
+                    return "start";
+                } else {
+                    System.out.println(findbyNameAndPassw.getUsername());
+                    return "professorMenu";
+                }
+            } else {
+                System.out.println(findbyNameAndPassw.getUsername());
+                return "StudentMenu";
+            }
+        } else {
             return "RegView";
         }
-
     }
 }

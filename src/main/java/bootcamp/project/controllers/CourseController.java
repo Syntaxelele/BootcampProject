@@ -1,12 +1,8 @@
 package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
+import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.ProfessorRepo;
-import bootcamp.project.users.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import bootcamp.project.repo.CourseRepo;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class CourseController {
@@ -72,7 +66,6 @@ public class CourseController {
     public String showAllCoursesToView(Model model) {
         model.addAttribute("allCourses", courseRepo.findAll());
         courseRepo.findAll().forEach(course -> System.out.println(course));
-
         return "showAllCourses";
     }
 
