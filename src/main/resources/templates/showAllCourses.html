@@ -5,7 +5,7 @@
 </head>
 <body>
 <table border="1">
-    <form  action="#" name="ShowCour" th:action="@{/ShowCour}" th:object="${Course}" method="get">
+    <form  action="#" name="ShowCour" th:action="@{/ShowCour}" th:object="${course}" method="get">
         <th>ID</th>
         <th>Title</th>
         <th>Professor</th>
@@ -32,6 +32,7 @@
             <td th:text="${course.getPrereq()}">...</td>
         </tr>
     </th:block>
+    </form>
 </table>
 </body>
 </html>
