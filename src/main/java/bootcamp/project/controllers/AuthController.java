@@ -37,7 +37,7 @@ public class AuthController {
         			return "index";
     			} else {
     			System.out.println(findbyNameAndPassw.getUsername());
-    			return "ProfessorMenu";
+    			return "professorMenu";
     			}
     		}
     		else

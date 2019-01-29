@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	
+		<form action="#" method="post" th:action="@{/logProf}"
+			th:object="${Professor}">
+			<table>
+			<tr>
+			<td><button type="submit" name="choice" th:value="ShowCours">Show my course</button></td>
+			<td><button type="submit" name="choice" th:value="insertNewCourse">Add new course</button></td>
+		</tr>
+	</table>
+	</form>
+
+</body>
+</html>
