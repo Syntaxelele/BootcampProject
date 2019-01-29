@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -20,10 +19,10 @@
     First name: <input type="text" name="Name" th:field="*{name}" required/><br>
     Last name: <input type="text" name="Lastname" th:field="*{lastname}" required/><br>
     Username: <input type="text" name="Username" th:field="*{username}" required/><br>
-    E-mail:   <input type="email" name="Email" th:field="*{email}" required/><br>
     Password: <input type="password" name="password" th:field="*{password}" required/><br>
     Password: <input type="password" name="confirm_password"  id="confirm_password" required/><br>
-    Role: <input type="number" name="role"  id="role" th:field="*{role}" required/><br>
+    E-mail:   <input type="email" name="Email" th:field="*{email}" required/><br>
+    Role:   <input type="number" name="Role" th:field="*{role}" required/><br>
 
 <!--   <div>
         <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
@@ -36,7 +35,39 @@
         <label for="Student">Student</label>
     </div>
 -->
-    <button type="submit"  name="Reg" th:value="Reg" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
+    <button type="submit" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
 </form>
 
 </body>
+</html>
+<!-- 
+<form name="f" action="#" th:action="@{/RegView}" th:object="${student}" method="post">
+    First name: <input type="text" name="Name" th:field="*{name}" required/><br>
+    Last name: <input type="text" name="Lastname" th:field="*{lastname}" required/><br>
+    Username: <input type="text" name="Username" th:field="*{username}" required/><br>
+    Password: <input type="password" name="password" th:field="*{password}" required/><br>
+    Password: <input type="password" name="confirm_password"  id="confirm_password" required/><br>
+    E-mail:   <input type="email" name="Email" th:field="*{email}" required/><br>
+
+   <div>
+        <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
+               checked>
+        <label for="Professor">Professor</label>
+    </div>
+
+    <div>
+        <input type="radio" id="Student" name="Prof/Stud" value="Student">
+        <label for="Student">Student</label>
+    </div>
+
+    <button type="submit"  name="Reg" th:value="Reg" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
+</form> -->
+
+
+
+
+
+
+
+
+
