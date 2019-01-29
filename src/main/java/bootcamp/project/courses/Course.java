@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import bootcamp.project.users.Professor;
+import bootcamp.project.users.Student;
 
 @Entity
 @Table(name = "courseTable")
@@ -26,10 +27,13 @@ public class Course {
     @Column(name = "courseDesc")
     private String description;
 
-    //@NotNull
-    @OneToOne(mappedBy = "course")
-    private Professor courseProfessor;
+	//@NotNull
+	@OneToOne(targetEntity=Professor.class)
+	private Professor professor;
 
+	//@OneToOne(targetEntity=Student.class)
+	//private Student student;
+	
     @NotNull
     @Column(name = "courseCode")
     private String courseCode;
@@ -66,7 +70,7 @@ public class Course {
     public Course() {
         title = "";
         description = "";
-        courseProfessor = null;
+        professor = null;
         courseCode = "";
         evaluation = "";
         CP = 0;
@@ -77,13 +81,13 @@ public class Course {
         gradesInCourse = null;
     }
 
-    public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
+    public Course(@NotNull String title, @NotNull String description, @NotNull Professor professor,
                   @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
                   @NotNull String objective, @NotNull String outcome, @NotNull String content) {
         super();
         this.title = title;
         this.description = description;
-        this.courseProfessor = courseProfessor;
+        this.professor = professor;
         this.courseCode = courseCode;
         this.evaluation = evaluation;
         this.CP = cP;
@@ -101,14 +105,14 @@ public class Course {
         return title;
     }
 
-    public Course(@NotNull String title, @NotNull String description, @NotNull Professor courseProfessor,
+    public Course(@NotNull String title, @NotNull String description, @NotNull Professor professor,
                   @NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
                   @NotNull String objective, @NotNull String outcome, @NotNull String content,
                   Collection<Grade> gradesInCourse) {
         super();
         this.title = title;
         this.description = description;
-        this.courseProfessor = courseProfessor;
+        this.professor = professor;
         this.courseCode = courseCode;
         this.evaluation = evaluation;
         this.CP = cP;
@@ -119,16 +123,16 @@ public class Course {
         this.gradesInCourse = gradesInCourse;
     }
 
-    public Course(@NotNull String title, @NotNull Professor courseProfessor) {
+    public Course(@NotNull String title, @NotNull Professor professor) {
         super();
         this.title = title;
-        this.courseProfessor = courseProfessor;
+        this.professor = professor;
     }
 
-    public Course(@NotNull String title, @NotNull Professor courseProfessor, Collection<Grade> gradesInCourse) {
+    public Course(@NotNull String title, @NotNull Professor professor, Collection<Grade> gradesInCourse) {
         super();
         this.title = title;
-        this.courseProfessor = courseProfessor;
+        this.professor = professor;
         this.gradesInCourse = gradesInCourse;
     }
 
@@ -148,12 +152,12 @@ public class Course {
         this.description = description;
     }
 
-    public Professor getCourseProfessor() {
-        return courseProfessor;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setCourseProfessor(Professor courseProfessor) {
-        this.courseProfessor = courseProfessor;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     public String getCourseCode() {
@@ -219,11 +223,19 @@ public class Course {
     public void setGradesInCourse(Collection<Grade> gradesInCourse) {
         this.gradesInCourse = gradesInCourse;
     }
+/*
+    public Student getStudent() {
+		return student;
+	}
 
-    @Override
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+*/
+	@Override
     public String toString() {
         return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
-                + ", courseProfessor=" + courseProfessor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
+                + ", professor=" + professor + ", courseCode=" + courseCode + ", evaluation=" + evaluation
                 + ", CP=" + CP + ", prereq=" + prereq + ", objective=" + objective + ", outcome=" + outcome
                 + ", content=" + content + "]";
     }
