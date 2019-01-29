@@ -3,16 +3,13 @@
 <head>
 </head>
 <body>
-	
-		<form action="#" method="post" th:action="@{/logProf}"
-			th:object="${Professor}">
-			<table>
+	<form action="#" method="post" th:action="@{/logProf}" th:object="${Professor}">
+		<table>
 			<tr>
-			<td><button type="submit" name="choice" th:value="ShowCours">Show my course</button></td>
-			<td><button type="submit" name="choice" th:value="insertNewCourse">Add new course</button></td>
-		</tr>
-	</table>
+				<td><button name="choice" th:value="ShowCours" type="submit">Show my course</button></td>
+				<td><button name="choice" th:value="insertNewCourse" type="submit">Add new course</button></td>
+			</tr>
+		</table>
 	</form>
-
 </body>
 </html>

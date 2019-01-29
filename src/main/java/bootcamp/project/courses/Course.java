@@ -19,46 +19,36 @@ public class Course {
     @Column(name = "courseID")
     private long courseID;
 
-    @NotNull
     @Column(name = "courseTitle")
     private String title;
 
-    @NotNull
     @Column(name = "courseDesc")
     private String description;
 
-	//@NotNull
-	@OneToOne(targetEntity=Professor.class)
-	private Professor professor;
+    @OneToOne(targetEntity = Professor.class)
+    private Professor professor;
 
-	//@OneToOne(targetEntity=Student.class)
-	//private Student student;
-	
-    @NotNull
+    //@OneToOne(targetEntity=Student.class)
+    //private Student student;
+
     @Column(name = "courseCode")
     private String courseCode;
 
-    @NotNull
     @Column(name = "courseEvaluation")
     private String evaluation;
 
-    @NotNull
     @Column(name = "coursePoints")
     private int CP;
 
-    @NotNull
     @Column(name = "coursePrereq")
     private String prereq;
 
-    @NotNull
     @Column(name = "courseObjective")
     private String objective;
 
-    @NotNull
     @Column(name = "courseOutcome")
     private String outcome;
 
-    @NotNull
     @Column(name = "courseContent")
     private String content;
 
@@ -223,16 +213,17 @@ public class Course {
     public void setGradesInCourse(Collection<Grade> gradesInCourse) {
         this.gradesInCourse = gradesInCourse;
     }
-/*
-    public Student getStudent() {
-		return student;
-	}
 
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-*/
-	@Override
+    /*
+        public Student getStudent() {
+            return student;
+        }
+
+        public void setStudent(Student student) {
+            this.student = student;
+        }
+    */
+    @Override
     public String toString() {
         return "Course [courseID=" + courseID + ", title=" + title + ", description=" + description
                 + ", professor=" + professor + ", courseCode=" + courseCode + ", evaluation=" + evaluation

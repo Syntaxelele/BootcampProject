@@ -32,7 +32,7 @@ public class SimpleController {
     GradeRepo gradeRepo;
 
     @GetMapping("hellotests")
-    public void testDBModel() {
+    public String testDBModel() {
         Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "inbox@inbox.lv");
         Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "inboax@inbox.lv");
         Student s3 = new Student("Roberts", "Ziema", "dsafas", "passwdsadasords", 2, "inbaaox@inbox.lv");
@@ -139,6 +139,7 @@ public class SimpleController {
 		System.out.println("Show all courses");
 		courseRepo.findAll().forEach(course->System.out.println(course.getTitle()));
 		*/
+        return "start";
     }
 
 }

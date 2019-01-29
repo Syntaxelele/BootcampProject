@@ -15,59 +15,49 @@
 </head>
 <body>
 
-<form name="f" action="#" th:action="@{/RegView}" th:object="${student}" method="post">
-    First name: <input type="text" name="Name" th:field="*{name}" required/><br>
-    Last name: <input type="text" name="Lastname" th:field="*{lastname}" required/><br>
-    Username: <input type="text" name="Username" th:field="*{username}" required/><br>
-    Password: <input type="password" name="password" th:field="*{password}" required/><br>
-    Password: <input type="password" name="confirm_password"  id="confirm_password" required/><br>
-    E-mail:   <input type="email" name="Email" th:field="*{email}" required/><br>
-    Role:   <input type="number" name="Role" th:field="*{role}" required/><br>
-
-<!--   <div>
-        <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
-               checked>
-        <label for="Professor">Professor</label>
-    </div>
-
-    <div>
-        <input type="radio" id="Student" name="Prof/Stud" value="Student">
-        <label for="Student">Student</label>
-    </div>
--->
-    <button type="submit" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
+<form action="#" method="post" th:action="@{/RegView}" th:object="${student}">
+    <table>
+        <tr>
+            <td>First name:</td>
+            <td><input placeholder="Firstname" required th:field="*{name}" type="text"/></td>
+            <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">userName error</td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><input placeholder="Lastname" required th:field="*{lastname}" type="text"/></td>
+            <td th:errors="*{lastname}" th:if="${#fields.hasErrors('lastname')}">userLastname error</td>
+        <tr>
+            <td>Username:</td>
+            <td><input placeholder="Username" required th:field="*{username}" type="text"/></td>
+            <td th:errors="*{username}" th:if="${#fields.hasErrors('username')}">userUsername error
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input placeholder="Password" required th:field="*{password}" type="password"/></td>
+            <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">userPassword error</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input id="confirm_password" name="confirm_password" placeholder="password" required type="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>E-mail:</td>
+            <td><input placeholder="Email" th:field="*{email}" type="email"/></td>
+            <td th:errors="*{email}" th:if="${#fields.hasErrors('email')}">userEmail error</td>
+        </tr>
+        <tr>
+            <td>Role:</td>
+            <td><input placeholder="Role" th:field="*{role}" type="number"/></td>
+            <td th:errors="*{role}" th:if="${#fields.hasErrors('role')}">userRole error</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit course</button>
+            </td>
+        </tr>
+    </table>
 </form>
-
 </body>
 </html>
-<!-- 
-<form name="f" action="#" th:action="@{/RegView}" th:object="${student}" method="post">
-    First name: <input type="text" name="Name" th:field="*{name}" required/><br>
-    Last name: <input type="text" name="Lastname" th:field="*{lastname}" required/><br>
-    Username: <input type="text" name="Username" th:field="*{username}" required/><br>
-    Password: <input type="password" name="password" th:field="*{password}" required/><br>
-    Password: <input type="password" name="confirm_password"  id="confirm_password" required/><br>
-    E-mail:   <input type="email" name="Email" th:field="*{email}" required/><br>
-
-   <div>
-        <input type="radio" id="Professor" name="Prof/Stud" value="Professor"
-               checked>
-        <label for="Professor">Professor</label>
-    </div>
-
-    <div>
-        <input type="radio" id="Student" name="Prof/Stud" value="Student">
-        <label for="Student">Student</label>
-    </div>
-
-    <button type="submit"  name="Reg" th:value="Reg" id="submit" value="checkpassword()" onclick="checkpassword()">Register</button>
-</form> -->
-
-
-
-
-
-
-
-
-

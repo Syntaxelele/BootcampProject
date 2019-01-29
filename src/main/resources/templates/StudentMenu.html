@@ -3,12 +3,11 @@
 <head>
 </head>
 <body>
-<table>
-<form action="#" method="post" th:action="@{/logStud}" th:object="${Student}">
-    <td><button type="submit" name="ShowCours" th:value="ShowCours">Show all my courses</button></td>
-<button type="button">See my grades</button>
-</form>
-</table>
-
+    <table>
+        <form action="#" method="post" th:action="@{/logStud}" th:object="${Student}">
+            <td><button name="ShowCours" th:value="ShowCours" type="submit">Show all my courses</button></td>
+            <button type="button">See my grades</button>
+        </form>
+    </table>
 </body>
 </html>
