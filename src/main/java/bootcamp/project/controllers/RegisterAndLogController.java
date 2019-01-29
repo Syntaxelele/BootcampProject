@@ -63,4 +63,8 @@ public class RegisterAndLogController {
 	public String createNewStuden2t(Student student) {
 		return "showAllCourses";
 	}
+	@PostMapping("/logStud")
+	public String ShowCourses(Student student, Professor professor, @RequestParam(name = "ShowCours") String button) {
+		return"showAllCourses";
+	}
 }
