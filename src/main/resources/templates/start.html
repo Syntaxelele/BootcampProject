@@ -1,22 +1,25 @@
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
+
+
 </head>
 <body>
-<form action="#" method="post" name="a" th:action="@{/RegView.html}" th:object="${user}">
-   <table>
+<form name="a" action="#" th:action="@{/start}" th:object="${user}" method="post">
+    <table>
         <tr>
             <td>User</td>
-            <td><input name="Username" placeholder="Username" required th:field="*{username}" type="text" value=""/></td>
+            <td><input type="text" name="Username" th:field="*{username}" value=""required/></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input name="password" placeholder="Password" required th:field="*{password}" type="password" value=""/></td>
+            <td><input type="password" name="password" th:field="*{password}" value=""required/></td>
         </tr>
         <tr>
-            <td><button name="Auth" onclick="nullalert()" th:value="submit" type="submit" value="nullalert()">Submit</button></td>
-            <td><button formnovalidate name="Auth" th:value="Reg" type="submit" value="ignore">Register</button></td>
+            <td><button type="submit" name="Auth" th:value="submit" value="nullalert()" onclick="nullalert()"> Submit</button></td>
+            <td><button type="submit" value="ignore" formnovalidate name="Auth" th:value="Reg">Register</button></td>
+
         </tr>
     </table>
 </form>
