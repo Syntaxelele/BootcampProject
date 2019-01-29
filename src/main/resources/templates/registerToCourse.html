@@ -7,10 +7,9 @@
 <body>
 
 <p>Please check the boxes to which courses you want to apply</p>
-<form name="regtocourse" action="#" th:action="@{/registerToCourse}" th:object="${course}" method="get">
-    <th:block th:each="course : ${allCourses}">
-
-        <input type="checkbox" th:name="${course.getCourseID()}" th:valu1e="${course.getTitle()}"><br>
+<form name="regtocourse" action="#" th:action="@{/registerToCourse}" th:object="${courseTests}" method="get">
+    <th:block th:each="c : ${courseTests}">
+        <input type="checkbox" th:name="${c.getCourseID()}" th:value="${c.getTitle()}">testText<br>
     </th:block>
     <input type="submit" value="Submit">
 
