@@ -92,7 +92,7 @@ public class CourseController {
         System.out.println(
                 course.getTitle() + " "
                         + course.getDescription() + " "
-                        + course.getCourseProfessor() + " "
+                        + course.getProfessor() + " "
                         + course.getCourseCode() + " "
                         + course.getEvaluation() + " "
                         + course.getCP() + " "
