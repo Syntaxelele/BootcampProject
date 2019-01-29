@@ -1,14 +1,18 @@
-/*package bootcamp.project;
+package bootcamp.project;
 //----------------------------IMPORTS----------------------------------//
 
 import bootcamp.project.courses.Course;
+import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.users.Professor;
 
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import javax.validation.constraints.NotNull;
 
@@ -21,7 +25,7 @@ public class testCourses {
 
         assertEquals("", CT1.getTitle());
         assertEquals("", CT1.getDescription());
-        assertEquals(null, CT1.getCourseProfessor());
+        assertNull(CT1.getCourseProfessor());
         assertEquals("", CT1.getCourseCode());
         assertEquals("", CT1.getEvaluation());
         assertEquals(0, CT1.getCP());
@@ -32,25 +36,28 @@ public class testCourses {
 
     }
 
-    
-    
-    @Autowired
+    @InjectMocks
     ProfessorRepo professorRepo;
+
+
     @Test
     public void testConstructorCourseInputWithValues() {
-        
-		Professor courseProfessor1 = new Professor("Janis", "Berzins", "jberzins", "berzins", 1, "j@gmail.com");
-        professorRepo.save(courseProfessor1);
-		
-		Course CT2 = new Course("Title", "Description", courseProfessor1,
+
+        Professor CP1 = new Professor("Janis", "Berzins", "jberzins", "berzins", 1, "j@gmail.com");
+
+
+        professorRepo.save(CP1);
+
+        Course CT2 = new Course("Title", "Description", CP1,
                 "CourseCode", "Evaluation", 321,
                 "Prerequisites", "Objective", "Outcome", "Content");
-		
-		Iterable<Professor> pFromDB = professorRepo.findByName("jberzins");
-		
+
+
+        Iterable<Professor> pFromDB = professorRepo.findByName("jberzins");
+
         assertEquals("Title", CT2.getTitle());
         assertEquals("Description", CT2.getDescription());
-        assertEquals(courseProfessor1.getUsername(), CT2.getCourseProfessor());
+        assertEquals(CP1.getUsername(), CT2.getCourseProfessor().getUsername());
         assertEquals("CourseCode", CT2.getCourseCode());
         assertEquals("Evaluation", CT2.getEvaluation());
         assertEquals(321, CT2.getCP());
@@ -62,6 +69,7 @@ public class testCourses {
 
     }
 
+
     @Test
     public void testSetTitle() {
         Course CT3 = new Course();
@@ -70,4 +78,4 @@ public class testCourses {
         assertEquals("CourseTITLE", CT3.getTitle());
 
     }
-}*/
+}

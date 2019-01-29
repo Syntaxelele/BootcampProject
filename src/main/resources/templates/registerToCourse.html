@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register to Courses</title>
+</head>
+<body>
+
+<p>Please check the boxes to which courses you want to apply</p>
+<form name="regtocourse" action="#" th:action="@{/registerToCourse}" th:object="${course}" method="get">
+    <th:block th:each="course : ${allCourses}">
+
+        <input type="checkbox" th:name="${course.getCourseID()}" th:valu1e="${course.getTitle()}"><br>
+    </th:block>
+    <input type="submit" value="Submit">
+
+
+</form>
+</body>
+</html>
