@@ -25,7 +25,7 @@ public class testCourses {
 
         assertEquals("", CT1.getTitle());
         assertEquals("", CT1.getDescription());
-        assertNull(CT1.getCourseProfessor());
+        assertNull(CT1.getProfessor());
         assertEquals("", CT1.getCourseCode());
         assertEquals("", CT1.getEvaluation());
         assertEquals(0, CT1.getCP());
@@ -57,7 +57,7 @@ public class testCourses {
 
         assertEquals("Title", CT2.getTitle());
         assertEquals("Description", CT2.getDescription());
-        assertEquals(CP1.getUsername(), CT2.getCourseProfessor().getUsername());
+        assertEquals(CP1.getUsername(), CT2.getProfessor().getUsername());
         assertEquals("CourseCode", CT2.getCourseCode());
         assertEquals("Evaluation", CT2.getEvaluation());
         assertEquals(321, CT2.getCP());
