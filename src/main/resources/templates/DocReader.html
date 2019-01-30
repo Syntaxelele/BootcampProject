@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>DOC/DOCX</title>
+
+</head>
+<body>
+<form action="#" th:action="@{/DocView}" th:object="${top}" method="post">
+    <input type="file" name="files" th:field="*{docPath}" accept=".doc, .docx">
+
+    <!--<form action="/DocRView" method="get" th:field="*{DocPath}" enctype="multipart/form-data">-->
+    <input type="submit" value="Upload Files" th:action="@{/DocView}" ></input>
+    <form action="/DocView" method="get" th:field="*{docPath}" enctype="multipart/form-data">
+    </form>
+</form>
+</body>
+</html>
