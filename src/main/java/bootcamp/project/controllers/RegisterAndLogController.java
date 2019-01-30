@@ -4,9 +4,7 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +22,23 @@ public class RegisterAndLogController {
 	@Autowired
 	ProfessorRepo professorRepo;
 
-	@GetMapping("/showAllUsers")
+
+	@GetMapping("/showAllStudents")
 	public String showAllStudentsToView(Model model) {
 		Iterable<Student> userFromDB = studentRepo.findAll();
 		model.addAttribute("allUsers", userFromDB);
 		return "showAllUsers";
 	}
 
+	
+	@GetMapping("/showAllProfessors")
+	public String showAllSProfessorsToView(Model model) {
+		Iterable<Professor> userFromDB2 = professorRepo.findAll();
+		model.addAttribute("allUsers", userFromDB2);
+		return "showAllUsers";
+	}
+	
+		
 	// SHOW USER BY NAME
 	/*
 	 * @GetMapping("/showUserByName") public String showUserByName(
@@ -73,12 +81,6 @@ public class RegisterAndLogController {
 		}
 	}
 
-	/*
-	 * @PostMapping("/") public String registerOrLogin(User user) {
-	 * 
-	 * }
-	 */
-	// new controller
 	@GetMapping("/RegView")
 	public String Registerer(Student student, Professor professor) {
 		return "RegView";
