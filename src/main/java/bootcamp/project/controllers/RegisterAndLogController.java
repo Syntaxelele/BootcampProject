@@ -43,19 +43,18 @@ public class RegisterAndLogController {
     //--------------------------------------------------------------------//
     //-----------------------STUDENT--------------------------------------//
 	@GetMapping("/StudentMenu/{id}")
-	public String doorsStudent(Student student, @PathVariable(name = "id")long id) {
-		System.out.println("get" + id);
+	public String doorsStudent(Student student, @PathVariable(name = "id") long id) {
 		return "StudentMenu";
 	}
 
 	@PostMapping("/StudentMenu/{id}")
-	public String ShowCourses(Student student,@PathVariable(name = "id")long id, @RequestParam(name = "studButton") String button) {
+	public String showStudentMenu(Student student, @PathVariable(name = "id") long id, @RequestParam(name = "studButton") String button) {
 		if (button.equals("regToCourse"))
-			return "redirect:/registerToCourse/"+id;
+			return "redirect:/registerToCourse/" + id;
 		else if (button.equals("ShowMyCours"))
-			return "redirect:/showStudentCourses/"+id;
+			return "redirect:/showStudentCourses/" + id;
 		else
-			return "redirect:/ShowGrades/"+id;
+			return "redirect:/ShowGrades/" + id;
 	}
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
@@ -63,10 +62,10 @@ public class RegisterAndLogController {
 	public String doorsProfessor(Professor professor,@PathVariable(name = "id") long id) {
 		return "professorMenu";
 	}
-	@PostMapping("/logProf")
-	public String doorsForProf(Professor professor, @RequestParam(name = "choice") String button) {
+	@PostMapping("/professorMenu/{id}")
+	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
 		if (button.equals("ShowCours")) {
-			return "redirect:/showAllCourses";
+			return "showMyCourse"; // + id
 		} 
 		else {
 			return "redirect:/insertNewCourse";
