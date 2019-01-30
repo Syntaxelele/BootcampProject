@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.users.Professor;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,15 +111,26 @@ public class CourseController {
 
 
     @GetMapping(value = "/registerToCourse")
-    public String registerToCourseView(Model model/*, @RequestParam(name ="CourseID", value = "none",
-            required = false)String CourseID*/) {
+    public String registerToCourseView(Model model, @RequestParam(name = "buttonCourseID", defaultValue = "none",
+            required = false)String buttonCourseID) {
+        System.out.println(buttonCourseID);
 
         Iterable<Course> courseFromDB = courseRepo.findAll();
         model.addAttribute("courseTests", courseFromDB);
         return "registerToCourse";
     }
-    //@PostMapping
+    @PostMapping(value = "/registerToCourse")
+    public String CourseButton(@RequestParam(name = "buttonCourseID", defaultValue = "none",
+            required = false)String buttonCourseID) {
+        System.out.println(buttonCourseID);
+        if (buttonCourseID.equals("none"))
+            return "redirect:/registerToCourse";
 
+        else {
+            return "redirect:/failedCourseIdButtonTest";
+
+        }
+    }
 }
 
 
