@@ -1,6 +1,7 @@
 package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
+import bootcamp.project.helper.CheckBoxList;
 import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,7 +26,7 @@ public class CourseController {
 
     @Autowired
     ProfessorRepo professorRepo;
-    
+
     @Autowired
     StudentRepo studentRepo;
 
@@ -117,26 +119,19 @@ public class CourseController {
 
 
     @GetMapping(value = "/registerToCourse/{id}")
-    public String registerToCourseView(Model model,@PathVariable (name = "id") long id, @RequestParam(name = "courseButtonID", defaultValue = "none",
-            required = false) String courseButtonID) {
+    public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
+                                       @RequestParam(name = "courseButtonID", defaultValue = "none",
+                                               required = false) String courseButtonID) {
         System.out.println(courseButtonID);
-
         Iterable<Course> courseFromDB = courseRepo.findAll();
+        CheckBoxList checkBoxList = new CheckBoxList();
+        for (Course i : courseFromDB) {
+            checkBoxList.addCheck(false);
+        }
+
         model.addAttribute("regToCourse", courseFromDB);
+        model.addAttribute("listOfCheck", checkBoxList);
         return "registerToCourse";
     }
-
-//    @PostMapping(value = "/registerToCourse")
-//    public String CourseButton(@RequestParam(name = "courseButtonID", defaultValue = "none",
-//            required = false) String courseButtonID) {
-//        System.out.println(courseButtonID);
-//        if (courseButtonID.equals("none"))
-//            return "redirect:/registerToCourse";
-//
-//        else {
-//            return "redirect:/successfulButtonRead";
-//
-//        }
-//    }
 }
 
