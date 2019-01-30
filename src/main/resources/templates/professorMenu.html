@@ -4,8 +4,8 @@
 </head>
 <body>
 	<table>
-		<form action="#" method="post" th:action="@{/professorMenu/__${id}__}" th:object="${Professor}">
-			<td><button name="profButton" th:value="ShowCours" type="submit">Show my course</button></td>
+		<form action="#" method="post" th:action="@{/professorMenu/__${id}__}">
+			<td><button name="profButton" th:value="showMyCourse" type="submit">Show my course</button></td>
 			<td><button name="profButton" th:value="insertNewCourse" type="submit">Add new course</button></td>
 			<td><button name="profButton" th:value="exportGrades" type="submit">Export grades</button></td>
 		</form>

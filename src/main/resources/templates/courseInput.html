@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<form action="#" method="post" th:action="@{/insertNewCourse}" th:object="${course}">
+<form action="#" method="post" th:action="@{/insertNewCourse/__${id}__}" th:object="${course}">
     <table>
         <tr>
             <td>Course Title:</td>
@@ -12,13 +12,13 @@
             <td>Course Description:</td>
             <td><input placeholder="courseDescription" th:field="*{description}" type="text"/></td>
             <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">courseDescription error</td>
-        <tr>
+     <!--  <tr>
             <td>Course Professor ID:</td>
             <td><input placeholder="professor id" th:field="*{professor}" type="text"/></td>
             <td th:errors="*{professor}" th:if="${#fields.hasErrors('professor')}">courseProfessor id
                 error
             </td>
-        </tr>
+        </tr> -->
         <tr>
             <td>Course Code:</td>
             <td><input placeholder="courseCode" th:field="*{courseCode}" type="text"/></td>
@@ -26,8 +26,10 @@
         </tr>
         <tr>
             <td>Course Evaluation:</td>
-            <td><input placeholder="courseEvaluation" th:field="*{evaluation}" type="text"/></td>
-            <td th:errors="*{evaluation}" th:if="${#fields.hasErrors('evaluation')}">courseEvaluation error</td>
+            <td><select name = "evaluation">
+  			<option value="test">test</option>
+  			<option value="exam">exam</option>
+  			</select></td>
         </tr>
         <tr>
             <td>Course CP:</td>

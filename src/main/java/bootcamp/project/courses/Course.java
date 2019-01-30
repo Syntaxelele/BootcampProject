@@ -22,7 +22,7 @@ public class Course {
     @Column(name = "courseTitle")
     private String title;
 
-    @Column(name = "courseDesc")
+    @Column(name = "courseDesc", columnDefinition="varchar(1000)")
     private String description;
 
     @OneToOne(targetEntity = Professor.class)
@@ -40,16 +40,16 @@ public class Course {
     @Column(name = "coursePoints")
     private int CP;
 
-    @Column(name = "coursePrereq")
+    @Column(name = "coursePrereq", columnDefinition="varchar(1000)")
     private String prereq;
 
-    @Column(name = "courseObjective")
+    @Column(name = "courseObjective", columnDefinition="varchar(1000)")
     private String objective;
 
-    @Column(name = "courseOutcome")
+    @Column(name = "courseOutcome", columnDefinition="varchar(1000)")
     private String outcome;
 
-    @Column(name = "courseContent")
+    @Column(name = "courseContent", columnDefinition="varchar(1000)")
     private String content;
 
     @OneToMany

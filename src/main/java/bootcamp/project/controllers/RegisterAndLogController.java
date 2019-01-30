@@ -7,9 +7,7 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
-
 import javax.validation.Valid;
-
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -37,14 +35,21 @@ public class RegisterAndLogController {
 	@Autowired
 	ProfessorRepo professorRepo;
 
-
 	@GetMapping("/showAllUsers")
+	//@GetMapping("/showAllStudents")
 	public String showAllStudentsToView(Model model) {
 		Iterable<Student> userFromDB = studentRepo.findAll();
 		model.addAttribute("allUsers", userFromDB);
 		return "showAllUsers";
 	}
 
+	@GetMapping("/showAllProfessors")
+	public String showAllSProfessorsToView(Model model) {
+		Iterable<Professor> userFromDB2 = professorRepo.findAll();
+		model.addAttribute("allUsers", userFromDB2);
+		return "showAllUsers";
+	}
+	
 	// SHOW USER BY NAME
 	/*
 	 * @GetMapping("/showUserByName") public String showUserByName(
@@ -76,23 +81,19 @@ public class RegisterAndLogController {
 	public String doorsProfessor(Professor professor,@PathVariable(name = "id") long id) {
 		return "professorMenu";
 	}
+  
 	@PostMapping("/professorMenu/{id}")
 	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
-		if (button.equals("ShowCours")) {
-			return "showMyCourse"; // + id
+		if (button.equals("showMyCourse")) {
+			return "redirect:/showProfessorCourse/" + id;
 		} else if (button.equals("exportGrades"))
-			return "redirect:/uploadExcelFile/" + id;
+			return "redirect:/professorMenu/" + id;
 		else {
-			return "redirect:/insertNewCourse";
+			return "redirect:/insertNewCourse/"+ id;
 		}
 	}
-
-	/*
-	 * @PostMapping("/") public String registerOrLogin(User user) {
-	 * 
-	 * }
-	 */
-	// new controller
+    //--------------------------------------------------------------------//
+    //-----------------------REGISTRATION---------------------------------//
 	@GetMapping("/RegView")
 	public String Registerer(Student student, Professor professor) {
 		return "RegView";
@@ -125,13 +126,13 @@ public class RegisterAndLogController {
 				return "professorMenu";
 		}
 	}
-
+    //--------------------------------------------------------------------//
+    //-----------------------DOCUMENT IMPORT------------------------------//
 	@GetMapping("/DocView")
 	public String DocReader(Top top) {
 		return "DocReader";
 
 	}
-
 
 	@PostMapping("/DocView")
 	public String DocReaderPost(Top top) {
@@ -177,18 +178,15 @@ public class RegisterAndLogController {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
-
+    
 		courseRepo.save(hot);
 
-
 		return "redirect:/DocReader";
-
 	}
 
 
 		@GetMapping("/showCourses")
-	public String createNewStudent2(Student student) {
+	  public String createNewStudent2(Student student) {
 		return "showAllCourses";
 	}
 }
