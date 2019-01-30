@@ -74,7 +74,7 @@ public class apachePOIExcelController {
 		}
 
 		System.out.println("Student grades written successfully");
-		return "redirect:/logProf";
+		return "redirect:/professorMenu/{id}";
 	}
 
 }
