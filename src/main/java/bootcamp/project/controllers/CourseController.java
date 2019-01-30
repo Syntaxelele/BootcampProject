@@ -4,7 +4,6 @@ import bootcamp.project.courses.Course;
 import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.users.Professor;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -115,7 +114,6 @@ public class CourseController {
         return "registerToCourse";
     }
 
-
 //    @PostMapping(value = "/registerToCourse")
 //    public String CourseButton(@RequestParam(name = "courseButtonID", defaultValue = "none",
 //            required = false) String courseButtonID) {
@@ -129,3 +127,4 @@ public class CourseController {
 //        }
 //    }
 }
+
