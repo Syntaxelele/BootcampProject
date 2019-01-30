@@ -40,7 +40,8 @@ public class RegisterAndLogController {
 	 * userRepo.findByName(username); // model.addAttribute("allUsers", userResult);
 	 * return "showAllUsers"; }
 	 */
-
+    //--------------------------------------------------------------------//
+    //-----------------------STUDENT--------------------------------------//
 	@GetMapping("/StudentMenu/{id}")
 	public String doorsStudent(Student student, @PathVariable(name = "id")long id) {
 		System.out.println("get" + id);
@@ -49,19 +50,27 @@ public class RegisterAndLogController {
 
 	@PostMapping("/StudentMenu/{id}")
 	public String ShowCourses(Student student,@PathVariable(name = "id")long id, @RequestParam(name = "studButton") String button) {
-		System.out.println(id);
-		System.out.println(button);
 		if (button.equals("regToCourse"))
-		return "redirect:/registerToCourse/"+id;
-	else if(button.equals("ShowMyCours"))
-		return "redirect:/showStudentCourses/"+id;
-	else return "redirect:/ShowGrades/"+id;
+			return "redirect:/registerToCourse/"+id;
+		else if (button.equals("ShowMyCours"))
+			return "redirect:/showStudentCourses/"+id;
+		else
+			return "redirect:/ShowGrades/"+id;
 	}
-
-	@GetMapping("/logProf/{id}")
+    //--------------------------------------------------------------------//
+    //-----------------------PROFESSOR------------------------------------//
+	@GetMapping("/professorMenu/{id}")
 	public String doorsProfessor(Professor professor,@PathVariable(name = "id") long id) {
 		return "professorMenu";
-
+	}
+	@PostMapping("/logProf")
+	public String doorsForProf(Professor professor, @RequestParam(name = "choice") String button) {
+		if (button.equals("ShowCours")) {
+			return "redirect:/showAllCourses";
+		} 
+		else {
+			return "redirect:/insertNewCourse";
+		}
 	}
 
 	/*
@@ -107,16 +116,4 @@ public class RegisterAndLogController {
 	public String createNewStudent2(Student student) {
 		return "showAllCourses";
 	}
-
-	@PostMapping("/logProf")
-	public String doorsForProf(Professor professor, @RequestParam(name = "choice") String button) {
-		if (button.equals("ShowCours")) {
-			return "redirect:/showAllCourses";
-		} 
-		else {
-			return "redirect:/insertNewCourse";
-		}
-	}
-
-
 }

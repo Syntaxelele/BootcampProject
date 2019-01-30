@@ -36,7 +36,7 @@ public class AuthController {
                     return "start";
                 } else {
                     System.out.println(findbyNameAndPassw.getUsername());
-                    return "redirect:/logProf/"+ findbyNameAndPassw.getId_u();
+                    return "redirect:/professorMenu/"+ findbyNameAndPassw.getId_u();
                 }
             } else {
                 System.out.println(findbyNameAndPassw.getUsername());
