@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -104,25 +105,27 @@ public class CourseController {
     //-----------------------REGISTER TO COURSES--------------------------//
 
 
-    @GetMapping(value = "/registerToCourse")
-    public String registerToCourseView(Model model, @RequestParam(name = "buttonCourseID", defaultValue = "none",
-            required = false)String buttonCourseID) {
-        System.out.println(buttonCourseID);
+    @GetMapping(value = "/registerToCourse/{id}")
+    public String registerToCourseView(Model model,@PathVariable (name = "id") long id, @RequestParam(name = "courseButtonID", defaultValue = "none",
+            required = false) String courseButtonID) {
+        System.out.println(courseButtonID);
 
         Iterable<Course> courseFromDB = courseRepo.findAll();
-        model.addAttribute("courseTests", courseFromDB);
+        model.addAttribute("regToCourse", courseFromDB);
         return "registerToCourse";
     }
-    @PostMapping(value = "/registerToCourse")
-    public String CourseButton(@RequestParam(name = "buttonCourseID", defaultValue = "none",
-            required = false)String buttonCourseID) {
-        System.out.println(buttonCourseID);
-        if (buttonCourseID.equals("none"))
-            return "redirect:/registerToCourse";
 
-        else {
-            return "redirect:/failedCourseIdButtonTest";
 
-        }
-    }
+//    @PostMapping(value = "/registerToCourse")
+//    public String CourseButton(@RequestParam(name = "courseButtonID", defaultValue = "none",
+//            required = false) String courseButtonID) {
+//        System.out.println(courseButtonID);
+//        if (courseButtonID.equals("none"))
+//            return "redirect:/registerToCourse";
+//
+//        else {
+//            return "redirect:/successfulButtonRead";
+//
+//        }
+//    }
 }
