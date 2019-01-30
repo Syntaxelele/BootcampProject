@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,18 +41,25 @@ public class RegisterAndLogController {
 	 * return "showAllUsers"; }
 	 */
 
-	@GetMapping("/logStud")
-	public String doorsStudent(Student student) {
+	@GetMapping("/StudentMenu/{id}")
+	public String doorsStudent(Student student, @PathVariable(name = "id")long id) {
+		System.out.println("get" + id);
 		return "StudentMenu";
 	}
 
-	@PostMapping("/logStud")
-	public String ShowCourses(Student student, Professor professor, @RequestParam(name = "ShowCours") String button) {
-		return "showAllCourses";
+	@PostMapping("/StudentMenu/{id}")
+	public String ShowCourses(Student student,@PathVariable(name = "id")long id, @RequestParam(name = "studButton") String button) {
+		System.out.println(id);
+		System.out.println(button);
+		if (button.equals("regToCourse"))
+		return "redirect:/registerToCourse/"+id;
+	else if(button.equals("ShowMyCours"))
+		return "redirect:/showStudentCourses/"+id;
+	else return "redirect:/ShowGrades/"+id;
 	}
 
-	@GetMapping("/logProf")
-	public String doorsProfessor(Professor professor) {
+	@GetMapping("/logProf/{id}")
+	public String doorsProfessor(Professor professor,@PathVariable(name = "id") long id) {
 		return "professorMenu";
 
 	}

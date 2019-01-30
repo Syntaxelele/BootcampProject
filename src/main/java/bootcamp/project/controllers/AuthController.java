@@ -36,11 +36,11 @@ public class AuthController {
                     return "start";
                 } else {
                     System.out.println(findbyNameAndPassw.getUsername());
-                    return "professorMenu";
+                    return "redirect:/logProf/"+ findbyNameAndPassw.getId_u();
                 }
             } else {
                 System.out.println(findbyNameAndPassw.getUsername());
-                return "StudentMenu";
+                return "redirect:/StudentMenu/"+ findbyNameAndPassw.getId_u();
             }
         } else {
             return "RegView";
