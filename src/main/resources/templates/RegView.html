@@ -1,67 +1,112 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Register</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet">
     <script>
         function checkpassword() {
-            var p=f.password.value;
-            var cp=f.confirm_password.value;
-            if(p==cp);
+            var p = f.password.value;
+            var cp = f.confirm_password.value;
+            if (p == cp) ;
             else
                 alert("Password mismatch!")
         }
     </script>
 </head>
-<body>
-
-<form action="#" method="post" th:action="@{/RegView}" th:object="${student}">
-    <table>
-        <tr>
-            <td>First name:</td>
-            <td><input maxlength="30" pattern="[a-zA-Z]*" placeholder="Firstname" required th:field="*{name}"
-                       type="text"/></td>
-            <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">userName error</td>
-        </tr>
-        <tr>
-            <td>Last name:</td>
-            <td><input maxlength="30" pattern="[a-zA-Z]*" placeholder="Lastname" required th:field="*{lastname}"
-                       type="text"/></td>
-            <td th:errors="*{lastname}" th:if="${#fields.hasErrors('lastname')}">userLastname error</td>
-        <tr>
-            <td>Username:</td>
-            <td><input maxlength="30" pattern="[a-zA-Z0-9]*" placeholder="Username" required th:field="*{username}"
-                       type="text"/></td>
-            <td th:errors="*{username}" th:if="${#fields.hasErrors('username')}">userUsername error
-            </td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input maxlength="30" placeholder="Password" required th:field="*{password}" type="password"/></td>
-            <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">userPassword error</td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input id="confirm_password" maxlength="30" name="confirm_password" placeholder="password" required
-                       type="password"/>
-            </td>
-        </tr>
-        <tr>
-            <td>E-mail:</td>
-            <td><input placeholder="Email" th:field="*{email}" type="email"/></td>
-            <td th:errors="*{email}" th:if="${#fields.hasErrors('email')}">userEmail error</td>
-        </tr>
-        <tr>
-	        <td><input th:field="*{role}" type="radio" name="role" value="1" checked> Professor</td>
-	  		<td><input th:field="*{role}" type="radio" name="role" value="2"> Student</td>
-        </tr>
-        <tr>
-            <td>
-            	<button type="reset">Reset</button>
-                <button type="submit">Register</button>
-            </td>
-        </tr>
-    </table>
-</form>
+<body class="bg-dark">
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Register an Account</div>
+        <div class="card-body">
+            <form action="#" method="post" th:action="@{/RegView}" th:object="${student}">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input autofocus="autofocus" class="form-control" id="firstName"
+                                       pattern="[a-zA-Z]*"
+                                       placeholder="First name" required="required" th:field="*{name}" type="text">
+                                <label for="firstName">First name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input class="form-control" id="lastName" maxlength="30" pattern="[a-zA-Z]*"
+                                       placeholder="Last name" required="required" th:field="*{lastname}" type="text">
+                                <label for="lastName">Last name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input class="form-control" id="inputUsername" maxlength="30" pattern="[a-zA-Z0-9]*"
+                                       placeholder="User name" required="required" th:field="*{username}"
+                                       type="text">
+                                <label for="inputUsername">Username</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input class="form-control" id="inputEmail" placeholder="Email address" required="required"
+                                       th:field="*{email}" type="email">
+                                <label for="inputEmail">Email address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input class="form-control" id="inputPassword" maxlength="30" placeholder="Password"
+                                       required="required" th:field="*{password}" type="password">
+                                <label for="inputPassword">Password</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input class="form-control" id="confirmPassword" maxlength="30"
+                                       placeholder="Confirm password" required="required" type="password">
+                                <label for="confirmPassword">Confirm password</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input checked id="role1" name="role" th:field="*{role}" type="radio" value="1">>
+                                <label for="role1">Professor</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input id="role2" name="role" th:field="*{role}" type="radio" value="2">
+                                <label for="role2">Student</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block" value="checkpassword()" onclick="checkpassword()" type="submit">Register</button>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" th:href="@{/start}">Login Page</a>
+                <a class="d-block small" href="#">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
 </body>
 </html>
