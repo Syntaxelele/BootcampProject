@@ -52,13 +52,13 @@
             <td th:errors="*{email}" th:if="${#fields.hasErrors('email')}">userEmail error</td>
         </tr>
         <tr>
-            <td>Role:</td>
-            <td><input max="2" min="1" placeholder="Role" th:field="*{role}" type="number" value="1"/></td>
-            <td th:errors="*{role}" th:if="${#fields.hasErrors('role')}">userRole error</td>
+	        <td><input th:field="*{role}" type="radio" name="role" value="1" checked> Professor</td>
+	  		<td><input th:field="*{role}" type="radio" name="role" value="2"> Student</td>
         </tr>
         <tr>
             <td>
-                <button type="submit">Submit course</button>
+            	<button type="reset">Reset</button>
+                <button type="submit">Register</button>
             </td>
         </tr>
     </table>

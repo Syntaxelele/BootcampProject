@@ -4,6 +4,9 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,28 +68,30 @@ public class RegisterAndLogController {
 	}
 
 	@PostMapping("/RegView")
-	//public String Register(Student student, Professor professor, @RequestParam(name = "Reg") String button) {
-	public String Register(Student student, Professor professor, BindingResult result) {
-		if (student.getRole() == 2) {
-			System.out.println(
-					student.getName() + " "
-							+ student.getLastname() + " "
-							+ student.getUsername() + " "
-							+ student.getEmail() + " "
-							+ student.getRole()
-			);
-			studentRepo.save(student);
-			return "StudentMenu";
-		} else {
-			System.out.println(
-					professor.getName() + " "
-							+ professor.getLastname() + " "
-							+ professor.getUsername() + " "
-							+ professor.getEmail() + " "
-							+ professor.getRole()
-			);
-			professorRepo.save(professor);
-			return "ProfessorMenu";
+	public String Register(@Valid Student student, Professor professor, BindingResult result) {
+        if (result.hasErrors()) {
+            return "RegView";
+        }
+			if (student.getRole() == 2) {
+				System.out.println(
+						student.getName() + " "
+								+ student.getLastname() + " "
+								+ student.getUsername() + " "
+								+ student.getEmail() + " "
+								+ student.getRole()
+				);
+				studentRepo.save(student);
+				return "StudentMenu";
+			} else {
+				System.out.println(
+						professor.getName() + " "
+								+ professor.getLastname() + " "
+								+ professor.getUsername() + " "
+								+ professor.getEmail() + " "
+								+ professor.getRole()
+				);
+				professorRepo.save(professor);
+				return "professorMenu";
 		}
 	}
 
