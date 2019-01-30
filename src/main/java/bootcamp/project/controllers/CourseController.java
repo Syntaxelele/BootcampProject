@@ -76,13 +76,13 @@ public class CourseController {
         courseRepo.findAll().forEach(course -> System.out.println(course));
         return "showAllCourses";
     }
-
-    @GetMapping(value = "/showStudentCourses")
+    
+    @GetMapping(value = "/showStudentCourses/{id}")
     public String showAllStudentCourses(Model model) {
         model.addAttribute("allCourses", courseRepo.findAll());
         //courseRepo.findAll().forEach(course -> System.out.println(course));
         //studentRepo.findByGrade(studentRepo.);
-        return "showStudentCourses";
+        return "redirect:/showStudentCourses/";
     }
 
     //----------------------------------------------------------------------//

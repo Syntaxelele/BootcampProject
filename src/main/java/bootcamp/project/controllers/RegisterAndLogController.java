@@ -4,9 +4,7 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +22,23 @@ public class RegisterAndLogController {
 	@Autowired
 	ProfessorRepo professorRepo;
 
-	@GetMapping("/showAllUsers")
+
+	@GetMapping("/showAllStudents")
 	public String showAllStudentsToView(Model model) {
 		Iterable<Student> userFromDB = studentRepo.findAll();
 		model.addAttribute("allUsers", userFromDB);
 		return "showAllUsers";
 	}
 
+	
+	@GetMapping("/showAllProfessors")
+	public String showAllSProfessorsToView(Model model) {
+		Iterable<Professor> userFromDB2 = professorRepo.findAll();
+		model.addAttribute("allUsers", userFromDB2);
+		return "showAllUsers";
+	}
+	
+		
 	// SHOW USER BY NAME
 	/*
 	 * @GetMapping("/showUserByName") public String showUserByName(
@@ -43,19 +51,18 @@ public class RegisterAndLogController {
     //--------------------------------------------------------------------//
     //-----------------------STUDENT--------------------------------------//
 	@GetMapping("/StudentMenu/{id}")
-	public String doorsStudent(Student student, @PathVariable(name = "id")long id) {
-		System.out.println("get" + id);
+	public String doorsStudent(Student student, @PathVariable(name = "id") long id) {
 		return "StudentMenu";
 	}
 
 	@PostMapping("/StudentMenu/{id}")
-	public String ShowCourses(Student student,@PathVariable(name = "id")long id, @RequestParam(name = "studButton") String button) {
+	public String showStudentMenu(Student student, @PathVariable(name = "id") long id, @RequestParam(name = "studButton") String button) {
 		if (button.equals("regToCourse"))
-			return "redirect:/registerToCourse/"+id;
+			return "redirect:/registerToCourse/" + id;
 		else if (button.equals("ShowMyCours"))
-			return "redirect:/showStudentCourses/"+id;
+			return "redirect:/showStudentCourses/" + id;
 		else
-			return "redirect:/ShowGrades/"+id;
+			return "redirect:/ShowGrades/" + id;
 	}
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
@@ -63,22 +70,17 @@ public class RegisterAndLogController {
 	public String doorsProfessor(Professor professor,@PathVariable(name = "id") long id) {
 		return "professorMenu";
 	}
-	@PostMapping("/logProf")
-	public String doorsForProf(Professor professor, @RequestParam(name = "choice") String button) {
+	@PostMapping("/professorMenu/{id}")
+	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
 		if (button.equals("ShowCours")) {
-			return "redirect:/showAllCourses";
-		} 
+			return "showMyCourse"; // + id
+		} else if (button.equals("exportGrades"))
+			return "redirect:/uploadExcelFile/" + id;
 		else {
 			return "redirect:/insertNewCourse";
 		}
 	}
 
-	/*
-	 * @PostMapping("/") public String registerOrLogin(User user) {
-	 * 
-	 * }
-	 */
-	// new controller
 	@GetMapping("/RegView")
 	public String Registerer(Student student, Professor professor) {
 		return "RegView";
