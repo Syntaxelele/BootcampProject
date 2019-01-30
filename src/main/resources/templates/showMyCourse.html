@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Show All Courses</title>
+    <title>Show my course</title>
 </head>
 <body>
     <table border="1">
-        <form action="#" method="get" name="ShowCours" th:action="@{/ShowCours}" th:object="${course}">
+        <form action="#" method="get" name="ShowCourse" th:action="@{/ShowMyCourse/__${id}__}" th:object="${course}">
             <th>ID</th>
             <th>Title</th>
             <th>Professor</th>
@@ -17,7 +17,6 @@
             <th>Objective</th>
             <th>Outcome</th>
             <th>Prerequisites</th>
-        <th:block th:each="course : ${allCourses}">
             <tr>
                 <td th:text="${course.getCourseID()}">...</td>
                 <td th:text="${course.getTitle()}">...</td>
@@ -31,7 +30,6 @@
                 <td th:text="${course.getOutcome()}">...</td>
                 <td th:text="${course.getPrereq()}">...</td>
             </tr>
-        </th:block>
         </form>
     </table>
 </body>

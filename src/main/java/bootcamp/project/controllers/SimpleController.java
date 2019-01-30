@@ -139,7 +139,7 @@ public class SimpleController {
 		System.out.println("Show all courses");
 		courseRepo.findAll().forEach(course->System.out.println(course.getTitle()));
 		*/
-        return "start";
+        return "redirect:/start";
     }
 
 }
