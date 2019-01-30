@@ -38,7 +38,7 @@ public class SimpleController {
 		studentRepo.save(s1);
 		studentRepo.save(s2);
 		studentRepo.save(s3);
-		Professor pr1 = new Professor("Baiba", "Jauká", "baibaa",
+		Professor pr1 = new Professor("Baiba", "Jauka", "baibaa",
 				"parole", 1, "emails@email.lv");
 		professorRepo.save(pr1);
 		Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis",
@@ -58,7 +58,7 @@ public class SimpleController {
 		Grade g2 = new Grade(9, c1, s2);
 		Grade g3 = new Grade(4, c2, s3);
 		Grade g4 = new Grade(5, c2, s2);
-		Grade g5 = new Grade(5, c1, s1);
+		Grade g5 = new Grade(5, c2, s1);
 		gradeRepo.save(g1);
 		gradeRepo.save(g2);
 		gradeRepo.save(g3);
