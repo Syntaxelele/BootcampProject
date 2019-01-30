@@ -72,8 +72,8 @@ public class RegisterAndLogController {
 	}
 	@PostMapping("/professorMenu/{id}")
 	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
-		if (button.equals("ShowCours")) {
-			return "showMyCourse"; // + id
+		if (button.equals("showMyCourse")) {
+			return "redirect:/showProfessorCourse/" + id;
 		} else if (button.equals("exportGrades"))
 			return "redirect:/professorMenu/" + id;
 		else {

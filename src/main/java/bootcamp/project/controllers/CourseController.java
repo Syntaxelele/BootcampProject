@@ -86,12 +86,22 @@ public class CourseController {
         return "showAllCourses";
     }
     
-    @GetMapping(value = "/showStudentCourses/{id}")
-    public String showAllStudentCourses(Model model) {
-        model.addAttribute("allCourses", courseRepo.findAll());
+    @GetMapping(value = "/showProfessorCourse/{id}")
+    public String showProfessorCourseToView(@PathVariable(required = false, name = "id") int id, Model model) {
+        //model.addAttribute("allCourses", courseRepo.findAll());
         //courseRepo.findAll().forEach(course -> System.out.println(course));
+        Long idL = (long) id;
+        Optional<Course> courseFromDB = courseRepo.findById(idL);
+        model.addAttribute("course", courseFromDB.get());
+        return "showMyCourse";
+    }
+    
+    @GetMapping(value = "/showStudentCourses/{id}")
+    public String showAllStudentCoursesToView(@PathVariable(required = false, name = "id") int id, Model model) {
+        model.addAttribute("allCourses", courseRepo.findAll());
+        courseRepo.findAll().forEach(course -> System.out.println(course));
         //studentRepo.findByGrade(studentRepo.);
-        return "redirect:/showStudentCourses/";
+        return "showStudentCourses";
     }
 
     //----------------------------------------------------------------------//

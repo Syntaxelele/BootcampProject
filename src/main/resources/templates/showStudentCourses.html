@@ -5,7 +5,7 @@
 </head>
 <body>
     <table border="1">
-		<form action="#" method="get" name="ShowMyCour" th:action="@{/ShowMyCour}" th:object="${course}">
+		<form action="#" method="get" name="ShowMyCour" th:action="@{/ShowStudentCourse/__${id}__}" th:object="${course}">
 	        <th>Title</th>
 	        <th>Professor</th>
 	        <th>Course code</th>
