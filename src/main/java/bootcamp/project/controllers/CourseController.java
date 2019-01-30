@@ -1,10 +1,9 @@
 package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
+import bootcamp.project.repo.CourseRepo;
+import bootcamp.project.repo.ProfessorRepo;
+import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,18 +12,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import bootcamp.project.repo.CourseRepo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class CourseController {
     @Autowired
     CourseRepo courseRepo;
 
-    //-----------------------------------COURSE OUTPUT TEST------------------------------//
+    @Autowired
+    ProfessorRepo professorRepo;
+    
+    @Autowired
+    StudentRepo studentRepo;
 
+    //-----------------------------------COURSE OUTPUT TEST------------------------------//
+/*
     @GetMapping(value = "/course")
     public String courses(Model model) {
 
@@ -51,7 +56,7 @@ public class CourseController {
         System.out.println("1231231231231");
         return "courseTest";
 
-    }
+    }*/
 //------------------------SHOW COURSES---------------------------------------//
 
     @GetMapping("/oneCourse/{id}")
@@ -67,8 +72,15 @@ public class CourseController {
     public String showAllCoursesToView(Model model) {
         model.addAttribute("allCourses", courseRepo.findAll());
         courseRepo.findAll().forEach(course -> System.out.println(course));
-
         return "showAllCourses";
+    }
+    
+    @GetMapping(value = "/showStudentCourses")
+    public String showAllStudentCourses(Model model) {
+        model.addAttribute("allCourses", courseRepo.findAll());
+        //courseRepo.findAll().forEach(course -> System.out.println(course));
+        //studentRepo.findByGrade(studentRepo.);
+        return "showStudentCourses";
     }
 
     //----------------------------------------------------------------------//
@@ -103,14 +115,28 @@ public class CourseController {
     //--------------------------------------------------------------------//
     //-----------------------REGISTER TO COURSES--------------------------//
 
-/*
-    @GetMapping(value = "/registerToCourse")
-    public String registerToCourseView(Model model) {
-        model.addAttribute("regToCourses", );
+
+    @GetMapping(value = "/registerToCourse/{id}")
+    public String registerToCourseView(Model model,@PathVariable (name = "id") long id, @RequestParam(name = "courseButtonID", defaultValue = "none",
+            required = false) String courseButtonID) {
+        System.out.println(courseButtonID);
+
+        Iterable<Course> courseFromDB = courseRepo.findAll();
+        model.addAttribute("regToCourse", courseFromDB);
         return "registerToCourse";
     }
-*/
+
+//    @PostMapping(value = "/registerToCourse")
+//    public String CourseButton(@RequestParam(name = "courseButtonID", defaultValue = "none",
+//            required = false) String courseButtonID) {
+//        System.out.println(courseButtonID);
+//        if (courseButtonID.equals("none"))
+//            return "redirect:/registerToCourse";
+//
+//        else {
+//            return "redirect:/successfulButtonRead";
+//
+//        }
+//    }
 }
-
-
 
