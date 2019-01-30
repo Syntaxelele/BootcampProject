@@ -75,9 +75,9 @@ public class RegisterAndLogController {
 		if (button.equals("ShowCours")) {
 			return "showMyCourse"; // + id
 		} else if (button.equals("exportGrades"))
-			return "redirect:/uploadExcelFile/" + id;
+			return "redirect:/professorMenu/" + id;
 		else {
-			return "redirect:/insertNewCourse";
+			return "redirect:/insertNewCourse/"+ id;
 		}
 	}
 
