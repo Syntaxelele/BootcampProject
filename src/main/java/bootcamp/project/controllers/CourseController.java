@@ -9,7 +9,6 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
-import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -109,7 +106,6 @@ public class CourseController {
 
     @GetMapping("/insertNewCourse/{id}")
     public String insertCourseView(@PathVariable(required = false, name = "id") long id, Course course) {
-        
         return "courseInput";
     }
 
@@ -132,7 +128,6 @@ public class CourseController {
         );
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         course.setProfessor(ProfFromDB.get());
-        
         courseRepo.save(course);
         return "redirect:/showAllCourses";
     }
@@ -159,20 +154,18 @@ public class CourseController {
     @PostMapping(value = "/registerToCourse/{id}")
     public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
         Student student1 = studentRepo.findById(id).get();
-        ArrayList<Course> courses1= (ArrayList<Course>) courseRepo.findAll();
+        ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
         int coursesindex = 0;
         for (Boolean i : checkBoxList.getListOfCheck()){
             System.out.println(i);
             if (i == null){
 
-            }
-            else /*(i.equals(true))*/{
+            } else /*(i.equals(true))*/ {
                 Grade g1 = new Grade(0,courses1.get(coursesindex),student1 );
                 gradeRepo.save(g1);
             }
             coursesindex++;
         }
-        return "redirect:/successfulButtonRead";
+        return "redirect:/StudentMenu/" + id;
     }
 }
-
