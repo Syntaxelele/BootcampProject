@@ -19,27 +19,31 @@
     <table>
         <tr>
             <td>First name:</td>
-            <td><input placeholder="Firstname" required th:field="*{name}" type="text"/></td>
+            <td><input maxlength="30" pattern="[a-zA-Z]*" placeholder="Firstname" required th:field="*{name}"
+                       type="text"/></td>
             <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">userName error</td>
         </tr>
         <tr>
             <td>Last name:</td>
-            <td><input placeholder="Lastname" required th:field="*{lastname}" type="text"/></td>
+            <td><input maxlength="30" pattern="[a-zA-Z]*" placeholder="Lastname" required th:field="*{lastname}"
+                       type="text"/></td>
             <td th:errors="*{lastname}" th:if="${#fields.hasErrors('lastname')}">userLastname error</td>
         <tr>
             <td>Username:</td>
-            <td><input placeholder="Username" required th:field="*{username}" type="text"/></td>
+            <td><input maxlength="30" pattern="[a-zA-Z0-9]*" placeholder="Username" required th:field="*{username}"
+                       type="text"/></td>
             <td th:errors="*{username}" th:if="${#fields.hasErrors('username')}">userUsername error
             </td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input placeholder="Password" required th:field="*{password}" type="password"/></td>
+            <td><input maxlength="30" placeholder="Password" required th:field="*{password}" type="password"/></td>
             <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">userPassword error</td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input id="confirm_password" name="confirm_password" placeholder="password" required type="password"/>
+            <td><input id="confirm_password" maxlength="30" name="confirm_password" placeholder="password" required
+                       type="password"/>
             </td>
         </tr>
         <tr>
@@ -49,7 +53,7 @@
         </tr>
         <tr>
             <td>Role:</td>
-            <td><input placeholder="Role" th:field="*{role}" type="number"/></td>
+            <td><input max="2" min="1" placeholder="Role" th:field="*{role}" type="number" value="1"/></td>
             <td th:errors="*{role}" th:if="${#fields.hasErrors('role')}">userRole error</td>
         </tr>
         <tr>
