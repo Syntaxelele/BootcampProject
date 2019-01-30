@@ -6,11 +6,11 @@
 </head>
 <body>
   <p>Please check the boxes to which courses you want to apply</p>
-  <form name="regtocourse" action="#" th:action="@{/registerToCourse}" th:object="${courseTests}" method="post">
-      <th:block th:each="c : ${courseTests}">
-          <input type="checkbox" name="courseButtonID" th:name="${c.getCourseID()}" th:value="${c.getTitle()}" th:text="${c.getTitle()}"><br>
+  <form name="regToCourse" action="#" th:action="@{/registerToCourse}" th:object="${regToCourse}" method="get">
+      <th:block th:each="c : ${regToCourse}">
+          <input type="checkbox" name="courseButtonID" th:name="${c.getCourseID()}" th:text="${c.getTitle()}"><br>
       </th:block>
-      <input type="submit" value="Submit">
+      <input type="submit" onclick="" value="Submit">
   </form>
 </body>
 </html>
