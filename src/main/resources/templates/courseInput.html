@@ -5,54 +5,54 @@
     <table>
         <tr>
             <td>Course Title:</td>
-            <td><input type="text" th:field="*{title}" placeholder="courseTitle"/></td>
-            <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">courseTitle error</td>
+            <td><input placeholder="courseTitle" th:field="*{title}" type="text"/></td>
+            <td th:errors="*{title}" th:if="${#fields.hasErrors('title')}">courseTitle error</td>
         </tr>
         <tr>
             <td>Course Description:</td>
-            <td><input type="text" th:field="*{description}" placeholder="courseDescription"/></td>
-            <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">courseDescription error</td>
+            <td><input placeholder="courseDescription" th:field="*{description}" type="text"/></td>
+            <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">courseDescription error</td>
         <tr>
             <td>Course Professor ID:</td>
-            <td><input type="text" th:field="*{professor}" placeholder="professor id"/></td>
-            <td th:if="${#fields.hasErrors('professor')}" th:errors="*{professor}">courseProfessor id
+            <td><input placeholder="professor id" th:field="*{professor}" type="text"/></td>
+            <td th:errors="*{professor}" th:if="${#fields.hasErrors('professor')}">courseProfessor id
                 error
             </td>
         </tr>
         <tr>
             <td>Course Code:</td>
-            <td><input type="text" th:field="*{courseCode}" placeholder="courseCode"/></td>
-            <td th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}">courseCod error</td>
+            <td><input placeholder="courseCode" th:field="*{courseCode}" type="text"/></td>
+            <td th:errors="*{courseCode}" th:if="${#fields.hasErrors('courseCode')}">courseCod error</td>
         </tr>
         <tr>
             <td>Course Evaluation:</td>
-            <td><input type="text" th:field="*{evaluation}" placeholder="courseEvaluation"/></td>
-            <td th:if="${#fields.hasErrors('evaluation')}" th:errors="*{evaluation}">courseEvaluation error</td>
+            <td><input placeholder="courseEvaluation" th:field="*{evaluation}" type="text"/></td>
+            <td th:errors="*{evaluation}" th:if="${#fields.hasErrors('evaluation')}">courseEvaluation error</td>
         </tr>
         <tr>
             <td>Course CP:</td>
-            <td><input type="text" th:field="*{CP}" placeholder="CP"/></td>
-            <td th:if="${#fields.hasErrors('CP')}" th:errors="*{CP}">CP error</td>
+            <td><input placeholder="CP" th:field="*{CP}" type="text"/></td>
+            <td th:errors="*{CP}" th:if="${#fields.hasErrors('CP')}">CP error</td>
         </tr>
         <tr>
             <td>Course Prerequisites:</td>
-            <td><input type="text" th:field="*{prereq}" placeholder="coursePrerequisites"/></td>
-            <td th:if="${#fields.hasErrors('prereq')}" th:errors="*{prereq}">coursePrerequisite error</td>
+            <td><input placeholder="coursePrerequisites" th:field="*{prereq}" type="text"/></td>
+            <td th:errors="*{prereq}" th:if="${#fields.hasErrors('prereq')}">coursePrerequisite error</td>
         </tr>
         <tr>
             <td>Course objective:</td>
-            <td><input type="text" th:field="*{objective}" placeholder="objective"/></td>
-            <td th:if="${#fields.hasErrors('objective')}" th:errors="*{objective}">objective error</td>
+            <td><input placeholder="objective" th:field="*{objective}" type="text"/></td>
+            <td th:errors="*{objective}" th:if="${#fields.hasErrors('objective')}">objective error</td>
         </tr>
         <tr>
             <td>Course Outcome:</td>
-            <td><input type="text" th:field="*{outcome}" placeholder="outcome"/></td>
-            <td th:if="${#fields.hasErrors('outcome')}" th:errors="*{outcome}">outcome error</td>
+            <td><input placeholder="outcome" th:field="*{outcome}" type="text"/></td>
+            <td th:errors="*{outcome}" th:if="${#fields.hasErrors('outcome')}">outcome error</td>
         </tr>
         <tr>
             <td>Course Content:</td>
-            <td><input type="text" th:field="*{content}" placeholder="content"/></td>
-            <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content error</td>
+            <td><input placeholder="content" th:field="*{content}" type="text"/></td>
+            <td th:errors="*{content}" th:if="${#fields.hasErrors('content')}">content error</td>
         </tr>
         <tr>
             <td>
