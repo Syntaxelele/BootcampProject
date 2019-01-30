@@ -41,7 +41,7 @@ public class SimpleController {
         studentRepo.save(s2);
         studentRepo.save(s3);
         studentRepo.save(s4);
-        Professor pr1 = new Professor("Baiba", "Jauká", "baibaa",
+        Professor pr1 = new Professor("Baiba", "Jauka", "baibaa",
                 "parole", 1, "emails@email.lv");
         professorRepo.save(pr1);
         Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis",
