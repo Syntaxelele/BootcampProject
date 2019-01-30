@@ -88,13 +88,14 @@ public class CourseController {
     //----------------------------------------------------------------------//
     //---------------------------COURSE INPUT--------------------------//
 
-    @GetMapping(value = "/insertNewCourse")
-    public String insertCourseView(Course course) {
+    @GetMapping("/insertNewCourse/{id}")
+    public String insertCourseView(@PathVariable(required = false, name = "id") long id, Course course) {
+        
         return "courseInput";
     }
 
-    @PostMapping(value = "/insertNewCourse")
-    public String getCourseFromView(@Valid Course course, BindingResult result) {
+    @PostMapping("/insertNewCourse/{id}")
+    public String getCourseFromView(@PathVariable(required = false, name = "id") long id, @Valid Course course, BindingResult result) {
         if (result.hasErrors()) {
             return "courseInput";
         }
@@ -110,6 +111,9 @@ public class CourseController {
                         + course.getOutcome() + " "
                         + course.getContent()
         );
+        Optional<Professor> ProfFromDB = professorRepo.findById(id);
+        course.setProfessor(ProfFromDB.get());
+        
         courseRepo.save(course);
         return "redirect:/showAllCourses";
     }
