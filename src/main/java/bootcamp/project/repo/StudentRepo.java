@@ -1,7 +1,12 @@
 package bootcamp.project.repo;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import bootcamp.project.courses.Course;
 import bootcamp.project.courses.Grade;
 import bootcamp.project.users.Student;
 
@@ -12,7 +17,9 @@ public interface StudentRepo extends CrudRepository<Student, Long> {
 
     Student findByGrades(Grade grade);
 
-    //just for example
-	/*@Query("SELECT ....")
-	Student findByMyQuery(String name);*/
+	@Query("SELECT student FROM Grade WHERE grade >= 0")
+	Student findByMyQuery(String name);
+	
+    @Query("SELECT course FROM Grade where student = :id AND grade >=0") 
+    List<Course> findByGrade(@Param("id") Long id);
 }

@@ -3,8 +3,8 @@ package bootcamp.project.controllers;
 import bootcamp.project.courses.Course;
 import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.ProfessorRepo;
+import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -23,6 +24,9 @@ public class CourseController {
 
     @Autowired
     ProfessorRepo professorRepo;
+    
+    @Autowired
+    StudentRepo studentRepo;
 
     //-----------------------------------COURSE OUTPUT TEST------------------------------//
 /*
@@ -69,6 +73,14 @@ public class CourseController {
         model.addAttribute("allCourses", courseRepo.findAll());
         courseRepo.findAll().forEach(course -> System.out.println(course));
         return "showAllCourses";
+    }
+    
+    @GetMapping(value = "/showStudentCourses")
+    public String showAllStudentCourses(Model model) {
+        model.addAttribute("allCourses", courseRepo.findAll());
+        //courseRepo.findAll().forEach(course -> System.out.println(course));
+        //studentRepo.findByGrade(studentRepo.);
+        return "showStudentCourses";
     }
 
     //----------------------------------------------------------------------//
