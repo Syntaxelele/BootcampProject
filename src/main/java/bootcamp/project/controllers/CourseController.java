@@ -1,11 +1,15 @@
 package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
+import bootcamp.project.courses.Grade;
 import bootcamp.project.helper.CheckBoxList;
 import bootcamp.project.repo.CourseRepo;
+import bootcamp.project.repo.GradeRepo;
 import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
+import bootcamp.project.users.Student;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +35,9 @@ public class CourseController {
 
     @Autowired
     StudentRepo studentRepo;
+
+    @Autowired
+    GradeRepo gradeRepo;
 
     //-----------------------------------COURSE OUTPUT TEST------------------------------//
 /*
@@ -126,7 +135,7 @@ public class CourseController {
     public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
                                        @RequestParam(name = "courseButtonID", defaultValue = "none",
                                                required = false) String courseButtonID) {
-        System.out.println(courseButtonID);
+        //System.out.println(courseButtonID);
         Iterable<Course> courseFromDB = courseRepo.findAll();
         CheckBoxList checkBoxList = new CheckBoxList();
         for (Course i : courseFromDB) {
@@ -136,6 +145,24 @@ public class CourseController {
         model.addAttribute("regToCourse", courseFromDB);
         model.addAttribute("listOfCheck", checkBoxList);
         return "registerToCourse";
+    }
+    @PostMapping(value = "/registerToCourse/{id}")
+    public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
+        Student student1 = studentRepo.findById(id).get();
+        ArrayList<Course> courses1= (ArrayList<Course>) courseRepo.findAll();
+        int coursesindex = 0;
+        for (Boolean i : checkBoxList.getListOfCheck()){
+            System.out.println(i);
+            if (i == null){
+
+            }
+            else /*(i.equals(true))*/{
+                Grade g1 = new Grade(0,courses1.get(coursesindex),student1 );
+                gradeRepo.save(g1);
+            }
+            coursesindex++;
+        }
+        return "redirect:/successfulButtonRead";
     }
 }
 

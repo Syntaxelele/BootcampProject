@@ -23,4 +23,9 @@ public class CheckBoxList {
     public void addCheck(Boolean b) {
         listOfCheck.add(b);
     }
+
+    @Override
+    public String toString() {
+        return "CheckBoxList{" + "listOfCheck=" + listOfCheck + '}';
+    }
 }
