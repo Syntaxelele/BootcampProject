@@ -7,7 +7,6 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
-import javax.validation.Valid;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.List;
@@ -87,7 +87,7 @@ public class RegisterAndLogController {
 		if (button.equals("showMyCourse")) {
 			return "redirect:/showProfessorCourse/" + id;
 		} else if (button.equals("exportGrades"))
-			return "redirect:/professorMenu/" + id;
+			return "redirect:/uploadExcelFile/" + id;
 		else {
 			return "redirect:/insertNewCourse/"+ id;
 		}
