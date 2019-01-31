@@ -176,7 +176,11 @@ public class RegisterAndLogController {
     }
 
     @PostMapping("setGradesView/{id}")
-    public String setGradesViewPost(@PathVariable(name = "id") long id, Professor professor, StudentsAndGradesList listOfData) {
+    public String setGradesViewPost(@PathVariable(name = "id") long id, Professor professor,
+                                    StudentsAndGradesList listOfData, BindingResult result){
+        if (result.hasErrors()){
+            return "setGradesView";
+        }
         Professor myProfessor2 = professorRepo.findById(id).get();
 
         Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
