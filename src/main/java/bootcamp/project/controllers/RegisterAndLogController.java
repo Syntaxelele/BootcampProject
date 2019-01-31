@@ -148,7 +148,40 @@ public class RegisterAndLogController {
 		model.addAttribute("dataToEvaluate", listOfdata);
 		return "showGradesView";
 
-	}   
+	}
+
+    @GetMapping("/setGradesView/{id}")
+    public String setGradesView(Professor professor, @PathVariable(name = "id") long id, Model model) {
+
+        StudentsAndGradesList listOfdata = new StudentsAndGradesList();
+        Professor myProfessor2 = professorRepo.findById(id).get();
+
+        Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
+
+        ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
+
+
+        for (Grade g : gradesOfMyCourse) {
+
+            Student stOfMyCourse2 = g.getStudent();
+            System.out.println(stOfMyCourse2.getName() + " " + stOfMyCourse2.getLastname() + " " + g.getGrade());
+
+            gradesHelper gh2 = new gradesHelper(stOfMyCourse2.getName(), stOfMyCourse2.getLastname(), g.getGrade());
+
+            listOfdata.addNewItem(gh2);
+        }
+        model.addAttribute("setStudentGrades", listOfdata);
+        return "setGradesView";
+
+    }
+    @PostMapping("setGradesView/{id}")
+    public String setGradesViewPost(@PathVariable(name = "id") long id, Professor professor, StudentsAndGradesList listOfData){
+        for (gradesHelper gh2 : listOfData.getStudentsAndGradesList())
+            System.out.println(gh2.getGrade());
+        return "redirect:/showGradesView/" +id;
+    }
+
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
