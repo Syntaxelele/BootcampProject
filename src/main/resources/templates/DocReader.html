@@ -1,18 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"></meta>
-    <title>DOC/DOCX</title>
-
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Course upload</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-<form action="#" th:action="@{/DocView/__${id}__}" th:object="${top}" method="post">
-    <input type="file" name="files" th:value="${docPath}" accept=".doc, .docx">
-
-    <!--<form action="/DocRView" method="get" th:field="*{DocPath}" enctype="multipart/form-data">-->
-    <input type="submit" value="Upload Files" th:object="${top}"></input>
-    <form action="/DocView" method="get" th:value="${docPath}" enctype="multipart/form-data">
-    </form>
-</form>
+<body class="bg-dark">
+	<div class="container">
+		<div class="card card-register mx-auto mt-5">
+			<div class="card-header">Course info import</div>
+			<div class="card-body">
+				<form action="#" th:action="@{/DocView/__${id}__}" th:object="${top}" method="post">
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div>
+									<input class="form-control" id="files" type="file" name="files" th:value="${docPath}" accept=".doc, .docx">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div>
+									<input class="form-control btn btn-primary btn-block" id="upload" type="submit" value="Upload Files" th:object="${top}"></input>
+								</div>
+							</div>
+							<form action="/DocView" method="get" th:value="${docPath}" enctype="multipart/form-data"></form>
+						</div>
+					</div>
+				</form>
+				<div class="text-center">
+					<a class="d-block small mt-3" th:href="@{/professorMenu/__${id}__}">Back</a>
+				</div>
+			</div>
+        </div>
+    </div>
 </body>
 </html>

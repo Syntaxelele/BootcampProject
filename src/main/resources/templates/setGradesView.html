@@ -1,25 +1,45 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Set student grades</title>
+	<meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Evaluation</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-<form action="#" th:action="@{/setGradesView/__${id}__}" th:object="${setStudentGrades}" method="post">
-    <table>
-            <th:block th:each="gr, itemStat : *{studentsAndGradesList}">
-                <tr>
-                    <td th:text="${gr.getStudentName()}">...</td>
-                    <td th:text="${gr.getStudentLastname()}">...</td>
-
-                    <td><input th:field="*{studentsAndGradesList[__${itemStat.index}__].grade}"/></td>
-                </tr>
-            </th:block>
-        <tr>
-            <td><input type="submit" value="Set Grades"></td>
-        </tr>
-    </table>
-
-</form>
+<body class="bg-dark">
+	<div class="container">
+		<div class="card card-login mx-auto mt-5">
+			<div class="card-header text-center">Evaluation</div>
+				<div class="card-body text-center">
+					<form action="#" th:action="@{/setGradesView/__${id}__}" th:object="${setStudentGrades}" method="post">
+						<div class="form-group">
+							<div class="form-label-group">
+								<table border="1" width="100%">
+									<th>Name</th>
+									<th>Lastname</th>
+									<th>Grade</th>
+									<th:block th:each="gr, itemStat : *{studentsAndGradesList}">
+										<tr>
+											<td th:text="${gr.getStudentName()}">NO DATA</td>
+											<td th:text="${gr.getStudentLastname()}">NO DATA</td>
+											<td><input th:field="*{studentsAndGradesList[__${itemStat.index}__].grade}"/></td>
+										</tr>
+									</th:block>
+								</table>
+								<div class="card card-login mx-auto mt-5">
+									<button class="btn btn-primary btn-block" type="submit">Save</button>
+								</div>
+								<div class="text-center">
+									<a class="d-block small mt-3" th:href="@{/showCourseOptions/__${id}__}">Back</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
 </body>
-
 </html>

@@ -1,67 +1,110 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<form action="#" method="post" th:action="@{/insertNewCourse/__${id}__}" th:object="${course}">
-    <table>
-        <tr>
-            <td>Course Title:</td>
-            <td><input placeholder="courseTitle" th:field="*{title}" type="text"/></td>
-            <td th:errors="*{title}" th:if="${#fields.hasErrors('title')}">courseTitle error</td>
-        </tr>
-        <tr>
-            <td>Course Description:</td>
-            <td><input placeholder="courseDescription" th:field="*{description}" type="text"/></td>
-            <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">courseDescription error</td>
-     <!--  <tr>
-            <td>Course Professor ID:</td>
-            <td><input placeholder="professor id" th:field="*{professor}" type="text"/></td>
-            <td th:errors="*{professor}" th:if="${#fields.hasErrors('professor')}">courseProfessor id
-                error
-            </td>
-        </tr> -->
-        <tr>
-            <td>Course Code:</td>
-            <td><input placeholder="courseCode" th:field="*{courseCode}" type="text"/></td>
-            <td th:errors="*{courseCode}" th:if="${#fields.hasErrors('courseCode')}">courseCod error</td>
-        </tr>
-        <tr>
-            <td>Course Evaluation:</td>
-            <td><select name = "evaluation">
-  			<option value="test">test</option>
-  			<option value="exam">exam</option>
-  			</select></td>
-        </tr>
-        <tr>
-            <td>Course CP:</td>
-            <td><input placeholder="CP" th:field="*{CP}" type="text"/></td>
-            <td th:errors="*{CP}" th:if="${#fields.hasErrors('CP')}">CP error</td>
-        </tr>
-        <tr>
-            <td>Course Prerequisites:</td>
-            <td><input placeholder="coursePrerequisites" th:field="*{prereq}" type="text"/></td>
-            <td th:errors="*{prereq}" th:if="${#fields.hasErrors('prereq')}">coursePrerequisite error</td>
-        </tr>
-        <tr>
-            <td>Course objective:</td>
-            <td><input placeholder="objective" th:field="*{objective}" type="text"/></td>
-            <td th:errors="*{objective}" th:if="${#fields.hasErrors('objective')}">objective error</td>
-        </tr>
-        <tr>
-            <td>Course Outcome:</td>
-            <td><input placeholder="outcome" th:field="*{outcome}" type="text"/></td>
-            <td th:errors="*{outcome}" th:if="${#fields.hasErrors('outcome')}">outcome error</td>
-        </tr>
-        <tr>
-            <td>Course Content:</td>
-            <td><input placeholder="content" th:field="*{content}" type="text"/></td>
-            <td th:errors="*{content}" th:if="${#fields.hasErrors('content')}">content error</td>
-        </tr>
-        <tr>
-            <td>
-                <button type="submit">Submit course</button>
-            </td>
-        </tr>
-    </table>
-</form>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Create a course</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-dark">
+	<div class="container">
+		<div class="card card-register mx-auto mt-5">
+			<div class="card-header">Input course details</div>
+			<div class="card-body">
+				<form action="#" method="post" th:action="@{/insertNewCourse/__${id}__}" th:object="${course}">
+					<div class="form-group">
+						<div class="form-label-group">
+							<input autofocus="autofocus" class="form-control" id="courseTitle"
+								   pattern="[a-zA-Z]*"
+								   placeholder="Course title" required="required" th:field="*{title}" type="text">
+							<label for="courseTitle">Course title</label>
+						</div>
+					</div>		
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="courseDescription" maxlength="30" pattern="[a-zA-Z]*"
+										   placeholder="Course description" required="required" th:field="*{description}" type="text">
+									<label for="courseDescription">Course description</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="courseCode" maxlength="30" pattern="[a-zA-Z0-9]*"
+										   placeholder="Course code" required="required" th:field="*{courseCode}"
+										   type="text">
+									<label for="courseCode">Course code</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<select name="evaluation" class="form-control" id="eva">
+									<option value="test">Test</option>
+									<option value="exam">Exam</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="CP" maxlength="10" placeholder="Credit points"
+										   required="required" th:field="*{CP}" type="text">
+									<label for="CP">Credit points</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="prereq" maxlength="999" placeholder="Prerequisites"
+										   required="required" th:field="*{prereq}" type="text">
+									<label for="prereq">Prerequisites</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="objective" maxlength="999" placeholder="Objective"
+										   required="required" th:field="*{objective}" type="text">
+									<label for="prereq">Objective</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="outcome" maxlength="999" placeholder="Outcome"
+										   required="required" th:field="*{outcome}" type="text">
+									<label for="prereq">Outcome</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="content" maxlength="999" placeholder="Content"
+										   required="required" th:field="*{content}" type="text">
+									<label for="content">Content</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-primary btn-block" type="submit">Create</button>
+					<button class="btn btn-primary btn-block" type="reset">Reset</button>
+				</form>
+				<div class="text-center">
+					<a class="d-block small mt-3" th:href="@{/professorMenu/__${id}__}">Back</a>
+				</div>
+			</div>
+        </div>
+    </div>
 </body>
 </html>

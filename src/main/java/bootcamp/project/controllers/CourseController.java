@@ -130,7 +130,7 @@ public class CourseController {
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         course.setProfessor(ProfFromDB.get());
         courseRepo.save(course);
-        return "redirect:/showAllCourses";
+        return "redirect:/showProfessorCourse/" + id;
     }
 
     //--------------------------------------------------------------------//
@@ -168,7 +168,7 @@ public class CourseController {
             }
             coursesindex++;
         }
-        return "redirect:/showStudentCourses/"+id;
+        return "redirect:/showStudentCourses/" + id;
     }
 
 
