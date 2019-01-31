@@ -233,13 +233,13 @@ public class RegisterAndLogController {
 	}
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
-    @GetMapping("/DocView{id}")
-    public String DocReader(@PathVariable(required = false, name = "id") long id, Course hot) {
+    @GetMapping("/DocView/{id}")
+    public String DocReader(@PathVariable(required = false, name = "id") long id) {
         return "DocReader";
     }
 
     @PostMapping("/DocView/{id}")
-    public String DocReaderPost(@PathVariable(required = false, name = "id") long id, Top top, Course course) {
+    public String DocReaderPost(@PathVariable(required = false, name = "id") long id, Top top) {
         //Optional<Professor> pr = professorRepo.findById(id);
         //Optional<Professor> findbyIDProf = professorRepo.findById(id);
         Course hot = new Course();
@@ -268,7 +268,7 @@ public class RegisterAndLogController {
                     hot.setEvaluation(table.getRow(3).getCell(1).getText());
                     //hot.setProfessor(P);
                     hot.setProfessor(ProfFromDB.get());
-                    hot.setCP(table.getRow(4).getCell(1).getText().charAt(0));
+                    hot.setCP(2);
                     hot.setPrereq(table.getRow(5).getCell(1).getText());
                     hot.setObjective(table.getRow(6).getCell(1).getText());
                     hot.setOutcome(table.getRow(7).getCell(1).getText());
@@ -280,7 +280,7 @@ public class RegisterAndLogController {
                     //}
                 }
                 //}
-            }
+           }
 
         } catch (Exception ex) {
             ex.printStackTrace();
