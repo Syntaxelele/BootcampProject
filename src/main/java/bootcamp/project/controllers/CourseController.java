@@ -156,15 +156,13 @@ public class CourseController {
     @PostMapping(value = "/registerToCourse/{id}")
     public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
         Student student1 = studentRepo.findById(id).get();
+        Grade findByGrade = gradeRepo.findStudentByGrade(student1.getGrades());
         ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
         int coursesindex = 0;
         for (Boolean i : checkBoxList.getListOfCheck()){
             System.out.println(i);
-            if (i == null){
-
-            }
-            else {
-                Grade g1 = new Grade(0,courses1.get(coursesindex),student1 );
+            if (i != null){
+            	Grade g1 = new Grade(0, courses1.get(coursesindex), student1);
                 gradeRepo.save(g1);
             }
             coursesindex++;

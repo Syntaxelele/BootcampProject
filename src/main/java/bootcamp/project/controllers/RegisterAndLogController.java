@@ -124,36 +124,40 @@ public class RegisterAndLogController {
 
     @PostMapping("/RegView")
     public String Register(@Valid Student student, Professor professor, BindingResult result) {
+    	
+    	Student findDupeUsername = studentRepo.findByUsername(student.getUsername());
+    	Student findDupeEmail = studentRepo.findByEmail(student.getEmail());
+    	
         if (result.hasErrors()) {
+        	System.out.println("hasErrroooorsInView");
             return "RegView";
-        }
-			if (student.getRole() == 2) {
-				System.out.println(
-						student.getName() + " "
-								+ student.getLastname() + " "
-								+ student.getUsername() + " "
-								+ student.getEmail() + " "
-								+ student.getRole()
-				);
-				Student findDupedEmail = studentRepo.findByUsername(student.getEmail());
-				Student findDupeUsername = studentRepo.findByEmail(student.getUsername());
-				System.out.println(findDupedEmail);
-				System.out.println(findDupeUsername);
-				
-				studentRepo.save(student);
-				User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
-				return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
-			} else {
-				System.out.println(
-						professor.getName() + " "
-								+ professor.getLastname() + " "
-								+ professor.getUsername() + " "
-								+ professor.getEmail() + " "
-								+ professor.getRole()
-				);
-				professorRepo.save(professor);
-				User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
-				return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
+        } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
+        	System.out.println("dupe username");
+			return "RegView";
+        } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
+			System.out.println("dupe email");
+			return "RegView";
+        } else if (student.getRole() == 2) {
+			System.out.println( student.getName() + " "
+							+ student.getLastname() + " "
+							+ student.getUsername() + " "
+							+ student.getEmail() + " "
+							+ student.getRole()
+			);
+			studentRepo.save(student);
+			User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+			return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
+		} else {
+			System.out.println(
+					professor.getName() + " "
+							+ professor.getLastname() + " "
+							+ professor.getUsername() + " "
+							+ professor.getEmail() + " "
+							+ professor.getRole()
+			);
+			professorRepo.save(professor);
+			User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+			return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
 		}
 	}
     //--------------------------------------------------------------------//
