@@ -15,6 +15,11 @@ public interface StudentRepo extends CrudRepository<Student, Long> {
     public Iterable<Student> findByName(String username);
 	//public Iterable<Student> findAll(String lastname);
     public Student findByUsernameAndPassword(String username, String password);
+    
+    public Student findByUsername(String username);
+    
+    public Student findByEmail(String email);
+   
 
     Student findByGrades(Grade grade);
 

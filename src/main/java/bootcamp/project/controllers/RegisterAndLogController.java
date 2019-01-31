@@ -9,6 +9,8 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
+import bootcamp.project.users.User;
+
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -31,82 +33,116 @@ import java.util.Optional;
 @Controller
 public class RegisterAndLogController {
 
-	@Autowired
-	StudentRepo studentRepo;
-	@Autowired
-	CourseRepo courseRepo;
-	@Autowired
-	ProfessorRepo professorRepo;
+    @Autowired
+    StudentRepo studentRepo;
+    @Autowired
+    CourseRepo courseRepo;
+    @Autowired
+    ProfessorRepo professorRepo;
 
+    @GetMapping("/showAllUsers")
+    //@GetMapping("/showAllStudents")
+    public String showAllStudentsToView(Model model) {
+        Iterable<Student> userFromDB = studentRepo.findAll();
+        model.addAttribute("allUsers", userFromDB);
+        return "showAllUsers";
+    }
 
-	@GetMapping("/showAllUsers")
-	//@GetMapping("/showAllStudents")
-	public String showAllStudentsToView(Model model) {
-		Iterable<Student> userFromDB = studentRepo.findAll();
-		model.addAttribute("allUsers", userFromDB);
-		return "showAllUsers";
-	}
+    @GetMapping("/showAllProfessors")
+    public String showAllSProfessorsToView(Model model) {
+        Iterable<Professor> userFromDB2 = professorRepo.findAll();
+        model.addAttribute("allUsers", userFromDB2);
+        return "showAllUsers";
+    }
 
-	@GetMapping("/showAllProfessors")
-	public String showAllSProfessorsToView(Model model) {
-		Iterable<Professor> userFromDB2 = professorRepo.findAll();
-		model.addAttribute("allUsers", userFromDB2);
-		return "showAllUsers";
-	}
-	
-	// SHOW USER BY NAME
-	/*
-	 * @GetMapping("/showUserByName") public String showUserByName(
-	 * 
-	 * @RequestParam(name = "username", defaultValue = "Janis", required = false)
-	 * String username, Model model) { //Iterable<User> userResult =
-	 * userRepo.findByName(username); // model.addAttribute("allUsers", userResult);
-	 * return "showAllUsers"; }
-	 */
+    // SHOW USER BY NAME
+    /*
+     * @GetMapping("/showUserByName") public String showUserByName(
+     *
+     * @RequestParam(name = "username", defaultValue = "Janis", required = false)
+     * String username, Model model) { //Iterable<User> userResult =
+     * userRepo.findByName(username); // model.addAttribute("allUsers", userResult);
+     * return "showAllUsers"; }
+     */
     //--------------------------------------------------------------------//
     //-----------------------STUDENT--------------------------------------//
-	@GetMapping("/StudentMenu/{id}")
-	public String doorsStudent(Student student, @PathVariable(name = "id") long id) {
-		return "StudentMenu";
-	}
+    @GetMapping("/StudentMenu/{id}")
+    public String doorsStudent(Student student, @PathVariable(name = "id") long id) {
+        return "StudentMenu";
+    }
 
-	@PostMapping("/StudentMenu/{id}")
-	public String showStudentMenu(Student student, @PathVariable(name = "id") long id, @RequestParam(name = "studButton") String button) {
-		if (button.equals("regToCourse"))
-			return "redirect:/registerToCourse/" + id;
-		else if (button.equals("ShowMyCours"))
-			return "redirect:/showStudentCourses/" + id;
-		else
-			return "redirect:/ShowGrades/" + id;
-	}
+    @PostMapping("/StudentMenu/{id}")
+    public String showStudentMenu(Student student, @PathVariable(name = "id") long id, @RequestParam(name = "studButton") String button) {
+        if (button.equals("regToCourse"))
+            return "redirect:/registerToCourse/" + id;
+        else if (button.equals("ShowMyCours"))
+            return "redirect:/showStudentCourses/" + id;
+        else
+            return "redirect:/ShowGrades/" + id;
+    }
+
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
-	@GetMapping("/professorMenu/{id}")
-	public String doorsProfessor(Professor professor,@PathVariable(name = "id") long id) {
-		return "professorMenu";
-	}
-  
-	@PostMapping("/professorMenu/{id}")
-	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
-		if (button.equals("showMyCourse")) {
-			return "redirect:/showProfessorCourse/" + id;
-		} else if (button.equals("exportGrades")) {
-			return "redirect:/uploadExcelFile/" + id;
-		} else if (button.equals("uploadCourse"))
-			return "redirect:/DocView/"+ id;
-		else {
-			return "redirect:/insertNewCourse/"+ id;
-		}
-	}
+    @GetMapping("/professorMenu/{id}")
+    public String doorsProfessor(Professor professor, @PathVariable(name = "id") long id) {
+        return "professorMenu";
+    }
+
+    @PostMapping("/professorMenu/{id}")
+    public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
+        if (button.equals("showMyCourse")) {
+            return "redirect:/showCourseOptions/" + id;
+        } else if (button.equals("exportGrades"))
+            return "redirect:/uploadExcelFile/" + id;
+        else if (button.equals("uploadCourse"))
+            return "redirect:/DocView/" + id;
+        else {
+            return "redirect:/insertNewCourse/" + id;
+        }
+    }
+
+
+    @GetMapping("/showCourseOptions/{id}")
+    public String courseOptions(Professor professor, @PathVariable(name = "id") long id) {
+        return "showCourseOptions";
+    }
+
+    @PostMapping("/showCourseOptions/{id}")
+    public String courseOptions(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "optionButton") String button) {
+        if (button.equals("setGradesButton")) {
+            return "redirect:/setGradesView/" + id;
+        } else if (button.equals("showGradesButton"))
+            return "redirect:/showGradesView/" + id;
+        else {
+            return "redirect:/showProfessorCourse/" + id;
+        }
+    }
+
+    @GetMapping("/setGradesView/{id}")
+    public String courseOptionsSetGrade(Professor professor,@PathVariable(name = "id") long id) {
+        return "setGradesView";
+    }
+
+   // @PostMapping("/setGradesView/{id}")
+   // public String courseOptionsSetGrade(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "optionButton") String button) {
+   //     if (button.equals("setGradesButton")) {
+   //         return "redirect:/setGradesView/" + id;
+   //     } else if (button.equals("showGradesButton"))
+   //         return "redirect:/showGradesView/" + id;
+   //     else {
+   //         return "redirect:/showMyCourse/"+ id;
+   //     }
+   // }
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
-	@GetMapping("/RegView")
-	public String Registerer(Student student, Professor professor) {
-		return "RegView";
-	}
+    @GetMapping("/RegView")
+    public String Registerer(Student student, Professor professor) {
+        return "RegView";
+    }
 
-	@PostMapping("/RegView")
-	public String Register(@Valid Student student, Professor professor, BindingResult result) {
+    @PostMapping("/RegView")
+    public String Register(@Valid Student student, Professor professor, BindingResult result) {
         if (result.hasErrors()) {
             return "RegView";
         }
@@ -118,8 +154,14 @@ public class RegisterAndLogController {
 								+ student.getEmail() + " "
 								+ student.getRole()
 				);
+				Student findDupedEmail = studentRepo.findByUsername(student.getEmail());
+				Student findDupeUsername = studentRepo.findByEmail(student.getUsername());
+				System.out.println(findDupedEmail);
+				System.out.println(findDupeUsername);
+				
 				studentRepo.save(student);
-				return "StudentMenu";
+				User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+				return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
 			} else {
 				System.out.println(
 						professor.getName() + " "
@@ -129,7 +171,8 @@ public class RegisterAndLogController {
 								+ professor.getRole()
 				);
 				professorRepo.save(professor);
-				return "professorMenu";
+				User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+				return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
 		}
 	}
     //--------------------------------------------------------------------//
@@ -137,9 +180,7 @@ public class RegisterAndLogController {
 	@GetMapping("/DocView{id}")
 	public String DocReader(@PathVariable (required = false, name = "id") long id, Course hot) {
 		return "DocReader";
-
-	}
-
+    }
 	@PostMapping("/DocView/{id}")
 	public String DocReaderPost(@PathVariable (required = false, name = "id") long id,Top top, Course course){
 		//Optional<Professor> pr = professorRepo.findById(id);
@@ -179,20 +220,17 @@ public class RegisterAndLogController {
 					//for (int j = 0; j < table.getRow(i).getTableCells().size(); j++) {
 							/*	System.out.print(table.getRow(i).getCell(0).getText()+": ");
 							System.out.println(table.getRow(i).getCell(1).getText());*/
-					//}
-				}
-				//}
-			}
+                    //}
+                }
+                //}
+            }
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-    
-		courseRepo.save(hot);
-
-		return "redirect:/showAllCourses";
-	}
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        courseRepo.save(hot);
+        return "redirect:/showAllCourses";
+    }
 
 		@GetMapping("/showCourses")
 	  public String createNewStudent2(Student student) {
