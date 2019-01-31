@@ -80,6 +80,7 @@ public class SimpleController {
         Grade g5 = new Grade(3, c1, s3);
         Grade g3 = new Grade(4, c2, s3);
         Grade g4 = new Grade(5, c2, s2);
+        Grade g5 = new Grade(3, c2, s1);
         Grade g6 = new Grade(6, c3, s4);
         Grade g7 = new Grade(8, c4, s2);
         Grade g8 = new Grade(4, c3, s2);

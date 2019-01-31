@@ -123,26 +123,32 @@ public class RegisterAndLogController {
             return "redirect:/showProfessorCourse/" + id;
         }
     }
+  
+    @GetMapping("/showGradesView/{id}")
+	public String showGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
+    	
+		StudentsAndGradesList listOfdata = new StudentsAndGradesList();
+		Professor myProfessor = professorRepo.findById(id).get();
 
-    @GetMapping("/setGradesView/{id}")
-    public String setGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
-        StudentsAndGradesList listOfData = new StudentsAndGradesList();
-        Professor myProfessor = professorRepo.findById(id).get();
-        Course myCourse2 = courseRepo.findByProfessor(myProfessor);
-        ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
+		Course myCourse = courseRepo.findByProfessor(myProfessor);
+	
+		ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse);
 
-        for (Grade g : gradesOfMyCourse) {
-            Student stOfMyCourse = studentRepo.findByGrades(g);
-            System.out.println(stOfMyCourse.getName() + " "
-                    + stOfMyCourse.getLastname() + " "
-                    + g.getGrade());
-            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
-            listOfData.addNewItem(gh);
-        }
-        model.addAttribute("setStudentGrades", listOfData);
-        return "setGradesView";
-    }
+	
+		for (Grade g : gradesOfMyCourse) {
+			
+			Student stOfMyCourse = g.getStudent();
+			System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
 
+			gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+
+			listOfdata.addNewItem(gh);
+		}
+
+		model.addAttribute("dataToEvaluate", listOfdata);
+		return "showGradesView";
+
+	}   
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
