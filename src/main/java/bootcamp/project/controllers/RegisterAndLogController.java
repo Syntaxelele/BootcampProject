@@ -85,8 +85,8 @@ public class RegisterAndLogController {
 	@PostMapping("/professorMenu/{id}")
 	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
 		if (button.equals("showMyCourse")) {
-			return "redirect:/showProfessorCourse/" + id;
-		} else if (button.equals("exportGrades")) {
+			return "redirect:/showCourseOptions/" + id;
+		} else if (button.equals("exportGrades"))
 			return "redirect:/uploadExcelFile/" + id;
 		} else if (button.equals("uploadCourse"))
 			return "redirect:/DocView";
@@ -94,6 +94,23 @@ public class RegisterAndLogController {
 			return "redirect:/insertNewCourse/"+ id;
 		}
 	}
+
+	@GetMapping("/showCourseOptions/{id}")
+	public String courseOptions(Professor professor,@PathVariable(name = "id") long id) {
+		return "showCourseOptions";
+	}
+
+	@PostMapping("/showCourseOptions/{id}")
+	public String courseOptions(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "optionButton") String button) {
+		if (button.equals("setGradesButton")) {
+			return "redirect:/setGradesView/" + id;
+		} else if (button.equals("showGradesButton"))
+			return "redirect:/showGradesView/" + id;
+		else {
+			return "redirect:/showProfessorCourse/"+ id;
+		}
+	}
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
 	@GetMapping("/RegView")

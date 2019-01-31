@@ -150,7 +150,8 @@ public class CourseController {
 
         model.addAttribute("regToCourse", courseFromDB);
         model.addAttribute("listOfCheck", checkBoxList);
-        return "registerToCourse/{id}"+id;/*added it here*/
+
+            return "registerToCourse";
     }
     @PostMapping(value = "/registerToCourse/{id}")
     public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
@@ -168,6 +169,6 @@ public class CourseController {
             }
             coursesindex++;
         }
-        return "redirect:/showMyCourse/{id}"+id; /*added it here*/
+        return "redirect:/showStudentCourses/"+id;
     }
 }

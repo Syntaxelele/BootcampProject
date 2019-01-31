@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>
+        My Course Options
+    </title>
+</head>
+<body>
+<table>
+    <form action="#" method="post" th:action="@{/showCourseOptions/__${id}__}">
+        <td><button name="optionButton" th:value="setGradesButton" type="submit">Set grades</button></td>
+        <td><button name="optionButton" th:value="showGradesButton" type="submit">Show grades</button></td>
+        <td><button name="optionButton" th:value="courseInfoButton" type="submit">Show course info</button></td>
+    </form>
+</table>
+</body>
+</html>
