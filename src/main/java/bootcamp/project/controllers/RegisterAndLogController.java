@@ -2,7 +2,9 @@ package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
 import bootcamp.project.courses.Grade;
+import bootcamp.project.helper.StudentsAndGradesList;
 import bootcamp.project.helper.Top;
+import bootcamp.project.helper.gradesHelper;
 import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.GradeRepo;
 import bootcamp.project.repo.ProfessorRepo;
@@ -11,6 +13,7 @@ import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
 import bootcamp.project.users.User;
 
+import org.apache.poi.hssf.record.pivottable.StreamIDRecord;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.FileInputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,6 +43,8 @@ public class RegisterAndLogController {
     CourseRepo courseRepo;
     @Autowired
     ProfessorRepo professorRepo;
+    @Autowired
+    GradeRepo gradeRepo;
 
     @GetMapping("/showAllUsers")
     //@GetMapping("/showAllStudents")
@@ -100,7 +106,7 @@ public class RegisterAndLogController {
             return "redirect:/insertNewCourse/" + id;
         }
     }
-
+//------------------------COURSE OPTIONS-----------------------------------//
 
     @GetMapping("/showCourseOptions/{id}")
     public String courseOptions(Professor professor, @PathVariable(name = "id") long id) {
@@ -117,10 +123,26 @@ public class RegisterAndLogController {
             return "redirect:/showProfessorCourse/" + id;
         }
     }
-    @GetMapping("/showGradesView/{id}")
-    public String showGrades(Professor professor, @PathVariable(name = "id") long id) {
-        return "showGrades";
+
+    @GetMapping("/setGradesView/{id}")
+    public String setGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
+        StudentsAndGradesList listOfData = new StudentsAndGradesList();
+        Professor myProfessor = professorRepo.findById(id).get();
+        Course myCourse2 = courseRepo.findByProfessor(myProfessor);
+        ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
+
+        for (Grade g : gradesOfMyCourse) {
+            Student stOfMyCourse = studentRepo.findByGrades(g);
+            System.out.println(stOfMyCourse.getName() + " "
+                    + stOfMyCourse.getLastname() + " "
+                    + g.getGrade());
+            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+            listOfData.addNewItem(gh);
+        }
+        model.addAttribute("setStudentGrades", listOfData);
+        return "setGradesView";
     }
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
@@ -133,78 +155,80 @@ public class RegisterAndLogController {
         if (result.hasErrors()) {
             return "RegView";
         }
-			if (student.getRole() == 2) {
-				System.out.println(
-						student.getName() + " "
-								+ student.getLastname() + " "
-								+ student.getUsername() + " "
-								+ student.getEmail() + " "
-								+ student.getRole()
-				);
-				Student findDupedEmail = studentRepo.findByUsername(student.getEmail());
-				Student findDupeUsername = studentRepo.findByEmail(student.getUsername());
-				System.out.println(findDupedEmail);
-				System.out.println(findDupeUsername);
-				
-				studentRepo.save(student);
-				User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
-				return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
-			} else {
-				System.out.println(
-						professor.getName() + " "
-								+ professor.getLastname() + " "
-								+ professor.getUsername() + " "
-								+ professor.getEmail() + " "
-								+ professor.getRole()
-				);
-				professorRepo.save(professor);
-				User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
-				return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
-		}
-	}
+        if (student.getRole() == 2) {
+            System.out.println(
+                    student.getName() + " "
+                            + student.getLastname() + " "
+                            + student.getUsername() + " "
+                            + student.getEmail() + " "
+                            + student.getRole()
+            );
+            Student findDupedEmail = studentRepo.findByUsername(student.getEmail());
+            Student findDupeUsername = studentRepo.findByEmail(student.getUsername());
+            System.out.println(findDupedEmail);
+            System.out.println(findDupeUsername);
+
+            studentRepo.save(student);
+            User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+            return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
+        } else {
+            System.out.println(
+                    professor.getName() + " "
+                            + professor.getLastname() + " "
+                            + professor.getUsername() + " "
+                            + professor.getEmail() + " "
+                            + professor.getRole()
+            );
+            professorRepo.save(professor);
+            User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+            return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
+        }
+    }
+
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
-	@GetMapping("/DocView{id}")
-	public String DocReader(@PathVariable (required = false, name = "id") long id, Course hot) {
-		return "DocReader";
+    @GetMapping("/DocView{id}")
+    public String DocReader(@PathVariable(required = false, name = "id") long id, Course hot) {
+        return "DocReader";
     }
-	@PostMapping("/DocView/{id}")
-	public String DocReaderPost(@PathVariable (required = false, name = "id") long id,Top top, Course course){
-		//Optional<Professor> pr = professorRepo.findById(id);
-		//Optional<Professor> findbyIDProf = professorRepo.findById(id);
-		Course hot = new Course();
-		//Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
-		//professorRepo.save(P);
-		Optional<Professor> ProfFromDB = professorRepo.findById(id);
-		//professorRepo.save(pr);
+
+    @PostMapping("/DocView/{id}")
+    public String DocReaderPost(@PathVariable(required = false, name = "id") long id, Top top, Course course) {
+        //Optional<Professor> pr = professorRepo.findById(id);
+        //Optional<Professor> findbyIDProf = professorRepo.findById(id);
+        Course hot = new Course();
+        //Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
+        //professorRepo.save(P);
+        Optional<Professor> ProfFromDB = professorRepo.findById(id);
+        //professorRepo.save(pr);
 		/*Course c = new Course("Math", "desc", P, "11",
 				"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
-		try {
-			FileInputStream fis = new FileInputStream(top.getDocPath());
+        try {
+            FileInputStream fis = new FileInputStream(top.getDocPath());
 
-			XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
-			Iterator bodyElementIterator = xdoc.getBodyElementsIterator();
-			while (bodyElementIterator.hasNext()) {
-				IBodyElement element = (IBodyElement) bodyElementIterator.next();
+            XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
+            Iterator bodyElementIterator = xdoc.getBodyElementsIterator();
+            while (bodyElementIterator.hasNext()) {
+                IBodyElement element = (IBodyElement) bodyElementIterator.next();
 
-				if ("TABLE".equalsIgnoreCase(element.getElementType().name())) {
-					List<XWPFTable> tableList = element.getBody().getTables();
-					XWPFTable table = tableList.get(0);
-					//for (XWPFTable table : tableList) {
-					System.out.println("Total Number of Rows of Table:" + table.getNumberOfRows());
-					//for (int i = 0; i < table.getRows().size(); i++) {
-					hot.setTitle(table.getRow(0).getCell(1).getText());
-					hot.setCourseCode(table.getRow(2).getCell(1).getText());
-					hot.setEvaluation(table.getRow(3).getCell(1).getText());
-					//hot.setProfessor(P);
-					hot.setProfessor(ProfFromDB.get());
-					hot.setCP(table.getRow(4).getCell(1).getText().charAt(0));
-					hot.setPrereq(table.getRow(5).getCell(1).getText());
-					hot.setObjective(table.getRow(6).getCell(1).getText());
-					hot.setOutcome(table.getRow(7).getCell(1).getText());
-					System.out.println(table.getRow(8).getCell(1).getText().length());
-					hot.setContent(table.getRow(8).getCell(1).getText());
-					//for (int j = 0; j < table.getRow(i).getTableCells().size(); j++) {
+                if ("TABLE".equalsIgnoreCase(element.getElementType().name())) {
+                    List<XWPFTable> tableList = element.getBody().getTables();
+                    XWPFTable table = tableList.get(0);
+                    //for (XWPFTable table : tableList) {
+                    System.out.println("Total Number of Rows of Table:" + table.getNumberOfRows());
+                    //for (int i = 0; i < table.getRows().size(); i++) {
+                    hot.setTitle(table.getRow(0).getCell(1).getText());
+                    hot.setCourseCode(table.getRow(2).getCell(1).getText());
+                    hot.setEvaluation(table.getRow(3).getCell(1).getText());
+                    //hot.setProfessor(P);
+                    hot.setProfessor(ProfFromDB.get());
+                    hot.setCP(table.getRow(4).getCell(1).getText().charAt(0));
+                    hot.setPrereq(table.getRow(5).getCell(1).getText());
+                    hot.setObjective(table.getRow(6).getCell(1).getText());
+                    hot.setOutcome(table.getRow(7).getCell(1).getText());
+                    System.out.println(table.getRow(8).getCell(1).getText().length());
+                    hot.setContent(table.getRow(8).getCell(1).getText());
+                    //for (int j = 0; j < table.getRow(i).getTableCells().size(); j++) {
 							/*	System.out.print(table.getRow(i).getCell(0).getText()+": ");
 							System.out.println(table.getRow(i).getCell(1).getText());*/
                     //}
@@ -219,20 +243,21 @@ public class RegisterAndLogController {
         return "redirect:/showAllCourses";
     }
 
-		@GetMapping("/showCourses")
-	  public String createNewStudent2(Student student) {
-		return "showAllCourses";
-	}
+    @GetMapping("/showCourses")
+    public String createNewStudent2(Student student) {
+        return "showAllCourses";
+    }
 
-	Logger logger = LoggerFactory.getLogger(AuthController.class);
-	@RequestMapping("/logs")
-	public String Logs() {
-		logger.trace("A TRACE Message");
-		logger.debug("A DEBUG Message");
-		logger.info("An INFO Message");
-		logger.warn("A WARN Message");
-		logger.error("An ERROR Message");
+    Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-		return "Howdy! Check out the Logs to see the output...";
-	}
+    @RequestMapping("/logs")
+    public String Logs() {
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+
+        return "Howdy! Check out the Logs to see the output...";
+    }
 }

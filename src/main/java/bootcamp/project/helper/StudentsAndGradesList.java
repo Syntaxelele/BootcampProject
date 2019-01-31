@@ -13,7 +13,7 @@ public class StudentsAndGradesList {
 			this.studentsAndGradesList = studentsAndGradesList;
 		}
 		
-		public List<gradesHelper> getstudentsAndGradesList() {
+		public List<gradesHelper> getStudentsAndGradesList() {
 			return studentsAndGradesList;
 		}
 
@@ -33,15 +33,9 @@ public class StudentsAndGradesList {
 
 		@Override
 		public String toString() {
-			return "StudentsAndGradesList [allDataForGradeEvaluateView=" + studentsAndGradesList + "]";
+			return "StudentsAndGradesList [allDataForSetGradeView=" + studentsAndGradesList + "]";
 		}
 		
 		
 
 	}
-
-	
-	
-	
-
-}
