@@ -70,10 +70,10 @@ public class SimpleController {
                 "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
         courseRepo.save(c4);
 
-        c2.setProfessor(pr1);
-        c1.setProfessor(pr2);
-        c4.setProfessor(pr3);
-        c3.setProfessor(pr4);
+        //c2.setProfessor(pr1);
+        //c1.setProfessor(pr2);
+        //c4.setProfessor(pr3);
+        //c3.setProfessor(pr4);
 
         Grade g1 = new Grade(1, c1, s1);
         Grade g2 = new Grade(9, c1, s2);
