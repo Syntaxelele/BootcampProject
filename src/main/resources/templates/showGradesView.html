@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show my course</title>
+</head>
+<body>
+<table border="1">
+    <form action="#" method="get" name="ShowGrades" th:action="@{/showGradesView/__${id}__}"
+          th:object="${dataToEvaluate}">
+
+        <th:block>
+        <td th:text="${course.getCourseID()}">...</td>
+        <td th:text="${course.getTitle()}">...</td>
+        <td th:text="${course.getProfessor()}">...</td>
+        <td th:text="${course.getCourseCode()}">...</td>
+        <td th:text="${course.getCP()}">...</td>
+        <td th:text="${course.getDescription()}">...</td>
+        <td th:text="${course.getEvaluation()}">...</td>
+        <td th:text="${course.getContent()}">...</td>
+        <td th:text="${course.getObjective()}">...</td>
+        <td th:text="${course.getOutcome()}">...</td>
+        <td th:text="${course.getPrereq()}">...</td>
+        </th:block>
+    </form>
+</table>
+</body>
+</html>

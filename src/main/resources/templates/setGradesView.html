@@ -6,11 +6,12 @@
 <body>
 <form action="#" th:action="@{/setGradesView/__${id}__}" th:object="${setStudentGrades}" method="post">
     <table>
-            <th:block th:each="gr, itemStat : *{listOfInfoForView}">
+            <th:block th:each="gr, itemStat : *{studentsAndGradesList}">
                 <tr>
                     <td th:text="${gr.getStudentName()}">...</td>
-                    <td th:text="${gr.getStudentSurname()}">...</td>
-                    <td><input th:field="*{listOfInfoForView[__${itemStat.index}__].grade}"/></td>
+                    <td th:text="${gr.getStudentLastname()}">...</td>
+
+                    <td><input th:field="*{studentsAndGradesList[__${itemStat.index}__].grade}"/></td>
                 </tr>
             </th:block>
         <tr>
