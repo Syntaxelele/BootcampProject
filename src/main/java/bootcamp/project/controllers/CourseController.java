@@ -114,7 +114,8 @@ public class CourseController {
     }
 
     @PostMapping("/insertNewCourse/{id}")
-    public String getCourseFromView(@PathVariable(required = false, name = "id") long id, @Valid Course course, BindingResult result) {
+    public String getCourseFromView(@PathVariable(required = false, name = "id") long id,
+                                    @Valid Course course, BindingResult result) {
         if (result.hasErrors()) {
             return "courseInput";
         }
@@ -154,7 +155,7 @@ public class CourseController {
 
         model.addAttribute("regToCourse", courseFromDB);
         model.addAttribute("listOfCheck", checkBoxList);
-        return "registerToCourse";
+        return "registerToCourse/{id}"+id;/*added it here*/
     }
     @PostMapping(value = "/registerToCourse/{id}")
     public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
@@ -166,13 +167,13 @@ public class CourseController {
             if (i == null){
 
             }
-            else /*(i.equals(true))*/{
+            else {
                 Grade g1 = new Grade(0,courses1.get(coursesindex),student1 );
                 gradeRepo.save(g1);
             }
             coursesindex++;
         }
-        return "redirect:/successfulButtonRead";
+        return "redirect:/showMyCourse/{id}"+id; /*added it here*/
     }
 }
 
