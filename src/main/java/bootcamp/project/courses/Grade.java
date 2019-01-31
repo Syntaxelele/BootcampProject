@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import bootcamp.project.users.Student;
@@ -20,6 +22,7 @@ public class Grade {
     private long id_g;
 
     @Column(name = "grade")
+    @Min(1)@Max(10)
     private int grade;
 
     @ManyToOne(targetEntity = Course.class)

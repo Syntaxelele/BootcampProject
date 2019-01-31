@@ -46,6 +46,8 @@ public class RegisterAndLogController {
     @Autowired
     GradeRepo gradeRepo;
 
+    Logger logger = LoggerFactory.getLogger(RegisterAndLogController.class);
+
     @GetMapping("/showAllUsers")
     //@GetMapping("/showAllStudents")
     public String showAllStudentsToView(Model model) {
@@ -123,32 +125,101 @@ public class RegisterAndLogController {
             return "redirect:/showProfessorCourse/" + id;
         }
     }
-  
+
     @GetMapping("/showGradesView/{id}")
-	public String showGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
-    	
-		StudentsAndGradesList listOfdata = new StudentsAndGradesList();
-		Professor myProfessor = professorRepo.findById(id).get();
+    public String showGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
 
-		Course myCourse = courseRepo.findByProfessor(myProfessor);
-	
-		ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse);
+        StudentsAndGradesList listOfdata = new StudentsAndGradesList();
+        Professor myProfessor = professorRepo.findById(id).get();
 
-	
-		for (Grade g : gradesOfMyCourse) {
-			
-			Student stOfMyCourse = g.getStudent();
-			System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
+        Course myCourse = courseRepo.findByProfessor(myProfessor);
 
-			gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+        ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse);
 
-			listOfdata.addNewItem(gh);
-		}
 
-		model.addAttribute("dataToEvaluate", listOfdata);
-		return "showGradesView";
+        for (Grade g : gradesOfMyCourse) {
 
-	}   
+            Student stOfMyCourse = g.getStudent();
+            System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
+
+            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+
+            listOfdata.addNewItem(gh);
+        }
+
+        model.addAttribute("dataToEvaluate", listOfdata);
+        return "showGradesView";
+
+    }
+
+    @GetMapping("/setGradesView/{id}")
+    public String setGradesView(Professor professor, @PathVariable(name = "id") long id, Model model) {
+
+        StudentsAndGradesList listOfdata = new StudentsAndGradesList();
+        Professor myProfessor2 = professorRepo.findById(id).get();
+
+        Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
+
+        ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
+
+
+        for (Grade g : gradesOfMyCourse) {
+
+            Student stOfMyCourse2 = g.getStudent();
+            System.out.println(stOfMyCourse2.getName() + " " + stOfMyCourse2.getLastname() + " " + g.getGrade());
+
+            gradesHelper gh2 = new gradesHelper(stOfMyCourse2.getName(), stOfMyCourse2.getLastname(), g.getGrade());
+
+            listOfdata.addNewItem(gh2);
+        }
+        model.addAttribute("setStudentGrades", listOfdata);
+        return "setGradesView";
+
+    }
+
+    @PostMapping("setGradesView/{id}")
+    public String setGradesViewPost(@PathVariable(name = "id") long id, Professor professor,
+                                    StudentsAndGradesList listOfData, BindingResult result){
+        if (result.hasErrors()){
+            return "setGradesView";
+        }
+        Professor myProfessor2 = professorRepo.findById(id).get();
+
+        Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
+
+        ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
+
+        for (int i = 0; i < listOfData.studentsAndGradesList.size(); i++) {
+            int gtemp = listOfData.studentsAndGradesList.get(i).getGrade();
+            gradesOfMyCourse.get(i).setGrade(gtemp);
+            gradeRepo.save(gradesOfMyCourse.get(i));
+        }
+        return "redirect:/showGradesView/" + id;
+    }
+
+    //   @PostMapping("/showEvaluationView")
+    //   public String testEvaluationViewPost(ListOfInfoForView allDataWithGrade) {
+    //       // find JAVA course
+    //       Course courseJava = courseRepo.findByTitle("JAVA");
+//
+    //       // get only grades realted to JAVA course
+    //       ArrayList<Grade> gradesInJava = gradeRepo.findByCourse(courseJava);
+//
+    //       // print out grades
+    //       for (InfoForView info : allDataWithGrade.listOfInfoForView)
+    //           System.out.println(info.getGrade());
+//
+    //       // set grades in grade repo - data taken from allDataWithGrade
+    //       for (int i = 0; i < gradesInJava.size(); i++) {
+    //           gradesInJava.get(i).setGradeValue(allDataWithGrade.getListOfInfoForView().get(i).getGrade());
+    //           gradeRepo.save(gradesInJava.get(i));
+    //       }
+//
+    //       return "redirect:/testShowAvgOfCourse";
+//
+    //   }
+
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
@@ -158,42 +229,45 @@ public class RegisterAndLogController {
 
     @PostMapping("/RegView")
     public String Register(@Valid Student student, Professor professor, BindingResult result) {
-    	
-    	Student findDupeUsername = studentRepo.findByUsername(student.getUsername());
-    	Student findDupeEmail = studentRepo.findByEmail(student.getEmail());
-    	
+
+        Student findDupeUsername = studentRepo.findByUsername(student.getUsername());
+        Student findDupeEmail = studentRepo.findByEmail(student.getEmail());
+
         if (result.hasErrors()) {
-        	System.out.println("hasErrroooorsInView");
+            System.out.println("hasErrroooorsInView");
             return "RegView";
         } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
+            logger.info("User is already registered");
         	System.out.println("dupe username");
 			    return "RegView";
         } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
+            logger.info("User is already registered");
 			    System.out.println("dupe email");
 			    return "RegView";
         } else if (student.getRole() == 2) {
-			    System.out.println( student.getName() + " "
-							+ student.getLastname() + " "
-							+ student.getUsername() + " "
-							+ student.getEmail() + " "
-							+ student.getRole()
-			);
-			studentRepo.save(student);
-			User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
-			return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
-		} else {
-			System.out.println(
-					professor.getName() + " "
-							+ professor.getLastname() + " "
-							+ professor.getUsername() + " "
-							+ professor.getEmail() + " "
-							+ professor.getRole()
-			);
-			professorRepo.save(professor);
-			User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
-			return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
-		}
-	}
+            System.out.println(student.getName() + " "
+                    + student.getLastname() + " "
+                    + student.getUsername() + " "
+                    + student.getEmail() + " "
+                    + student.getRole()
+            );
+            studentRepo.save(student);
+            User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+            return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
+        } else {
+            System.out.println(
+                    professor.getName() + " "
+                            + professor.getLastname() + " "
+                            + professor.getUsername() + " "
+                            + professor.getEmail() + " "
+                            + professor.getRole()
+            );
+            professorRepo.save(professor);
+            User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+            return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
+        }
+    }
+
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
     @GetMapping("/DocView{id}")
@@ -257,16 +331,5 @@ public class RegisterAndLogController {
         return "showAllCourses";
     }
 
-    Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    @RequestMapping("/logs")
-    public String Logs() {
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
-
-        return "Howdy! Check out the Logs to see the output...";
-    }
 }
