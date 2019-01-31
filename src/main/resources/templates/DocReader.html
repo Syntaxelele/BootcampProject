@@ -6,11 +6,11 @@
 
 </head>
 <body>
-<form action="#" th:action="@{/DocView}" th:object="${top}" method="post">
+<form action="#" th:action="@{/DocView/__${id}__}" th:object="${top}" method="post">
     <input type="file" name="files" th:field="*{docPath}" accept=".doc, .docx">
 
     <!--<form action="/DocRView" method="get" th:field="*{DocPath}" enctype="multipart/form-data">-->
-    <input type="submit" value="Upload Files" th:action="@{/DocView}" ></input>
+    <input type="submit" value="Upload Files" th:action="@{/DocView/__${id}__}" ></input>
     <form action="/DocView" method="get" th:field="*{docPath}" enctype="multipart/form-data">
     </form>
 </form>
