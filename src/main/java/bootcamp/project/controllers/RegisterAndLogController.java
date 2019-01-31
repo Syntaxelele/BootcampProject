@@ -1,31 +1,38 @@
 package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
+import bootcamp.project.courses.Grade;
+import bootcamp.project.helper.StudentsAndGradesList;
 import bootcamp.project.helper.Top;
+import bootcamp.project.helper.gradesHelper;
 import bootcamp.project.repo.CourseRepo;
+import bootcamp.project.repo.GradeRepo;
 import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
 import bootcamp.project.users.User;
 
+import org.apache.poi.hssf.record.pivottable.StreamIDRecord;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.FileInputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class RegisterAndLogController {
@@ -36,6 +43,8 @@ public class RegisterAndLogController {
     CourseRepo courseRepo;
     @Autowired
     ProfessorRepo professorRepo;
+    @Autowired
+    GradeRepo gradeRepo;
 
     @GetMapping("/showAllUsers")
     //@GetMapping("/showAllStudents")
@@ -92,12 +101,12 @@ public class RegisterAndLogController {
         } else if (button.equals("exportGrades"))
             return "redirect:/uploadExcelFile/" + id;
         else if (button.equals("uploadCourse"))
-            return "redirect:/DocView";
+            return "redirect:/DocView/" + id;
         else {
             return "redirect:/insertNewCourse/" + id;
         }
     }
-
+//------------------------COURSE OPTIONS-----------------------------------//
 
     @GetMapping("/showCourseOptions/{id}")
     public String courseOptions(Professor professor, @PathVariable(name = "id") long id) {
@@ -114,7 +123,32 @@ public class RegisterAndLogController {
             return "redirect:/showProfessorCourse/" + id;
         }
     }
+  
+    @GetMapping("/showGradesView/{id}")
+	public String showGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
+    	
+		StudentsAndGradesList listOfdata = new StudentsAndGradesList();
+		Professor myProfessor = professorRepo.findById(id).get();
 
+		Course myCourse = courseRepo.findByProfessor(myProfessor);
+	
+		ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse);
+
+	
+		for (Grade g : gradesOfMyCourse) {
+			
+			Student stOfMyCourse = g.getStudent();
+			System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
+
+			gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+
+			listOfdata.addNewItem(gh);
+		}
+
+		model.addAttribute("dataToEvaluate", listOfdata);
+		return "showGradesView";
+
+	}   
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
@@ -133,12 +167,12 @@ public class RegisterAndLogController {
             return "RegView";
         } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
         	System.out.println("dupe username");
-			return "RegView";
+			    return "RegView";
         } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
-			System.out.println("dupe email");
-			return "RegView";
+			    System.out.println("dupe email");
+			    return "RegView";
         } else if (student.getRole() == 2) {
-			System.out.println( student.getName() + " "
+			    System.out.println( student.getName() + " "
 							+ student.getLastname() + " "
 							+ student.getUsername() + " "
 							+ student.getEmail() + " "
@@ -162,19 +196,20 @@ public class RegisterAndLogController {
 	}
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
-    @GetMapping("/DocView")
-    public String DocReader(Top top) {
+    @GetMapping("/DocView{id}")
+    public String DocReader(@PathVariable(required = false, name = "id") long id, Course hot) {
         return "DocReader";
-
     }
 
-    @PostMapping("/DocView")
-    public String DocReaderPost(Top top) {
-        System.out.println(top.getDocPath());
+    @PostMapping("/DocView/{id}")
+    public String DocReaderPost(@PathVariable(required = false, name = "id") long id, Top top, Course course) {
+        //Optional<Professor> pr = professorRepo.findById(id);
+        //Optional<Professor> findbyIDProf = professorRepo.findById(id);
         Course hot = new Course();
-        Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
-        professorRepo.save(P);
-
+        //Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
+        //professorRepo.save(P);
+        Optional<Professor> ProfFromDB = professorRepo.findById(id);
+        //professorRepo.save(pr);
 		/*Course c = new Course("Math", "desc", P, "11",
 				"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
         try {
@@ -194,7 +229,8 @@ public class RegisterAndLogController {
                     hot.setTitle(table.getRow(0).getCell(1).getText());
                     hot.setCourseCode(table.getRow(2).getCell(1).getText());
                     hot.setEvaluation(table.getRow(3).getCell(1).getText());
-                    hot.setProfessor(P);
+                    //hot.setProfessor(P);
+                    hot.setProfessor(ProfFromDB.get());
                     hot.setCP(table.getRow(4).getCell(1).getText().charAt(0));
                     hot.setPrereq(table.getRow(5).getCell(1).getText());
                     hot.setObjective(table.getRow(6).getCell(1).getText());
@@ -212,15 +248,25 @@ public class RegisterAndLogController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         courseRepo.save(hot);
-
-        return "redirect:/DocReader";
+        return "redirect:/showAllCourses";
     }
-
 
     @GetMapping("/showCourses")
     public String createNewStudent2(Student student) {
         return "showAllCourses";
+    }
+
+    Logger logger = LoggerFactory.getLogger(AuthController.class);
+
+    @RequestMapping("/logs")
+    public String Logs() {
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+
+        return "Howdy! Check out the Logs to see the output...";
     }
 }

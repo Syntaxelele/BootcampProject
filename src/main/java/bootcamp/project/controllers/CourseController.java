@@ -82,7 +82,7 @@ public class CourseController {
         courseRepo.findAll().forEach(course -> System.out.println(course));
         return "showAllCourses";
     }
-    
+
     @GetMapping(value = "/showProfessorCourse/{id}")
     public String showProfessorCourseToView(@PathVariable(required = false, name = "id") int id, Model model) {
         //model.addAttribute("allCourses", courseRepo.findAll());
@@ -169,4 +169,8 @@ public class CourseController {
         }
         return "redirect:/showStudentCourses/"+id;
     }
+
+
+
+
 }
