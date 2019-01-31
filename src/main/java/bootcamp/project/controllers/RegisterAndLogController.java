@@ -267,7 +267,12 @@ public class RegisterAndLogController {
             return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
         }
     }
-
+    //--------------------------------------------------------------------//
+    //-----------------------FORGOT PASSWORD------------------------------//
+    @GetMapping("/forgotPass")
+    public String Forgot(Student student, Professor professor) {
+        return "forgotPass";
+    }
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
     @GetMapping("/DocView/{id}")
@@ -323,7 +328,7 @@ public class RegisterAndLogController {
             ex.printStackTrace();
         }
         courseRepo.save(hot);
-        return "redirect:/showAllCourses";
+        return "redirect:/showProfessorCourse/" + id;
     }
 
     @GetMapping("/showCourses")

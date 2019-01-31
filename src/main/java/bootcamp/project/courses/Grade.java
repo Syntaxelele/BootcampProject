@@ -22,7 +22,7 @@ public class Grade {
     private long id_g;
 
     @Column(name = "grade")
-    @Min(1)@Max(10)
+    @Min(0)@Max(10)
     private int grade;
 
     @ManyToOne(targetEntity = Course.class)
