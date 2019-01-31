@@ -7,6 +7,8 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
+import bootcamp.project.users.User;
+
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -125,29 +127,35 @@ public class RegisterAndLogController {
         if (result.hasErrors()) {
             return "RegView";
         }
-        if (student.getRole() == 2) {
-            System.out.println(
-                    student.getName() + " "
-                            + student.getLastname() + " "
-                            + student.getUsername() + " "
-                            + student.getEmail() + " "
-                            + student.getRole()
-            );
-            studentRepo.save(student);
-            return "StudentMenu";
-        } else {
-            System.out.println(
-                    professor.getName() + " "
-                            + professor.getLastname() + " "
-                            + professor.getUsername() + " "
-                            + professor.getEmail() + " "
-                            + professor.getRole()
-            );
-            professorRepo.save(professor);
-            return "professorMenu";
-        }
-    }
-
+			if (student.getRole() == 2) {
+				System.out.println(
+						student.getName() + " "
+								+ student.getLastname() + " "
+								+ student.getUsername() + " "
+								+ student.getEmail() + " "
+								+ student.getRole()
+				);
+				Student findDupedEmail = studentRepo.findByUsername(student.getEmail());
+				Student findDupeUsername = studentRepo.findByEmail(student.getUsername());
+				System.out.println(findDupedEmail);
+				System.out.println(findDupeUsername);
+				
+				studentRepo.save(student);
+				User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+				return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
+			} else {
+				System.out.println(
+						professor.getName() + " "
+								+ professor.getLastname() + " "
+								+ professor.getUsername() + " "
+								+ professor.getEmail() + " "
+								+ professor.getRole()
+				);
+				professorRepo.save(professor);
+				User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+				return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
+		}
+	}
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
     @GetMapping("/DocView")
