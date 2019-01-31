@@ -1,9 +1,13 @@
 package bootcamp.project.helper;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class gradesHelper {
 
 		private String studentName;
 		private String studentLastname;
+		@Min(1)@Max(10)
 		private int grade;
 		public String getStudentName() {
 			return studentName;
