@@ -88,6 +88,8 @@ public class RegisterAndLogController {
 			return "redirect:/showCourseOptions/" + id;
 		} else if (button.equals("exportGrades"))
 			return "redirect:/uploadExcelFile/" + id;
+		} else if (button.equals("uploadCourse"))
+			return "redirect:/DocView";
 		else {
 			return "redirect:/insertNewCourse/"+ id;
 		}
