@@ -1,17 +1,21 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Show course grades</title>
+  <title>Show grades</title>
 </head>
 <body>
-<table border="1">
-    <th:block th:each="d : ${dataToEvaluate.studentsAndGradesList}"><br>
-        <tr>
-            <td th:text="${d.getStudentName()}">NONE</td>
-            <td th:text="${d.getStudentLastname()}">NONE</td>
-            <td th:text="${d.getGrade()}">NONE</td>
-        </tr>
-    </th:block>
-</table>
+    
+       <!--   <form action="#" method="get" name="ShowGrades" th:action="@{/showGradesView/__${id}__}" th:object="${dataToEvaluate}"> -->
+            <table border="1">
+        <th:block th:each="d : ${dataToEvaluate.studentsAndGradesList}">
+            <tr>
+                <td th:text="${d.getStudentName()}">...</td>
+                <td th:text="${d.getStudentLastname()}">...</td>
+                <td th:text="${d.getGrade()}">...</td>
+                
+            </tr>
+        </th:block>
+        </table>
+        <!--  </form>-->
 </body>
 </html>

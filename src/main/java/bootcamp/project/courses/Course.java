@@ -16,7 +16,7 @@ import bootcamp.project.users.Student;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "courseID")
+    @Column(name = "courseID", unique = true, nullable = false)
     private long courseID;
 
     @Column(name = "courseTitle")
