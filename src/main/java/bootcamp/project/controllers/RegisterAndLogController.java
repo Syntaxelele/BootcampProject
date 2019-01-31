@@ -86,8 +86,10 @@ public class RegisterAndLogController {
 	public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
 		if (button.equals("showMyCourse")) {
 			return "redirect:/showProfessorCourse/" + id;
-		} else if (button.equals("exportGrades"))
+		} else if (button.equals("exportGrades")) {
 			return "redirect:/uploadExcelFile/" + id;
+		} else if (button.equals("uploadCourse"))
+			return "redirect:/DocView";
 		else {
 			return "redirect:/insertNewCourse/"+ id;
 		}
