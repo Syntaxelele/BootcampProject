@@ -113,6 +113,15 @@ public class RegisterAndLogController {
         }
     }
 
+    @GetMapping("/showGradesView/{id}")
+    public String showGrades(Professor professor, @PathVariable(name = "id") long id) {
+        return "showGrades";
+    }
+
+   
+    
+
+    
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
