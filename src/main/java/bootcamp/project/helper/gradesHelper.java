@@ -31,10 +31,13 @@ public class gradesHelper {
 		}
 		public gradesHelper() {
 		}
-		
+
 		@Override
 		public String toString() {
-			return "InfoForView [studentName=" + studentName + ", studentLastname=" + studentLastname + ", grade=" + grade + "]";
+			return "setGradesView [studentName=" + studentName
+					+ ", studentLastname=" + studentLastname
+					+ ", grade=" + grade
+					+ "]";
 		}
 		
 	
