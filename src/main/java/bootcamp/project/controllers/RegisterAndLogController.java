@@ -115,6 +115,23 @@ public class RegisterAndLogController {
         }
     }
 
+    @GetMapping("/setGradesView/{id}")
+    public String courseOptionsSetGrade(Professor professor,@PathVariable(name = "id") long id) {
+        return "setGradesView";
+    }
+
+   // @PostMapping("/setGradesView/{id}")
+   // public String courseOptionsSetGrade(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "optionButton") String button) {
+   //     if (button.equals("setGradesButton")) {
+   //         return "redirect:/setGradesView/" + id;
+   //     } else if (button.equals("showGradesButton"))
+   //         return "redirect:/showGradesView/" + id;
+   //     else {
+   //         return "redirect:/showMyCourse/"+ id;
+   //     }
+   // }
+
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
