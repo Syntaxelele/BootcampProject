@@ -46,6 +46,8 @@ public class RegisterAndLogController {
     @Autowired
     GradeRepo gradeRepo;
 
+    Logger logger = LoggerFactory.getLogger(RegisterAndLogController.class);
+
     @GetMapping("/showAllUsers")
     //@GetMapping("/showAllStudents")
     public String showAllStudentsToView(Model model) {
@@ -199,9 +201,11 @@ public class RegisterAndLogController {
         	System.out.println("hasErrroooorsInView");
             return "RegView";
         } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
+            logger.info("User is already registered");
         	System.out.println("dupe username");
 			    return "RegView";
         } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
+            logger.info("User is already registered");
 			    System.out.println("dupe email");
 			    return "RegView";
         } else if (student.getRole() == 2) {
@@ -290,16 +294,5 @@ public class RegisterAndLogController {
         return "showAllCourses";
     }
 
-    Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    @RequestMapping("/logs")
-    public String Logs() {
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
-
-        return "Howdy! Check out the Logs to see the output...";
-    }
 }
