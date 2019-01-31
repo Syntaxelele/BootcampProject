@@ -16,7 +16,7 @@ import bootcamp.project.users.Student;
 public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_g")
+    @Column(name = "id_g", unique = true, nullable = false)
     private long id_g;
 
     @Column(name = "grade")

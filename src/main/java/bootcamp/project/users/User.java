@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -29,7 +30,7 @@ public class User {
     @Size(min = 2, max = 30)
     private String lastname;
     @NotNull
-    @Column(name = "username")
+    @Column(name = "username", unique=true)
     @Size(min = 2, max = 30)
     private String username;
     @NotNull
@@ -43,7 +44,7 @@ public class User {
     private int role;
     @NotNull
     @Email
-    @Column(name = "email")
+    @Column(name = "email", unique=true)
     private String email;
 
     public User() {

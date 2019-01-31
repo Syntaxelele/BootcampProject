@@ -19,7 +19,6 @@ public interface StudentRepo extends CrudRepository<Student, Long> {
     public Student findByUsername(String username);
     
     public Student findByEmail(String email);
-   
 
     Student findByGrades(Grade grade);
 
