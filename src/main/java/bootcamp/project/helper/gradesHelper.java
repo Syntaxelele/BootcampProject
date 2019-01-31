@@ -11,11 +11,11 @@ public class gradesHelper {
 		public void setStudentName(String studentName) {
 			this.studentName = studentName;
 		}
-		public String getStudentSurname() {
+		public String getStudentLastname() {
 			return studentLastname;
 		}
-		public void setStudentSurname(String studentSurname) {
-			this.studentLastname = studentSurname;
+		public void setStudentLastname(String studentLastname) {
+			this.studentLastname = studentLastname;
 		}
 		public int getGrade() {
 			return grade;

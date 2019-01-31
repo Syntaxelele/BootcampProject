@@ -2,7 +2,9 @@ package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
 import bootcamp.project.courses.Grade;
+import bootcamp.project.helper.StudentsAndGradesList;
 import bootcamp.project.helper.Top;
+import bootcamp.project.helper.gradesHelper;
 import bootcamp.project.repo.CourseRepo;
 import bootcamp.project.repo.GradeRepo;
 import bootcamp.project.repo.ProfessorRepo;
@@ -39,6 +41,8 @@ public class RegisterAndLogController {
     CourseRepo courseRepo;
     @Autowired
     ProfessorRepo professorRepo;
+    @Autowired
+    GradeRepo gradeRepo;
 
     @GetMapping("/showAllUsers")
     //@GetMapping("/showAllStudents")
@@ -117,10 +121,37 @@ public class RegisterAndLogController {
             return "redirect:/showProfessorCourse/" + id;
         }
     }
+    
+    
     @GetMapping("/showGradesView/{id}")
-    public String showGrades(Professor professor, @PathVariable(name = "id") long id) {
-        return "showGrades";
-    }
+	public String showGrades(Professor professor, @PathVariable(name = "id") long id, Model model) {
+    	
+		StudentsAndGradesList listOfdata = new StudentsAndGradesList();
+		Professor myProfessor = professorRepo.findById(id).get();
+
+		Course myCourse = courseRepo.findByProfessor(myProfessor);
+	
+		ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse);
+
+	
+		for (Grade g : gradesOfMyCourse) {
+			
+			Student stOfMyCourse = g.getStudent();
+			System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
+
+			gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+
+			listOfdata.addNewItem(gh);
+		}
+
+		model.addAttribute("dataToEvaluate", listOfdata);
+		return "showGradesView";
+
+	}
+
+    
+    
+    
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
