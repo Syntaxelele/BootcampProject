@@ -101,14 +101,14 @@ public class CourseController {
 //    studentRepo.findByGrade(studentRepo.);
 //    return "showStudentCourses";
 //}
-//    @GetMapping(value = "/showStudentCourses/{id}")
-//    public String showStudentCourses(@PathVariable(name = "id") int id, Model model) {
-//        Long idS = (long) id;
-//        Optional<Course> courseFromDB = courseRepo.findById(idS);
-//        model.addAttribute("myCourse", courseFromDB.get());
-//        courseRepo.findById(idS).forEach(course -> System.out.println(course));
-//        return "showStudentCourses";
-//}
+/**    @GetMapping(value = "/showStudentCourses/{id}")
+    public String showStudentCourses(@PathVariable(name = "id") int id, Model model) {
+        Long idS = (long) id;
+        Optional<Course> courseFromDB = courseRepo.findById(idS);
+        model.addAttribute("myCourse", courseFromDB.get());
+        courseRepo.findById(idS).forEach(course -> System.out.println(course));
+        return "showStudentCourses";
+}*/
 
     //----------------------------------------------------------------------//
     //---------------------------COURSE INPUT--------------------------//
