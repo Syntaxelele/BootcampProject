@@ -14,7 +14,6 @@ import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
 import bootcamp.project.users.User;
 
-import org.apache.poi.hssf.record.pivottable.StreamIDRecord;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -22,9 +21,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.FileInputStream;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
