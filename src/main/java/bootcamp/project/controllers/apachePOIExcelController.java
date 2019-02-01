@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,22 +37,22 @@ public class apachePOIExcelController {
 	@Autowired
 	ProfessorRepo professorRepo;
 
+	Logger logger = LoggerFactory.getLogger(RegisterAndLogController.class);
+
 	@GetMapping("/uploadExcelFile/{id}")
-	public String uploadExcelFile(@PathVariable (required = false, name = "id") long id) {
+	public String uploadExcelFile(@PathVariable(required = false, name = "id") long id) {
 
 		XSSFWorkbook wb = new XSSFWorkbook();
 		XSSFSheet sh1 = wb.createSheet("Student grades");
 		XSSFRow row = sh1.createRow((short) 2);
 		row.setHeight((short) 800);
 
-		
 		row.createCell(0).setCellValue("Last Name");
-		row.createCell(1).setCellValue("Grades");
+		row.createCell(1).setCellValue("Name");
+		row.createCell(2).setCellValue("Grade");
 
 		Optional<Professor> pr = professorRepo.findById(id);
 		Course c = courseRepo.findByProfessor(pr.get());
-		//Professor pr = professorRepo.findByNameAndLastname("Baiba", "Jauka");
-		//Course c = courseRepo.findByProfessor(pr);
 		ArrayList<Grade> courseGrades = gradeRepo.findByCourse(c);
 
 		int rowIndex = 3;
@@ -59,8 +61,7 @@ public class apachePOIExcelController {
 			rowIndex++;
 			row.createCell(0).setCellValue(grades.getStudent().getLastname());
 			row.createCell(1).setCellValue(grades.getStudent().getName());
-			row.createCell(1).setCellValue(grades.getGrade() + "");
-
+			row.createCell(2).setCellValue(grades.getGrade() + "");
 		}
 
 		FileOutputStream fos;
@@ -71,9 +72,7 @@ public class apachePOIExcelController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("Student grades written successfully");
+		logger.info("Professor '" + pr.get() + " ' exported grades");
 		return "redirect:/professorMenu/{id}";
 	}
-
 }
