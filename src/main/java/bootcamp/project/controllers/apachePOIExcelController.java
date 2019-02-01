@@ -72,7 +72,7 @@ public class apachePOIExcelController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.info("Professor '" + pr.get() + " ' exported grades");
+		logger.info("Professor " + pr.get().getName() + " exported grades");
 		return "redirect:/professorMenu/{id}";
 	}
 }

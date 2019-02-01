@@ -6,6 +6,7 @@ import bootcamp.project.courses.Grade;
 import bootcamp.project.users.Student;
 
 public interface StudentRepo extends CrudRepository<Student, Long> {
+
 	public Iterable<Student> findByName(String username);
 
 	public Student findByUsernameAndPassword(String username, String password);

@@ -17,17 +17,23 @@
 					<form action="#" th:action="@{/setGradesView/__${id}__}" th:object="${setStudentGrades}" method="post">
 						<div class="form-group">
 							<div class="form-label-group">
-								<table border="1" width="100%">
-									<th>Name</th>
-									<th>Lastname</th>
-									<th>Grade</th>
-									<th:block th:each="gr, itemStat : *{studentsAndGradesList}">
+								<table class="table table-bordered table-sm">
+									<thead class="table-secondary">
 										<tr>
-											<td th:text="${gr.getStudentName()}">NO DATA</td>
-											<td th:text="${gr.getStudentLastname()}">NO DATA</td>
-											<td><input th:field="*{studentsAndGradesList[__${itemStat.index}__].grade}"/></td>
+											<th scope="col">Name</th>
+											<th scope="col">Lastname</th>
+											<th scope="col">Grade</th>
 										</tr>
-									</th:block>
+									</thead>
+									<tbody>
+										<th:block th:each="gr, itemStat : *{studentsAndGradesList}">
+											<tr>
+												<td class="align-middle" th:text="${gr.getStudentName()}">NO DATA</td>
+												<td class="align-middle" th:text="${gr.getStudentLastname()}">NO DATA</td>
+												<td><input maxlength="2" class="align-middle form-control" th:placeholder="*{studentsAndGradesList[__${itemStat.index}__].grade}" aria-label="Small" aria-describedby="inputGroup-sizing-sm" th:field="*{studentsAndGradesList[__${itemStat.index}__].grade}"/></td>
+											</tr>
+										</th:block>
+									</tbody>
 								</table>
 								<div class="card card-login mx-auto mt-5">
 									<button class="btn btn-primary btn-block" type="submit">Save</button>

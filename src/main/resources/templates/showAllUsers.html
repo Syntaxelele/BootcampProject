@@ -1,19 +1,52 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<table border="1">
-   <th>Name</th>
-   <th>Lastname</th>
-   <th>Username</th>
-   <th>Email</th>
-   <th:block th:each="user : ${allUsers}">
-      <tr>
-         <td th:text="${user.getName()}">...</td>
-         <td th:text="${user.getLastname()}">...</td>
-         <td th:text="${user.getUsername()}">...</td>
-         <td th:text="${user.getEmail()}">...</td>
-      </tr>
-   </th:block>
-</table>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	name="viewport">
+<title>IS System - All users</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-dark">
+	<div class="container">
+		<div class="card mx-auto mt-5">
+			<div class="card-header text-center">All students</div>
+			<div class="card-body text-center">
+				<div class="form-group">
+					<div class="form-label-group">
+						<form action="#" method="get" name="ShowCour"
+							th:action="@{/showAllStudents/__${id}__}" th:object="${student}">
+							<table class="table table-bordered table-sm">
+								<thead class="table-secondary">
+									<tr>
+										<th class="align-middle" scope="col">Name</th>
+										<th class="align-middle" scope="col">Lastname</th>
+										<th class="align-middle" scope="col">Username</th>
+										<th class="align-middle" scope="col">Email</th>
+									</tr>
+								</thead>
+								<tbody>
+								   <th:block th:each="user : ${allUsers}">
+								      <tr>
+								         <td th:text="${user.getName()}">...</td>
+								         <td th:text="${user.getLastname()}">...</td>
+								         <td th:text="${user.getUsername()}">...</td>
+								         <td th:text="${user.getEmail()}">...</td>
+								      </tr>
+								   </th:block>
+							   </tbody>
+							</table>
+						</form>
+						<div class="text-center">
+							<a class="d-block small mt-3" th:href="@{/professorMenu/__${id}__}">Back</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

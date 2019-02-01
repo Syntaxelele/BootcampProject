@@ -78,14 +78,6 @@ public class Course {
 		this.content = content;
 	}
 
-	public long getCourseID() {
-		return courseID;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
 	public Course(@NotNull String title, @NotNull String description, @NotNull Professor professor,
 			@NotNull String courseCode, @NotNull String evaluation, @NotNull int cP, @NotNull String prereq,
 			@NotNull String objective, @NotNull String outcome, @NotNull String content,
@@ -115,6 +107,14 @@ public class Course {
 		this.title = title;
 		this.professor = professor;
 		this.gradesInCourse = gradesInCourse;
+	}
+
+	public long getCourseID() {
+		return courseID;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	public void setCourseID(long courseID) {
@@ -205,11 +205,6 @@ public class Course {
 		this.gradesInCourse = gradesInCourse;
 	}
 
-	/*
-	 * public Student getStudent() { return student; }
-	 * 
-	 * public void setStudent(Student student) { this.student = student; }
-	 */
 	@Override
 	public String toString() {
 		return "Course [title=" + title + ", description=" + description + ", professor=" + professor + ", courseCode="

@@ -16,7 +16,7 @@
         <form action="#" method="post" th:action="@{/StudentMenu/__${id}__}">
             <div class="form-group">
                 <div class="form-label-group text-center">
-                        <p>Welcome, </p>
+                    Welcome <a th:text="${getName}"></a>
                 </div>
             </div>
             <button class="btn btn-primary btn-block" name="studButton"
