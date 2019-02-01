@@ -248,11 +248,6 @@ public class RegisterAndLogController {
                 emailsnd.sendSimpleMessage(stude_email,"Your Grade in "+ myCourse2.getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade()+". Congratulations");
             }
         }
-
-
-
-
-
         return "redirect:/showGradesView/" + id;
     }
 
