@@ -1,36 +1,41 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Course Info</title>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Courses</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-    <table border="1">
-		<form action="#" method="get" name="ShowMyCour" th:action="@{/ShowStudentCourse/__${id}__}" th:object="${course}">
-	        <th>Title</th>
-	        <th>Professor</th>
-	        <th>Course code</th>
-	        <th>CP</th>
-	        <th>Description</th>
-	        <th>Evaluation</th>
-	        <th>Content</th>
-	        <th>Objective</th>
-	        <th>Outcome</th>
-	        <th>Prerequisites</th>
-	        <th:block th:each="course : ${allCourses}">
-		        <tr>
-		            <td th:text="${course.getTitle()}">...</td>
-		            <td th:text="${course.getProfessor()}">...</td>
-		            <td th:text="${course.getCourseCode()}">...</td>
-		            <td th:text="${course.getCP()}">...</td>
-		            <td th:text="${course.getDescription()}">...</td>
-		            <td th:text="${course.getEvaluation()}">...</td>
-		            <td th:text="${course.getContent()}">...</td>
-		            <td th:text="${course.getObjective()}">...</td>
-		            <td th:text="${course.getOutcome()}">...</td>
-		            <td th:text="${course.getPrereq()}">...</td>
-		        </tr>
-	        </th:block>
-		</form>
-    </table>
+<body class="bg-dark">
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header text-center">My Courses</div>
+        <div class="card-body text-center">
+            <div class="form-group">
+                <div class="form-label-group">
+                    <table border="1" width="100%">
+                        <th>Name</th>
+                        <th>Lastname</th>
+                        <th>Course</th>
+                        <th:block th:each="d : ${stCourses.studentsAndGradesList}">
+                            <tr>
+                                <td th:text="${d.getStudentName()}">...</td>
+                                <td th:text="${d.getStudentLastname()}">...</td>
+                                <td th:text="${d.getCourseName()}">...</td>
+                            </tr>
+                        </th:block>
+                    </table>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" th:href="@{/StudentMenu/__${id}__}">Back</a>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

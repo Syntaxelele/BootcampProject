@@ -9,6 +9,9 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,53 +21,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
 public class CourseController {
-    @Autowired
-    CourseRepo courseRepo;
+    
+	@Autowired
+	CourseRepo courseRepo;
 
-    @Autowired
-    ProfessorRepo professorRepo;
+	@Autowired
+	ProfessorRepo professorRepo;
 
-    @Autowired
-    StudentRepo studentRepo;
+	@Autowired
+	StudentRepo studentRepo;
 
-    @Autowired
-    GradeRepo gradeRepo;
+	@Autowired
+	GradeRepo gradeRepo;
 
-    //-----------------------------------COURSE OUTPUT TEST------------------------------//
-/*
-    @GetMapping(value = "/course")
-    public String courses(Model model) {
+	Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-        System.out.println("logging info");
-
-        Professor prof1 = new Professor("Janis", "Latname", "Username", "Password", 1, "email@email.com");
-        Course c1 = new Course("thisIsTitle", "thisIsDesc", prof1, "CourseCode", "CourseEvaluation", 12, "Prerequisites", "Objective", "Outcome", "Content");
-        Professor prof2 = new Professor("Janis2", "Latname2", "Username2", "Password2", 1, "email2@email.com");
-        Course c2 = new Course("thisIsTitle2", "thisIsDesc2", prof2, "CourseCode2", "CourseEvaluation2", 12, "Prerequisites2", "Objective2", "Outcome2", "Content2");
-        Professor prof3 = new Professor("Janis3", "Latname3", "Username3", "Password3", 1, "email3@email.com");
-        Course c3 = new Course("thisIsTitle", "thisIsDesc", prof3, "CourseCode", "CourseEvaluation", 12, "Prerequisites3", "Objective3", "Outcome3", "Content3");
-        Professor prof4 = new Professor("Janis4", "Latname4", "Username4", "Password4", 1, "email4@email.com");
-        Course c4 = new Course("thisIsTitle4", "thisIsDesc4", prof4, "CourseCode4", "CourseEvaluation4", 12, "Prerequisites4", "Objective4", "Outcome4", "Content4");
-
-        courseRepo.save(c1);
-        courseRepo.save(c2);
-        courseRepo.save(c3);
-        courseRepo.save(c4);
-
-        System.out.println("testtesttesttest");
-
-        Iterable<Course> courseFromDB = courseRepo.findAll();
-        model.addAttribute("courseTests", courseFromDB);
-        System.out.println("1231231231231");
-        return "courseTest";
-
-    }*/
 //------------------------SHOW COURSES---------------------------------------//
 
     @GetMapping("/oneCourse/{id}")
@@ -76,8 +54,8 @@ public class CourseController {
         return "showMyCourse";
     }
 
-    @GetMapping(value = "/showAllCourses")
-    public String showAllCoursesToView(Model model) {
+    @GetMapping(value = "/showAllCourses/{id}")
+    public String showAllCoursesToView(Model model, @PathVariable(required = false, name = "id") long id) {
         model.addAttribute("allCourses", courseRepo.findAll());
         courseRepo.findAll().forEach(course -> System.out.println(course));
         return "showAllCourses";
@@ -92,14 +70,6 @@ public class CourseController {
         model.addAttribute("course", courseFromDB.get());
         return "showMyCourse";
     }
-    
-    @GetMapping(value = "/showStudentCourses/{id}")
-    public String showAllStudentCoursesToView(@PathVariable(required = false, name = "id") int id, Model model) {
-        model.addAttribute("allCourses", courseRepo.findAll());
-        courseRepo.findAll().forEach(course -> System.out.println(course));
-        //studentRepo.findByGrade(studentRepo.);
-        return "showStudentCourses";
-    }
 
     //----------------------------------------------------------------------//
     //---------------------------COURSE INPUT--------------------------//
@@ -110,68 +80,54 @@ public class CourseController {
     }
 
     @PostMapping("/insertNewCourse/{id}")
-    public String getCourseFromView(@PathVariable(required = false, name = "id") long id,
-                                    @Valid Course course, BindingResult result) {
+    public String getCourseFromView(@PathVariable(required = false, name = "id") long id, @Valid Course course,
+        BindingResult result) {
+        Professor profInfo = professorRepo.findById(id).get();
         if (result.hasErrors()) {
-            return "courseInput";
+          return "courseInput";
         }
-        System.out.println(
-                course.getTitle() + " "
-                        + course.getDescription() + " "
-                        + course.getProfessor() + " "
-                        + course.getCourseCode() + " "
-                        + course.getEvaluation() + " "
-                        + course.getCP() + " "
-                        + course.getPrereq() + " "
-                        + course.getObjective() + " "
-                        + course.getOutcome() + " "
-                        + course.getContent()
-        );
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         course.setProfessor(ProfFromDB.get());
         courseRepo.save(course);
+        Course courseInfo = courseRepo.findByProfessor(profInfo);
+        logger.info("Professor " + profInfo.getName() + " " + profInfo.getLastname() + " created a new course: "
+            + courseInfo.getTitle());
         return "redirect:/showProfessorCourse/" + id;
     }
-
     //--------------------------------------------------------------------//
     //-----------------------REGISTER TO COURSES--------------------------//
 
 
-    @GetMapping(value = "/registerToCourse/{id}")
-    public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
-                                       @RequestParam(name = "courseButtonID", defaultValue = "none",
-                                               required = false) String courseButtonID) {
-        //System.out.println(courseButtonID);
-        Iterable<Course> courseFromDB = courseRepo.findAll();
-        CheckBoxList checkBoxList = new CheckBoxList();
-        for (Course i : courseFromDB) {
-            checkBoxList.addCheck(false);
-        }
+	@GetMapping(value = "/registerToCourse/{id}")
+	public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
+			@RequestParam(name = "courseButtonID", defaultValue = "none", required = false) String courseButtonID) {
+		Iterable<Course> courseFromDB = courseRepo.findAll();
+		CheckBoxList checkBoxList = new CheckBoxList();
+		for (Course i : courseFromDB) {
+			checkBoxList.addCheck(false);
+		}
 
-        model.addAttribute("regToCourse", courseFromDB);
-        model.addAttribute("listOfCheck", checkBoxList);
+		model.addAttribute("regToCourse", courseFromDB);
+		model.addAttribute("listOfCheck", checkBoxList);
 
-            return "registerToCourse";
-    }
-    @PostMapping(value = "/registerToCourse/{id}")
-    public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
-        Student student1 = studentRepo.findById(id).get();
-        //Grade findGrade = gradeRepo.findByGrade(student1);
-        //System.out.println(findGrade);
-        ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
-        int coursesindex = 0;
-        for (Boolean i : checkBoxList.getListOfCheck()){
-            System.out.println(i);
-            if (i != null){
-            	Grade g1 = new Grade(0, courses1.get(coursesindex), student1);
-                gradeRepo.save(g1);
-            }
-            coursesindex++;
-        }
-        return "redirect:/showStudentCourses/" + id;
-    }
-
-
-
-
+		return "registerToCourse";
+	}
+    
+	@PostMapping(value = "/registerToCourse/{id}")
+	public String registerToCourseViewPost(@PathVariable(name = "id") long id, CheckBoxList checkBoxList) {
+		Student student1 = studentRepo.findById(id).get();
+		Iterable<Course> cour1 = courseRepo.findAll();
+		ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
+		int coursesindex = 0;
+		for (Boolean i : checkBoxList.getListOfCheck()) {
+			System.out.println(i);
+			if (i != null) {
+				Grade g1 = new Grade(0, courses1.get(coursesindex), student1);
+				gradeRepo.save(g1);
+			}
+			coursesindex++;
+			logger.info("Student " + student1.getName() + " " + student1.getLastname() + " registered to a course.");
+		}
+		return "redirect:/showStudentCourses/" + id;
+	}
 }

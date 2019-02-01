@@ -87,10 +87,56 @@ public class RegisterAndLogController {
             return "redirect:/registerToCourse/" + id;
         else if (button.equals("ShowMyCours"))
             return "redirect:/showStudentCourses/" + id;
+        else if (button.equals("ShowAllStdCourses"))
+            return "redirect:/showAllCourses/" + id;
         else
             return "redirect:/ShowGrades/" + id;
     }
+    
+    
+   @GetMapping("/ShowGrades/{id}")
+    public String showGradesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+    	StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+    	Student stud = studentRepo.findById(id).get();
+        ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
 
+
+        for (Grade g : myGrades) {
+        	if(g.getGrade()!=0)
+        	{
+            Student st = g.getStudent();
+            //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
+
+            gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+
+            listOfStudentGrades.addNewItem(gh);
+        	}
+        	
+        }
+    	
+        model.addAttribute("stGrades", listOfStudentGrades);
+    	return "ShowGrades";
+
+    }   @GetMapping("/showStudentCourses/{id}")
+    public String showAllCoursesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+        StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+        Student stud = studentRepo.findById(id).get();
+        ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
+
+
+        for (Grade g : myGrades) {
+                Student st = g.getStudent();
+                //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
+
+                gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+
+                listOfStudentGrades.addNewItem(gh);
+            }
+        model.addAttribute("stCourses", listOfStudentGrades);
+        return "showStudentCourses";
+    }
+    
+   
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
     @GetMapping("/professorMenu/{id}")
@@ -144,7 +190,7 @@ public class RegisterAndLogController {
             Student stOfMyCourse = g.getStudent();
             System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
 
-            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(),g.getGrade());
 
             listOfdata.addNewItem(gh);
         }
@@ -245,46 +291,43 @@ public class RegisterAndLogController {
 
         Student findDupeUsername = studentRepo.findByUsername(student.getUsername());
         Student findDupeEmail = studentRepo.findByEmail(student.getEmail());
+        Professor findDupeUsernameProf = professorRepo.findByUsername(professor.getUsername());
+        Professor findDupeEmailProf = professorRepo.findByEmail(professor.getEmail());
 
         if (result.hasErrors()) {
-            System.out.println("hasErrroooorsInView");
+        	logger.info("User made validation error while registering.");
             return "RegView";
-        } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
-            logger.info("User is already registered");
-        	System.out.println("dupe username");
-			    return "RegView";
-        } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
-            logger.info("User is already registered");
-			    System.out.println("dupe email");
-			    return "RegView";
+        } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername()) || findDupeUsernameProf != null && findDupeUsernameProf.getUsername().equalsIgnoreCase(professor.getUsername())) {
+            logger.info("User tried registering with existing username.");
+			return "RegView";
+        } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail()) || findDupeEmailProf != null && findDupeEmailProf.getEmail().equalsIgnoreCase(professor.getEmail())) {
+            logger.info("User tried registering with existing email.");
+			return "RegView";
         } else if (student.getRole() == 2) {
-            System.out.println(student.getName() + " "
-                    + student.getLastname() + " "
-                    + student.getUsername() + " "
-                    + student.getEmail() + " "
-                    + student.getRole()
-            );
             studentRepo.save(student);
-            User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
-            return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
-        } else {
-            System.out.println(
-                    professor.getName() + " "
-                            + professor.getLastname() + " "
-                            + professor.getUsername() + " "
-                            + professor.getEmail() + " "
-                            + professor.getRole()
-            );
+            User findbyNameAndPassStud = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+            logger.info("New student: " + findbyNameAndPassStud.getName() + " " + findbyNameAndPassStud.getLastname() + ".");
+            return "redirect:/StudentMenu/" + findbyNameAndPassStud.getId_u();
+        } else if (findDupeUsernameProf != null && findDupeUsernameProf.getUsername().equalsIgnoreCase(professor.getUsername()) || findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
+        	logger.info("User tried registering with existing username.");
+			return "RegView";
+        } else if (findDupeEmailProf != null && findDupeEmailProf.getEmail().equalsIgnoreCase(professor.getEmail()) || findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
+        	logger.info("User tried registering with existing email.");
+			return "RegView";
+        } else if (student.getRole() == 1) {
             professorRepo.save(professor);
-            User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
-            return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
-        }
+            User findbyNameAndPassProf = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+            logger.info("New professor: " + findbyNameAndPassProf.getName() + " " + findbyNameAndPassProf.getLastname() + ".");
+            return "redirect:/professorMenu/" + findbyNameAndPassProf.getId_u();
+        } else 
+        	System.out.println("ERROR WITH REGISTRATION - LAST ELSE");
+        	return "RegView";
     }
     //--------------------------------------------------------------------//
     //-----------------------FORGOT PASSWORD------------------------------//
     @GetMapping("/forgotPass")
     public String Forgot(Student student, Professor professor) {
-        return "forgotPass";
+        return "forgotpass";
     }
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
