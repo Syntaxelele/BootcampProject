@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Grades</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-dark">
+	<div class="container">
+		<div class="card card-login mx-auto mt-5">
+			<div class="card-header text-center">Grades</div>
+				<div class="card-body text-center">
+					<div class="form-group">
+						<div class="form-label-group">
+							<table border="1" width="100%">
+								<th>Name</th>
+								<th>Lastname</th>
+								<th>Course</th>
+								<th>Grade</th>
+								<th:block th:each="d : ${stGrades.studentsAndGradesList}">
+									<tr>
+										<td th:text="${d.getStudentName()}">NO DATA</td>
+										<td th:text="${d.getStudentLastname()}">NO DATA</td>
+										<td th:text="${d.getCourseName()}">NO DATA</td>
+										<td th:text="${d.getGrade()}">NO DATA</td>
+									</tr>
+								</th:block>
+							</table>
+							<div class="text-center">
+								<a class="d-block small mt-3" th:href="@{/StudentMenu/__${id}__}">Back</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

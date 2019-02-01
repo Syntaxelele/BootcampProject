@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <title>IS System - Student menu</title>
@@ -10,23 +10,36 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-dark">
-	<div class="card card-login mx-auto mt-5">
-        <div class="card-header">Student menu</div>
-        <div class="card-body">
-			<form action="#" method="post" th:action="@{/StudentMenu/__${id}__}">
-                <div class="form-group">
-                    <div class="form-label-group text-center">
-                        <p>Welcome (student name)</p>
-                    </div>
+<div class="card card-login mx-auto mt-5">
+    <div class="card-header">Student menu</div>
+    <div class="card-body">
+        <form action="#" method="post" th:action="@{/StudentMenu/__${id}__}">
+            <div class="form-group">
+                <div class="form-label-group text-center">
+                    <p>Welcome (student name)</p>
                 </div>
-                <button class="btn btn-primary btn-block" name="studButton" th:value="regToCourse" type="submit">Register to courses</button>
-                <button class="btn btn-primary btn-block" name="studButton" th:value="ShowMyCours" type="submit">Show my courses</button>
-                <button class="btn btn-primary btn-block" name="studButton" th:value="ShowGrades" type="submit">Show my grades</button>
-            </form>
-            <div class="text-center">
-                <a class="d-block small mt-3" href="/start" name="logout" th:value="logout">Log out</a>
             </div>
+            <button class="btn btn-primary btn-block" name="studButton"
+                    th:value="regToCourse"
+                    type="submit">Register to courses
+            </button>
+            <button class="btn btn-primary btn-block" name="studButton"
+                    th:value="ShowMyCours"
+                    type="submit">Show my courses
+            </button>
+            <button class="btn btn-primary btn-block" name="studButton"
+                    th:value="ShowAllStdCourses"
+                    type="submit">Show all courses
+            </button>
+            <button class="btn btn-primary btn-block" name="studButton"
+                    th:value="ShowGrades"
+                    type="submit">Show my grades
+            </button>
+        </form>
+        <div class="text-center">
+            <a class="d-block small mt-3" href="/start" name="logout" th:value="logout">Log out</a>
         </div>
     </div>
+</div>
 </body>
 </html>

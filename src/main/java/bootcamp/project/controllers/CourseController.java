@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
 public class CourseController {
+    
 	@Autowired
 	CourseRepo courseRepo;
 
@@ -43,66 +45,58 @@ public class CourseController {
 
 //------------------------SHOW COURSES---------------------------------------//
 
-	@GetMapping("/oneCourse/{id}")
-	public String showOneCourse(@PathVariable(required = false, name = "id") int id, Model model) {
-		// model.addAttribute("course", courseList.get(id));
-		Long idL = (long) id;
-		Optional<Course> courseFromDB = courseRepo.findById(idL);
-		model.addAttribute("course", courseFromDB.get());
-		return "showMyCourse";
-	}
+    @GetMapping("/oneCourse/{id}")
+    public String showOneCourse(@PathVariable(required = false, name = "id") int id, Model model) {
+        //model.addAttribute("course", courseList.get(id));
+        Long idL = (long) id;
+        Optional<Course> courseFromDB = courseRepo.findById(idL);
+        model.addAttribute("course", courseFromDB.get());
+        return "showMyCourse";
+    }
 
-	@GetMapping(value = "/showAllCourses")
-	public String showAllCoursesToView(Model model) {
-		model.addAttribute("allCourses", courseRepo.findAll());
-		courseRepo.findAll().forEach(course -> System.out.println(course));
-		return "showAllCourses";
-	}
+    @GetMapping(value = "/showAllCourses/{id}")
+    public String showAllCoursesToView(Model model, @PathVariable(required = false, name = "id") long id) {
+        model.addAttribute("allCourses", courseRepo.findAll());
+        courseRepo.findAll().forEach(course -> System.out.println(course));
+        return "showAllCourses";
+    }
 
-	@GetMapping(value = "/showProfessorCourse/{id}")
-	public String showProfessorCourseToView(@PathVariable(required = false, name = "id") int id, Model model) {
-		// model.addAttribute("allCourses", courseRepo.findAll());
-		// courseRepo.findAll().forEach(course -> System.out.println(course));
-		Long idL = (long) id;
-		Optional<Course> courseFromDB = courseRepo.findById(idL);
-		model.addAttribute("course", courseFromDB.get());
-		return "showMyCourse";
-	}
+    @GetMapping(value = "/showProfessorCourse/{id}")
+    public String showProfessorCourseToView(@PathVariable(required = false, name = "id") int id, Model model) {
+        //model.addAttribute("allCourses", courseRepo.findAll());
+        //courseRepo.findAll().forEach(course -> System.out.println(course));
+        Long idL = (long) id;
+        Optional<Course> courseFromDB = courseRepo.findById(idL);
+        model.addAttribute("course", courseFromDB.get());
+        return "showMyCourse";
+    }
 
-	@GetMapping(value = "/showStudentCourses/{id}")
-	public String showAllStudentCoursesToView(@PathVariable(required = false, name = "id") int id, Model model) {
-		model.addAttribute("allCourses", courseRepo.findAll());
-		courseRepo.findAll().forEach(course -> System.out.println(course));
-		// studentRepo.findByGrade(studentRepo.);
-		return "showStudentCourses";
-	}
+    //----------------------------------------------------------------------//
+    //---------------------------COURSE INPUT--------------------------//
 
-	// ----------------------------------------------------------------------//
-	// ---------------------------COURSE INPUT--------------------------//
+    @GetMapping("/insertNewCourse/{id}")
+    public String insertCourseView(@PathVariable(required = false, name = "id") long id, Course course) {
+        return "courseInput";
+    }
 
-	@GetMapping("/insertNewCourse/{id}")
-	public String insertCourseView(@PathVariable(required = false, name = "id") long id, Course course) {
-		return "courseInput";
-	}
+    @PostMapping("/insertNewCourse/{id}")
+    public String getCourseFromView(@PathVariable(required = false, name = "id") long id, @Valid Course course,
+        BindingResult result) {
+        Professor profInfo = professorRepo.findById(id).get();
+        if (result.hasErrors()) {
+          return "courseInput";
+        }
+        Optional<Professor> ProfFromDB = professorRepo.findById(id);
+        course.setProfessor(ProfFromDB.get());
+        courseRepo.save(course);
+        Course courseInfo = courseRepo.findByProfessor(profInfo);
+        logger.info("Professor " + profInfo.getName() + " " + profInfo.getLastname() + " created a new course: "
+            + courseInfo.getTitle());
+        return "redirect:/showProfessorCourse/" + id;
+    }
+    //--------------------------------------------------------------------//
+    //-----------------------REGISTER TO COURSES--------------------------//
 
-	@PostMapping("/insertNewCourse/{id}")
-	public String getCourseFromView(@PathVariable(required = false, name = "id") long id, @Valid Course course,
-			BindingResult result) {
-		Professor profInfo = professorRepo.findById(id).get();
-		if (result.hasErrors()) {
-			return "courseInput";
-		}
-		Optional<Professor> ProfFromDB = professorRepo.findById(id);
-		course.setProfessor(ProfFromDB.get());
-		courseRepo.save(course);
-		Course courseInfo = courseRepo.findByProfessor(profInfo);
-		logger.info("Professor " + profInfo.getName() + " " + profInfo.getLastname() + " created a new course: "
-				+ courseInfo.getTitle());
-		return "redirect:/showProfessorCourse/" + id;
-	}
-
-	// --------------------------------------------------------------------//
-	// -----------------------REGISTER TO COURSES--------------------------//
 
 	@GetMapping(value = "/registerToCourse/{id}")
 	public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
@@ -118,13 +112,11 @@ public class CourseController {
 
 		return "registerToCourse";
 	}
-
+    
 	@PostMapping(value = "/registerToCourse/{id}")
 	public String registerToCourseViewPost(@PathVariable(name = "id") long id, CheckBoxList checkBoxList) {
 		Student student1 = studentRepo.findById(id).get();
 		Iterable<Course> cour1 = courseRepo.findAll();
-		// Grade findGrade = gradeRepo.findByGrade(student1);
-		// System.out.println(findGrade);
 		ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
 		int coursesindex = 0;
 		for (Boolean i : checkBoxList.getListOfCheck()) {

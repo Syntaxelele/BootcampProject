@@ -2,6 +2,7 @@ package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
 import bootcamp.project.courses.Grade;
+import bootcamp.project.helper.EmailSender;
 import bootcamp.project.helper.StudentsAndGradesList;
 import bootcamp.project.helper.Top;
 import bootcamp.project.helper.gradesHelper;
@@ -21,6 +22,9 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,10 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class RegisterAndLogController {
@@ -45,6 +46,7 @@ public class RegisterAndLogController {
     ProfessorRepo professorRepo;
     @Autowired
     GradeRepo gradeRepo;
+
 
     Logger logger = LoggerFactory.getLogger(RegisterAndLogController.class);
 
@@ -85,10 +87,56 @@ public class RegisterAndLogController {
             return "redirect:/registerToCourse/" + id;
         else if (button.equals("ShowMyCours"))
             return "redirect:/showStudentCourses/" + id;
+        else if (button.equals("ShowAllStdCourses"))
+            return "redirect:/showAllCourses/" + id;
         else
             return "redirect:/ShowGrades/" + id;
     }
+    
+    
+   @GetMapping("/ShowGrades/{id}")
+    public String showGradesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+    	StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+    	Student stud = studentRepo.findById(id).get();
+        ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
 
+
+        for (Grade g : myGrades) {
+        	if(g.getGrade()!=0)
+        	{
+            Student st = g.getStudent();
+            //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
+
+            gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+
+            listOfStudentGrades.addNewItem(gh);
+        	}
+        	
+        }
+    	
+        model.addAttribute("stGrades", listOfStudentGrades);
+    	return "ShowGrades";
+
+    }   @GetMapping("/showStudentCourses/{id}")
+    public String showAllCoursesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+        StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+        Student stud = studentRepo.findById(id).get();
+        ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
+
+
+        for (Grade g : myGrades) {
+                Student st = g.getStudent();
+                //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
+
+                gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+
+                listOfStudentGrades.addNewItem(gh);
+            }
+        model.addAttribute("stCourses", listOfStudentGrades);
+        return "showStudentCourses";
+    }
+    
+   
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
     @GetMapping("/professorMenu/{id}")
@@ -142,7 +190,7 @@ public class RegisterAndLogController {
             Student stOfMyCourse = g.getStudent();
             System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
 
-            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(),g.getGrade());
 
             listOfdata.addNewItem(gh);
         }
@@ -188,12 +236,19 @@ public class RegisterAndLogController {
         Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
 
         ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
-
+        EmailSender emailsnd = new EmailSender();
         for (int i = 0; i < listOfData.studentsAndGradesList.size(); i++) {
             int gtemp = listOfData.studentsAndGradesList.get(i).getGrade();
             gradesOfMyCourse.get(i).setGrade(gtemp);
             gradeRepo.save(gradesOfMyCourse.get(i));
+            String stude_email = gradesOfMyCourse.get(i).getStudent().getEmail();
+            emailsnd.sendSimpleMessage(stude_email,"Your Grade"+gradesOfMyCourse.get(i).getCourse().getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade());
         }
+
+
+
+
+
         return "redirect:/showGradesView/" + id;
     }
 
@@ -273,7 +328,8 @@ public class RegisterAndLogController {
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
     @GetMapping("/DocView/{id}")
-    public String DocReader(@PathVariable(required = false, name = "id") long id) {
+    public String DocReader(@PathVariable(required = false, name = "id") long id, Top top) {
+
         return "DocReader";
     }
 
@@ -283,11 +339,11 @@ public class RegisterAndLogController {
         //Optional<Professor> findbyIDProf = professorRepo.findById(id);
         Course hot = new Course();
         //Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
-        //professorRepo.save(P);
+       // professorRepo.save(P);
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         //professorRepo.save(pr);
 		/*Course c = new Course("Math", "desc", P, "11",
-				"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
+			"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
         try {
             FileInputStream fis = new FileInputStream(top.getDocPath());
 
@@ -317,8 +373,8 @@ public class RegisterAndLogController {
 							/*	System.out.print(table.getRow(i).getCell(0).getText()+": ");
 							System.out.println(table.getRow(i).getCell(1).getText());*/
                     //}
-                }
                 //}
+                }
            }
 
         } catch (Exception ex) {
