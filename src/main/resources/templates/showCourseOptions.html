@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>
-        My Course Options
-    </title>
+	<meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Course options</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-<table>
-    <form action="#" method="post" th:action="@{/showCourseOptions/__${id}__}">
-        <td><button name="optionButton" th:value="setGradesButton" type="submit">Set grades</button></td>
-        <td><button name="optionButton" th:value="showGradesButton" type="submit">Show grades</button></td>
-        <td><button name="optionButton" th:value="courseInfoButton" type="submit">Show course info</button></td>
-    </form>
-</table>
+<body class="bg-dark">
+	<div class="card card-login mx-auto mt-5">
+        <div class="card-header">Professor menu</div>
+        <div class="card-body">
+			<form action="#" method="post" th:action="@{/showCourseOptions/__${id}__}">
+                <div class="form-group">
+                    <div class="form-label-group text-center">
+                        <p>Course options</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block" name="optionButton" th:value="setGradesButton" type="submit">Set grades</button>
+                <button class="btn btn-primary btn-block" name="optionButton" th:value="showGradesButton" type="submit">Show grades</button>
+                <button class="btn btn-primary btn-block" name="optionButton" th:value="courseInfoButton" type="submit">Show course info</button>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" th:href="@{/professorMenu/__${id}__}">Back</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

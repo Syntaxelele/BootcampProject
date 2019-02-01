@@ -130,7 +130,7 @@ public class CourseController {
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         course.setProfessor(ProfFromDB.get());
         courseRepo.save(course);
-        return "redirect:/showAllCourses";
+        return "redirect:/showProfessorCourse/" + id;
     }
 
     //--------------------------------------------------------------------//
@@ -156,7 +156,8 @@ public class CourseController {
     @PostMapping(value = "/registerToCourse/{id}")
     public String registerToCourseViewPost (@PathVariable(name = "id") long id ,CheckBoxList checkBoxList){
         Student student1 = studentRepo.findById(id).get();
-        Grade findByGrade = gradeRepo.findStudentByGrade(student1.getGrades());
+        //Grade findGrade = gradeRepo.findByGrade(student1);
+        //System.out.println(findGrade);
         ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
         int coursesindex = 0;
         for (Boolean i : checkBoxList.getListOfCheck()){
@@ -167,7 +168,7 @@ public class CourseController {
             }
             coursesindex++;
         }
-        return "redirect:/showStudentCourses/"+id;
+        return "redirect:/showStudentCourses/" + id;
     }
 
 

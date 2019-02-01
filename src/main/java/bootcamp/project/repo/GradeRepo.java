@@ -1,8 +1,8 @@
 package bootcamp.project.repo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import bootcamp.project.courses.Course;
@@ -14,8 +14,6 @@ public interface GradeRepo extends CrudRepository<Grade, Long> {
 
     ArrayList<Grade> findByCourse(Course course);
     
-    public Grade findStudentByGrade(Collection<Grade> collection);
-    
-    //@Query("select * from Grade where ")
-    //Grade findByGrade(int grade);
+    @Query("Select student from Grade where grade >= 0")
+    Grade findByGrade(Student stud);
 }

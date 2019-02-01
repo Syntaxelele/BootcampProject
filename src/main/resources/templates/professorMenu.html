@@ -1,15 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Professor menu</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
+	<script>
+		function myFunction() {
+		  alert("Done!");
+		}
+	</script>
 </head>
-<body>
-	<table>
-		<form action="#" method="post" th:action="@{/professorMenu/__${id}__}">
-			<td><button name="profButton" th:value="showMyCourse" type="submit">Show course options</button></td>
-			<td><button name="profButton" th:value="insertNewCourse" type="submit">Add new course</button></td>
-			<td><button name="profButton" th:value="exportGrades" type="submit">Export grades</button></td>
-			<td><button name="profButton" th:value="uploadCourse" type="submit">Upload course info</button></td>
-		</form>
-	</table>
+<body class="bg-dark">
+	<div class="card card-login mx-auto mt-5">
+        <div class="card-header">Professor menu</div>
+        <div class="card-body">
+			<form action="#" method="post" th:action="@{/professorMenu/__${id}__}">
+                <div class="form-group">
+                    <div class="form-label-group text-center">
+                        <p>Welcome (professor name)</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block" name="profButton" th:value="showMyCourse" type="submit">Show course options</button>
+                <button class="btn btn-primary btn-block" name="profButton" th:value="insertNewCourse" type="submit">Add a new course</button>
+                <button class="btn btn-primary btn-block" name="profButton" onclick="myFunction()" th:value="exportGrades" type="submit">Export grades</button>
+                <button class="btn btn-primary btn-block" name="profButton" th:value="uploadCourse" type="submit">Upload course info</button>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="/start" name="logout" th:value="logout">Log out</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

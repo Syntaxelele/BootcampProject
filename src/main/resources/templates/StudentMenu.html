@@ -1,14 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>IS System - Student menu</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
-    <table>
-        <form action="#" method="post" th:action="@{/StudentMenu/__${id}__}">
-            <td><button name="studButton" value="regToCourse" type="submit">Register to courses</button></td>
-            <td><button name="studButton" value="ShowMyCours" type="submit">Show my courses</button></td>
-            <td><button name="studButton" value="ShowGrades" type="submit">Show my grades</button></td>
-        </form>
-    </table>
+<body class="bg-dark">
+	<div class="card card-login mx-auto mt-5">
+        <div class="card-header">Student menu</div>
+        <div class="card-body">
+			<form action="#" method="post" th:action="@{/StudentMenu/__${id}__}">
+                <div class="form-group">
+                    <div class="form-label-group text-center">
+                        <p>Welcome (student name)</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block" name="studButton" th:value="regToCourse" type="submit">Register to courses</button>
+                <button class="btn btn-primary btn-block" name="studButton" th:value="ShowMyCours" type="submit">Show my courses</button>
+                <button class="btn btn-primary btn-block" name="studButton" th:value="ShowGrades" type="submit">Show my grades</button>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="/start" name="logout" th:value="logout">Log out</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
