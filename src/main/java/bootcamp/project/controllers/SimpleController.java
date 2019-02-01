@@ -55,19 +55,19 @@ public class SimpleController {
                 "parolee", 1, "epastss@epastss.com");
         professorRepo.save(pr4);
         //--------------------------------------------------------------------------------------------------------//
-        Course c1 = new Course("Math", "desc", pr1, "11",
-                "test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        Course c1 = new Course("Math", "Desc", pr1, "11",
+                "Exam", 1, "Prereq", "Objective", "Outcome", "Content");
         courseRepo.save(c1);
-        Course c2 = new Course("Java", "desc", pr2, "22",
-                "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        Course c2 = new Course("Java", "Desc", pr2, "22",
+                "test", 2, "Prereq", "Objective", "Outcome", "Content");
         courseRepo.save(c2);
 
         //---------------------------------------------------------------------------------------------------------//
-        Course c3 = new Course("Python", "desc", pr3, "33",
-                "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        Course c3 = new Course("Python", "Desc", pr3, "33",
+                "Test", 2, "Prereq", "Objective", "Outcome", "Content");
         courseRepo.save(c3);
-        Course c4 = new Course("Science", "desc", pr4, "44",
-                "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+        Course c4 = new Course("Science", "Desc", pr4, "44",
+                "Exam", 2, "Prereq", "Objective", "Outcp,e", "Content");
         courseRepo.save(c4);
 
         //c2.setProfessor(pr1);
