@@ -88,7 +88,33 @@ public class RegisterAndLogController {
         else
             return "redirect:/ShowGrades/" + id;
     }
+    
+    
+   @GetMapping("/ShowGrades/{id}")
+    public String showGradesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+    	StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+    	Student stud = studentRepo.findById(id).get();
+        ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
 
+
+        for (Grade g : myGrades) {
+        	if(g.getGrade()!=0)
+        	{
+            Student st = g.getStudent();
+            //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
+
+            gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+
+            listOfStudentGrades.addNewItem(gh);
+        	}
+        	
+        }
+    	
+        model.addAttribute("stGrades", listOfStudentGrades);
+    	return "ShowGrades";
+    }
+    
+   
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
     @GetMapping("/professorMenu/{id}")
@@ -142,7 +168,7 @@ public class RegisterAndLogController {
             Student stOfMyCourse = g.getStudent();
             System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
 
-            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
+            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(),g.getGrade());
 
             listOfdata.addNewItem(gh);
         }
