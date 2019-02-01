@@ -28,20 +28,20 @@ import java.util.Optional;
 
 @Controller
 public class CourseController {
-    
-	@Autowired
-	CourseRepo courseRepo;
 
-	@Autowired
-	ProfessorRepo professorRepo;
+    @Autowired
+    CourseRepo courseRepo;
 
-	@Autowired
-	StudentRepo studentRepo;
+    @Autowired
+    ProfessorRepo professorRepo;
 
-	@Autowired
-	GradeRepo gradeRepo;
+    @Autowired
+    StudentRepo studentRepo;
 
-	Logger logger = LoggerFactory.getLogger(AuthController.class);
+    @Autowired
+    GradeRepo gradeRepo;
+
+    Logger logger = LoggerFactory.getLogger(AuthController.class);
 
 //------------------------SHOW COURSES---------------------------------------//
 
@@ -81,53 +81,55 @@ public class CourseController {
 
     @PostMapping("/insertNewCourse/{id}")
     public String getCourseFromView(@PathVariable(required = false, name = "id") long id, @Valid Course course,
-        BindingResult result) {
+                                    BindingResult result) {
         Professor profInfo = professorRepo.findById(id).get();
         if (result.hasErrors()) {
-          return "courseInput";
+            return "courseInput";
         }
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         course.setProfessor(ProfFromDB.get());
         courseRepo.save(course);
         Course courseInfo = courseRepo.findByProfessor(profInfo);
         logger.info("Professor " + profInfo.getName() + " " + profInfo.getLastname() + " created a new course: "
-            + courseInfo.getTitle());
+                + courseInfo.getTitle());
         return "redirect:/showProfessorCourse/" + id;
     }
     //--------------------------------------------------------------------//
     //-----------------------REGISTER TO COURSES--------------------------//
 
 
-	@GetMapping(value = "/registerToCourse/{id}")
-	public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
-			@RequestParam(name = "courseButtonID", defaultValue = "none", required = false) String courseButtonID) {
-		Iterable<Course> courseFromDB = courseRepo.findAll();
-		CheckBoxList checkBoxList = new CheckBoxList();
-		for (Course i : courseFromDB) {
-			checkBoxList.addCheck(false);
-		}
+    @GetMapping(value = "/registerToCourse/{id}")
+    public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
+                                       @RequestParam(name = "courseButtonID", defaultValue = "none", required = false) String courseButtonID) {
+        Iterable<Course> courseFromDB = courseRepo.findAll();
+        CheckBoxList checkBoxList = new CheckBoxList();
+        for (Course i : courseFromDB) {
+            checkBoxList.addCheck(false);
+        }
 
-		model.addAttribute("regToCourse", courseFromDB);
-		model.addAttribute("listOfCheck", checkBoxList);
+        model.addAttribute("regToCourse", courseFromDB);
+        model.addAttribute("listOfCheck", checkBoxList);
 
-		return "registerToCourse";
-	}
-    
-	@PostMapping(value = "/registerToCourse/{id}")
-	public String registerToCourseViewPost(@PathVariable(name = "id") long id, CheckBoxList checkBoxList) {
-		Student student1 = studentRepo.findById(id).get();
-		Iterable<Course> cour1 = courseRepo.findAll();
-		ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
-		int coursesindex = 0;
-		for (Boolean i : checkBoxList.getListOfCheck()) {
-			System.out.println(i);
-			if (i != null) {
-				Grade g1 = new Grade(0, courses1.get(coursesindex), student1);
-				gradeRepo.save(g1);
-			}
-			coursesindex++;
-			logger.info("Student " + student1.getName() + " " + student1.getLastname() + " registered to a course.");
-		}
-		return "redirect:/showStudentCourses/" + id;
-	}
+        return "registerToCourse";
+    }
+
+    @PostMapping(value = "/registerToCourse/{id}")
+    public String registerToCourseViewPost(@PathVariable(name = "id") long id, CheckBoxList checkBoxList) {
+        Student student1 = studentRepo.findById(id).get();
+        Iterable<Course> cour1 = courseRepo.findAll();
+        ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
+        int coursesindex = 0;
+        for (Boolean i : checkBoxList.getListOfCheck()) {
+            System.out.println(i);
+            if (i != null)
+               /**if (i != null || gradeRepo.findByStudent(student1) != gradeRepo.findByCourse())*/{
+               /**if (gradeRepo.findByStudent(student1) != gradeRepo.findByCourse(coursesindex)) {*/
+                Grade g1 = new Grade(0, courses1.get(coursesindex), student1);
+                gradeRepo.save(g1);
+            }
+            coursesindex++;
+            logger.info("Student " + student1.getName() + " " + student1.getLastname() + " registered to a course.");
+        }
+        return "redirect:/showStudentCourses/" + id;
+    }
 }
