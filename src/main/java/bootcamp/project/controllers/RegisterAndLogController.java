@@ -85,6 +85,8 @@ public class RegisterAndLogController {
             return "redirect:/registerToCourse/" + id;
         else if (button.equals("ShowMyCours"))
             return "redirect:/showStudentCourses/" + id;
+        else if (button.equals("ShowAllStdCourses"))
+            return "redirect:/showAllCourses/" + id;
         else
             return "redirect:/ShowGrades/" + id;
     }
