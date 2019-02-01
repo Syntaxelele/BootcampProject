@@ -19,15 +19,17 @@
 						<div class="form-row">
 							<div class="col-md-6">
 								<div>
-									<input class="form-control" id="files" type="file" name="files" th:value="${docPath}" accept=".doc, .docx">
+									<input class="form-control" id="files" type="file" name="files" th:field="*{docPath}" accept=".doc, .docx">
 								</div>
 							</div>
-							<div class="col-md-6">
+
+							<form action="#" method="get"th:object="${top}" enctype="multipart/form-data">
+								<div class="col-md-6">
 								<div>
-									<input class="form-control btn btn-primary btn-block" id="upload" type="submit" value="Upload Files" th:object="${top}"></input>
+								<input class="form-control btn btn-primary btn-block" id="upload" type="submit" value="Upload Files"  th:field="*{docPath}"></input>
 								</div>
-							</div>
-							<form action="/DocView" method="get" th:value="${docPath}" enctype="multipart/form-data"></form>
+								</div>
+							</form>
 						</div>
 					</div>
 				</form>

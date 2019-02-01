@@ -302,7 +302,8 @@ public class RegisterAndLogController {
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
     @GetMapping("/DocView/{id}")
-    public String DocReader(@PathVariable(required = false, name = "id") long id) {
+    public String DocReader(@PathVariable(required = false, name = "id") long id, Top top) {
+
         return "DocReader";
     }
 
@@ -312,11 +313,11 @@ public class RegisterAndLogController {
         //Optional<Professor> findbyIDProf = professorRepo.findById(id);
         Course hot = new Course();
         //Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
-        //professorRepo.save(P);
+       // professorRepo.save(P);
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         //professorRepo.save(pr);
 		/*Course c = new Course("Math", "desc", P, "11",
-				"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
+			"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
         try {
             FileInputStream fis = new FileInputStream(top.getDocPath());
 
@@ -346,8 +347,8 @@ public class RegisterAndLogController {
 							/*	System.out.print(table.getRow(i).getCell(0).getText()+": ");
 							System.out.println(table.getRow(i).getCell(1).getText());*/
                     //}
-                }
                 //}
+                }
            }
 
         } catch (Exception ex) {
