@@ -30,7 +30,7 @@
 							<div class="col-md-6">
 								<div class="form-label-group">
 									<input class="form-control" id="courseDescription"
-										maxlength="300" placeholder="Course description"
+										maxlength="299" placeholder="Course description"
 										th:field="*{description}" type="text"> <label
 										for="courseDescription">Course description</label>
 								</div>
@@ -49,7 +49,8 @@
 						<div class="form-row">
 							<div class="col-md-6">
 								<div class="form-label-group">
-									<select name="evaluation" class="form-control" id="eva">
+									<select name="evaluation"
+										class="custom-select custom-select-lg">
 										<option value="test">Test</option>
 										<option value="exam">Exam</option>
 									</select>
@@ -57,7 +58,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-label-group">
-									<input class="form-control" id="CP" maxlength="2"
+									<input class="form-control" id="CP" maxlength="1"
 										placeholder="Credit points" required="required"
 										th:field="*{CP}" type="text"> <label for="CP">Credit
 										points</label>

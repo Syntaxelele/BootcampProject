@@ -36,17 +36,17 @@ public class SimpleController {
 
 	@GetMapping("hellotests")
 	public String testDBModel() {
-        
-        Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "rents6@inbox.lv");
-        Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "syntaxlv112@gmail.com");
-        Student s3 = new Student("Roberts", "Ziema", "dsafa", "passwdsadasords", 2, "armands.smans@gmail.com");
-        Student s4 = new Student("Anna", "Panna", "dsafas", "passwdsadasords", 2, "s8_apina_m@venta.lv");
-        
+
+		Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "rents6@inbox.lv");
+		Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "syntaxlv112@gmail.com");
+		Student s3 = new Student("Roberts", "Ziema", "dsafa", "passwdsadasords", 2, "armands.smans@gmail.com");
+		Student s4 = new Student("Anna", "Panna", "dsafas", "passwdsadasords", 2, "s8_apina_m@venta.lv");
+
 		studentRepo.save(s1);
 		studentRepo.save(s2);
 		studentRepo.save(s3);
 		studentRepo.save(s4);
-        
+
 		Professor pr1 = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
 		professorRepo.save(pr1);
 		Professor pr2 = new Professor("Zigis", "Kalns", "zigiiis", "parolee", 1, "epasts@epasts.lv");
@@ -57,7 +57,13 @@ public class SimpleController {
 		Professor pr4 = new Professor("Ilze", "Kalna", "ilzhuks", "parolee", 1, "epastss@epastss.com");
 		professorRepo.save(pr4);
 		// --------------------------------------------------------------------------------------------------------//
-		Course c1 = new Course("Math", "desc", pr1, "11", "test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");
+		Course c1 = new Course("Math",
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget massa posuere, mollis odio sit amet, varius nibh. Proin ut justo velit. Nullam non pulvinar turpis, eget viverra mi. Donec et tristique enim, a luctus felis. Sed tincidunt maximus vehicula. Aliquam tincidunt velit sapien, sit amet.",
+				pr1, "11", "test", 1,
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim justo, hendrerit eget justo gravida, imperdiet dictum est. Cras fermentum nibh eu leo facilisis ultrices quis nec erat. Sed sit amet nunc fermentum, feugiat quam a, dignissim leo. Duis tristique dignissim luctus. Morbi in nullam.",
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam molestie nulla sit amet metus vulputate iaculis. Praesent ligula enim, ullamcorper in lectus sed, rutrum mattis erat. Nunc in ex et purus dapibus faucibus. Cras ipsum lectus, lacinia eget porttitor vel, lacinia vel sapien. In posuere.",
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sit amet ante lorem. Suspendisse placerat sapien vel orci iaculis, at sollicitudin quam consequat. Suspendisse potenti. Aenean eu euismod enim. Nullam quis nibh in tellus iaculis lobortis sit amet ac turpis. Integer vitae ipsum sed.",
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sit amet ante lorem. Suspendisse placerat sapien vel orci iaculis, at sollicitudin quam consequat. Suspendisse potenti. Aenean eu euismod enim. Nullam quis nibh in tellus iaculis lobortis sit amet ac turpis. Integer vitae ipsum sed.");
 		courseRepo.save(c1);
 		Course c2 = new Course("Java", "desc", pr2, "22", "test", 2, "afsafas", "dsadas", "dsadsa", "dsadsadas");
 		courseRepo.save(c2);

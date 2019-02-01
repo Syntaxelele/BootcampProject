@@ -3,8 +3,6 @@ package bootcamp.project.helper;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import bootcamp.project.courses.Course;
-
 public class gradesHelper {
 
     private String studentName;
@@ -80,5 +78,3 @@ public class gradesHelper {
 
 
 }
-
-

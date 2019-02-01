@@ -10,31 +10,37 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-dark">
-<div class="container">
-    <div class="card card-login mx-auto mt-5">
-        <div class="card-header text-center">Grades</div>
-        <div class="card-body text-center">
-            <div class="form-group">
-                <div class="form-label-group">
-                    <table border="1" width="100%">
-                        <th>Name</th>
-                        <th>Lastname</th>
-                        <th>Grade</th>
-                        <th:block th:each="d : ${dataToEvaluate.studentsAndGradesList}">
-                            <tr>
-                                <td th:text="${d.getStudentName()}">NO DATA</td>
-                                <td th:text="${d.getStudentLastname()}">NO DATA</td>
-                                <td th:text="${d.getGrade()}">NO DATA</td>
-                            </tr>
-                        </th:block>
-                    </table>
-                    <div class="text-center">
-                        <a class="d-block small mt-3" th:href="@{/showCourseOptions/__${id}__}">Back</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container">
+	    <div class="card card-login mx-auto mt-5">
+	        <div class="card-header text-center">Grades</div>
+	        <div class="card-body text-center">
+	            <div class="form-group">
+	                <div class="form-label-group">
+	                    <table class="table table-bordered table-sm">
+							<thead class="table-secondary">
+								<tr>
+			                        <th scope="col">Name</th>
+			                        <th scope="col">Lastname</th>
+			                        <th scope="col">Grade</th>
+		                        </tr>
+	                        </thead>
+	                        <tbody>
+		                        <th:block th:each="d : ${dataToEvaluate.studentsAndGradesList}">
+		                            <tr>
+		                                <td th:text="${d.getStudentName()}">NO DATA</td>
+		                                <td th:text="${d.getStudentLastname()}">NO DATA</td>
+		                                <td th:text="${d.getGrade()}">NO DATA</td>
+		                            </tr>
+		                        </th:block>
+	                        </tbody>
+	                    </table>
+	                    <div class="text-center">
+	                        <a class="d-block small mt-3" th:href="@{/showCourseOptions/__${id}__}">Back</a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </body>
 </html>
