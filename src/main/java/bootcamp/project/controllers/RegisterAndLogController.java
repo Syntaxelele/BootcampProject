@@ -186,17 +186,21 @@ public class RegisterAndLogController {
             return "setGradesView";
         }
         Professor myProfessor2 = professorRepo.findById(id).get();
-
         Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
-
         ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
+
         EmailSender emailsnd = new EmailSender();
         for (int i = 0; i < listOfData.studentsAndGradesList.size(); i++) {
             int gtemp = listOfData.studentsAndGradesList.get(i).getGrade();
             gradesOfMyCourse.get(i).setGrade(gtemp);
             gradeRepo.save(gradesOfMyCourse.get(i));
             String stude_email = gradesOfMyCourse.get(i).getStudent().getEmail();
-            emailsnd.sendSimpleMessage(stude_email,"Your Grade"+gradesOfMyCourse.get(i).getCourse().getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade());
+            if(gradesOfMyCourse.get(i).getGrade() < 4){
+                emailsnd.sendSimpleMessage(stude_email,"Your Grade in "+ myCourse2.getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade()+" and you stupid");
+            }
+            else{
+                emailsnd.sendSimpleMessage(stude_email,"Your Grade in "+ myCourse2.getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade()+". Congratulations");
+            }
         }
 
 
