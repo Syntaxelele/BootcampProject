@@ -112,6 +112,24 @@ public class RegisterAndLogController {
     	
         model.addAttribute("stGrades", listOfStudentGrades);
     	return "ShowGrades";
+
+    }   @GetMapping("/showStudentCourses/{id}")
+    public String showAllCoursesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+        StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+        Student stud = studentRepo.findById(id).get();
+        ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
+
+
+        for (Grade g : myGrades) {
+                Student st = g.getStudent();
+                //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
+
+                gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+
+                listOfStudentGrades.addNewItem(gh);
+            }
+        model.addAttribute("stCourses", listOfStudentGrades);
+        return "showStudentCourses";
     }
     
    
