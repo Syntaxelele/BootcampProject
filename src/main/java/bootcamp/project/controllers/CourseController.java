@@ -84,7 +84,7 @@ public class CourseController {
                                     BindingResult result) {
         Professor profInfo = professorRepo.findById(id).get();
         if (result.hasErrors()) {
-            return "courseInput";
+            return "insertNewCourse";
         }
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
         course.setProfessor(ProfFromDB.get());
@@ -114,16 +114,19 @@ public class CourseController {
     }
 
     @PostMapping(value = "/registerToCourse/{id}")
-    public String registerToCourseViewPost(@PathVariable(name = "id") long id, CheckBoxList checkBoxList) {
+    public String registerToCourseViewPost(@PathVariable(required = false, name = "id") long id,
+                                           @Valid CheckBoxList checkBoxList, BindingResult result) {
+//        Student studentInfo = studentRepo.findById(id).get();
+        if (result.hasErrors()) {
+            return "registerToCourse";
+        }
         Student student1 = studentRepo.findById(id).get();
         Iterable<Course> cour1 = courseRepo.findAll();
         ArrayList<Course> courses1 = (ArrayList<Course>) courseRepo.findAll();
         int coursesindex = 0;
         for (Boolean i : checkBoxList.getListOfCheck()) {
             System.out.println(i);
-            if (i != null)
-               /**if (i != null || gradeRepo.findByStudent(student1) != gradeRepo.findByCourse())*/{
-               /**if (gradeRepo.findByStudent(student1) != gradeRepo.findByCourse(coursesindex)) {*/
+            if (i != null) {
                 Grade g1 = new Grade(0, courses1.get(coursesindex), student1);
                 gradeRepo.save(g1);
             }
