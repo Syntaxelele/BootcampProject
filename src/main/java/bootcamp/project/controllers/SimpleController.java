@@ -33,10 +33,10 @@ public class SimpleController {
 
     @GetMapping("hellotests")
     public String testDBModel() {
-        Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "inbox@inbox.lv");
-        Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "inboax@inbox.lv");
-        Student s3 = new Student("Roberts", "Ziema", "dsafa", "passwdsadasords", 2, "inbaaox@inbox.lv");
-        Student s4 = new Student("Anna", "Panna", "dsafas", "passwdsadasords", 2, "inbaaoxasd@inbox.lv");
+        Student s1 = new Student("Janis", "Berzins", "niks", "passwords", 2, "rents6@inbox.lv");
+        Student s2 = new Student("Líga", "Liepa", "nickname", "passworasdds", 2, "syntaxlv112@gmail.com");
+        Student s3 = new Student("Roberts", "Ziema", "dsafa", "passwdsadasords", 2, "armands.smans@gmail.com");
+        Student s4 = new Student("Anna", "Panna", "dsafas", "passwdsadasords", 2, "s8_apina_m@venta.lv");
         studentRepo.save(s1);
         studentRepo.save(s2);
         studentRepo.save(s3);

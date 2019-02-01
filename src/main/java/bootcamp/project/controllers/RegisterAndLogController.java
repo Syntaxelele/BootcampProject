@@ -2,6 +2,7 @@ package bootcamp.project.controllers;
 
 import bootcamp.project.courses.Course;
 import bootcamp.project.courses.Grade;
+import bootcamp.project.helper.EmailSender;
 import bootcamp.project.helper.StudentsAndGradesList;
 import bootcamp.project.helper.Top;
 import bootcamp.project.helper.gradesHelper;
@@ -21,6 +22,9 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,10 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class RegisterAndLogController {
@@ -45,6 +46,7 @@ public class RegisterAndLogController {
     ProfessorRepo professorRepo;
     @Autowired
     GradeRepo gradeRepo;
+
 
     Logger logger = LoggerFactory.getLogger(RegisterAndLogController.class);
 
@@ -188,12 +190,19 @@ public class RegisterAndLogController {
         Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
 
         ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
-
+        EmailSender emailsnd = new EmailSender();
         for (int i = 0; i < listOfData.studentsAndGradesList.size(); i++) {
             int gtemp = listOfData.studentsAndGradesList.get(i).getGrade();
             gradesOfMyCourse.get(i).setGrade(gtemp);
             gradeRepo.save(gradesOfMyCourse.get(i));
+            String stude_email = gradesOfMyCourse.get(i).getStudent().getEmail();
+            emailsnd.sendSimpleMessage(stude_email,"Your Grade"+gradesOfMyCourse.get(i).getCourse().getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade());
         }
+
+
+
+
+
         return "redirect:/showGradesView/" + id;
     }
 
