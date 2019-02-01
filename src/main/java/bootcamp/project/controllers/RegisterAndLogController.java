@@ -31,7 +31,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -387,6 +390,25 @@ public class RegisterAndLogController {
     public String createNewStudent2(Student student) {
         return "showAllCourses";
     }
+    @GetMapping("/showAllLogs")
+    public String showAllLogs(Model model) {
+        try {
+            FileReader fr = new FileReader("log-file.txt");
+            BufferedReader br = new BufferedReader(fr);
 
+            String str;
+            String ste="";
+            while ((str = br.readLine()) != null) {
+                System.out.println(str + "\n");
+                ste = ste + str;
+            }
+            br.close();
+            model.addAttribute("pop",ste);
+        } catch (IOException e) {
+            System.out.println("ewq");
+        }
+return "ShowLog";
+
+    }
 
 }
