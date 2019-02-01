@@ -77,7 +77,9 @@ public class RegisterAndLogController {
     //--------------------------------------------------------------------//
     //-----------------------STUDENT--------------------------------------//
     @GetMapping("/StudentMenu/{id}")
-    public String doorsStudent(Student student, @PathVariable(name = "id") long id) {
+    public String doorsStudent(Student student, @PathVariable(name = "id") long id, Model model) {
+    	Student studName = studentRepo.findById(id).get();
+        model.addAttribute("getName", studName.getName());
         return "StudentMenu";
     }
 
@@ -135,25 +137,29 @@ public class RegisterAndLogController {
         model.addAttribute("stCourses", listOfStudentGrades);
         return "showStudentCourses";
     }
-    
    
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
     @GetMapping("/professorMenu/{id}")
-    public String doorsProfessor(Professor professor, @PathVariable(name = "id") long id) {
+    public String doorsProfessor(Professor professor, @PathVariable(name = "id") long id, Model model) {
+    	Professor profName = professorRepo.findById(id).get();
+        model.addAttribute("getName", profName.getName());
         return "professorMenu";
     }
 
     @PostMapping("/professorMenu/{id}")
     public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
+    	
         if (button.equals("showMyCourse")) {
             return "redirect:/showCourseOptions/" + id;
-        } else if (button.equals("exportGrades"))
+        } else if (button.equals("exportGrades")) {
             return "redirect:/uploadExcelFile/" + id;
-        else if (button.equals("uploadCourse"))
+        } else if (button.equals("uploadCourse")) {
             return "redirect:/DocView/" + id;
-        else {
+    	} else if (button.equals("insertNewCourse")){
             return "redirect:/insertNewCourse/" + id;
+        } else {
+            return "redirect:/showAllUsers/" + id;
         }
     }
 //------------------------COURSE OPTIONS-----------------------------------//
@@ -232,7 +238,6 @@ public class RegisterAndLogController {
             return "setGradesView";
         }
         Professor myProfessor2 = professorRepo.findById(id).get();
-
         Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
 
         ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
@@ -244,37 +249,9 @@ public class RegisterAndLogController {
             String stude_email = gradesOfMyCourse.get(i).getStudent().getEmail();
             emailsnd.sendSimpleMessage(stude_email,"Your Grade"+gradesOfMyCourse.get(i).getCourse().getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade());
         }
-
-
-
-
-
+		logger.info("Professor " + myProfessor2.getName() + " evaluated students and sent out emails.");
         return "redirect:/showGradesView/" + id;
     }
-
-    //   @PostMapping("/showEvaluationView")
-    //   public String testEvaluationViewPost(ListOfInfoForView allDataWithGrade) {
-    //       // find JAVA course
-    //       Course courseJava = courseRepo.findByTitle("JAVA");
-//
-    //       // get only grades realted to JAVA course
-    //       ArrayList<Grade> gradesInJava = gradeRepo.findByCourse(courseJava);
-//
-    //       // print out grades
-    //       for (InfoForView info : allDataWithGrade.listOfInfoForView)
-    //           System.out.println(info.getGrade());
-//
-    //       // set grades in grade repo - data taken from allDataWithGrade
-    //       for (int i = 0; i < gradesInJava.size(); i++) {
-    //           gradesInJava.get(i).setGradeValue(allDataWithGrade.getListOfInfoForView().get(i).getGrade());
-    //           gradeRepo.save(gradesInJava.get(i));
-    //       }
-//
-    //       return "redirect:/testShowAvgOfCourse";
-//
-    //   }
-
-
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
     @GetMapping("/RegView")
@@ -335,18 +312,10 @@ public class RegisterAndLogController {
 
     @PostMapping("/DocView/{id}")
     public String DocReaderPost(@PathVariable(required = false, name = "id") long id, Top top) {
-        //Optional<Professor> pr = professorRepo.findById(id);
-        //Optional<Professor> findbyIDProf = professorRepo.findById(id);
         Course hot = new Course();
-        //Professor P = new Professor("Baiba", "Jauka", "baibaa", "parole", 1, "emails@email.lv");
-       // professorRepo.save(P);
         Optional<Professor> ProfFromDB = professorRepo.findById(id);
-        //professorRepo.save(pr);
-		/*Course c = new Course("Math", "desc", P, "11",
-			"test", 1, "afsafas", "dsadas", "dsadsa", "dsadsadas");*/
         try {
             FileInputStream fis = new FileInputStream(top.getDocPath());
-
             XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
             Iterator bodyElementIterator = xdoc.getBodyElementsIterator();
             while (bodyElementIterator.hasNext()) {
@@ -355,13 +324,9 @@ public class RegisterAndLogController {
                 if ("TABLE".equalsIgnoreCase(element.getElementType().name())) {
                     List<XWPFTable> tableList = element.getBody().getTables();
                     XWPFTable table = tableList.get(0);
-                    //for (XWPFTable table : tableList) {
-                    System.out.println("Total Number of Rows of Table:" + table.getNumberOfRows());
-                    //for (int i = 0; i < table.getRows().size(); i++) {
                     hot.setTitle(table.getRow(0).getCell(1).getText());
                     hot.setCourseCode(table.getRow(2).getCell(1).getText());
                     hot.setEvaluation(table.getRow(3).getCell(1).getText());
-                    //hot.setProfessor(P);
                     hot.setProfessor(ProfFromDB.get());
                     hot.setCP(2);
                     hot.setPrereq(table.getRow(5).getCell(1).getText());
@@ -369,11 +334,7 @@ public class RegisterAndLogController {
                     hot.setOutcome(table.getRow(7).getCell(1).getText());
                     System.out.println(table.getRow(8).getCell(1).getText().length());
                     hot.setContent(table.getRow(8).getCell(1).getText());
-                    //for (int j = 0; j < table.getRow(i).getTableCells().size(); j++) {
-							/*	System.out.print(table.getRow(i).getCell(0).getText()+": ");
-							System.out.println(table.getRow(i).getCell(1).getText());*/
-                    //}
-                //}
+                    logger.info("Professor " + ProfFromDB.get().getName() + " uploaded a course document.");
                 }
            }
 
@@ -388,6 +349,4 @@ public class RegisterAndLogController {
     public String createNewStudent2(Student student) {
         return "showAllCourses";
     }
-
-
 }

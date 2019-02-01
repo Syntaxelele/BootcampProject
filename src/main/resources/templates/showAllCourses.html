@@ -1,59 +1,64 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <title>IS System - All courses</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/style.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	name="viewport">
+<title>IS System - All courses</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-dark">
-<div class="container">
-    <div class="card mx-auto mt-5">
-        <div class="card-header text-center">All courses</div>
-        <div class="card-body text-center">
-            <div class="form-group">
-                <div class="form-label-group">
-                    <table border="1" width="100%">
-                        <form action="#" method="get" name="ShowCour" th:action="@{/ShowCour/__${id}__}"
-                              th:object="${course}">
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Professor</th>
-                            <th>Course code</th>
-                            <th>CP</th>
-                            <th>Description</th>
-                            <th>Evaluation</th>
-                            <th>Content</th>
-                            <th>Objective</th>
-                            <th>Outcome</th>
-                            <th>Prerequisites</th>
-                            <th:block th:each="course : ${allCourses}">
-                                <tr>
-                                    <td th:text="${course.getCourseID()}">NO DATA</td>
-                                    <td th:text="${course.getTitle()}">NO DATA</td>
-                                    <td th:text="${course.getProfessor()}">NO DATA</td>
-                                    <td th:text="${course.getCourseCode()}">NO DATA</td>
-                                    <td th:text="${course.getCP()}">NO DATA</td>
-                                    <td th:text="${course.getDescription()}">NO DATA</td>
-                                    <td th:text="${course.getEvaluation()}">NO DATA</td>
-                                    <td th:text="${course.getContent()}">NO DATA</td>
-                                    <td th:text="${course.getObjective()}">NO DATA</td>
-                                    <td th:text="${course.getOutcome()}">NO DATA</td>
-                                    <td th:text="${course.getPrereq()}">NO DATA</td>
-                                </tr>
-                            </th:block>
-                        </form>
-                    </table>
-                    <div class="text-center">
-                        <a class="d-block small mt-3" th:href="@{/StudentMenu/__${id}__}">Back</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container">
+		<div class="card mx-auto mt-5">
+			<div class="card-header text-center">All courses</div>
+			<div class="card-body text-center">
+				<div class="form-group">
+					<div class="form-label-group">
+						<form action="#" method="get" name="ShowCour"
+							th:action="@{/ShowCour/__${id}__}" th:object="${course}">
+							<table class="table table-bordered table-sm">
+								<thead class="table-secondary">
+									<tr>
+										<th class="align-middle" scope="col">Title</th>
+										<th class="align-middle" scope="col">Professor</th>
+										<th class="align-middle" scope="col">Course code</th>
+										<th class="align-middle" scope="col">CP</th>
+										<th class="align-middle" scope="col">Description</th>
+										<th class="align-middle" scope="col">Evaluation</th>
+										<th class="align-middle" scope="col">Content</th>
+										<th class="align-middle" scope="col">Objective</th>
+										<th class="align-middle" scope="col">Outcome</th>
+										<th class="align-middle" scope="col">Prerequisites</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="course : ${allCourses}">
+										<tr>
+											<td th:text="${course.getTitle()}">NO DATA</td>
+											<td th:text="${course.getProfessor()}">NO DATA</td>
+											<td th:text="${course.getCourseCode()}">NO DATA</td>
+											<td th:text="${course.getCP()}">NO DATA</td>
+											<td th:text="${course.getDescription()}">NO DATA</td>
+											<td th:text="${course.getEvaluation()}">NO DATA</td>
+											<td th:text="${course.getContent()}">NO DATA</td>
+											<td th:text="${course.getObjective()}">NO DATA</td>
+											<td th:text="${course.getOutcome()}">NO DATA</td>
+											<td th:text="${course.getPrereq()}">NO DATA</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</form>
+						<div class="text-center">
+							<a class="d-block small mt-3" th:href="@{/StudentMenu/__${id}__}">Back</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
