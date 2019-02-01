@@ -287,46 +287,43 @@ public class RegisterAndLogController {
 
         Student findDupeUsername = studentRepo.findByUsername(student.getUsername());
         Student findDupeEmail = studentRepo.findByEmail(student.getEmail());
+        Professor findDupeUsernameProf = professorRepo.findByUsername(professor.getUsername());
+        Professor findDupeEmailProf = professorRepo.findByEmail(professor.getEmail());
 
         if (result.hasErrors()) {
-            System.out.println("hasErrroooorsInView");
+        	logger.info("User made validation error while registering.");
             return "RegView";
-        } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
-            logger.info("User is already registered");
-        	System.out.println("dupe username");
-			    return "RegView";
-        } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
-            logger.info("User is already registered");
-			    System.out.println("dupe email");
-			    return "RegView";
+        } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername()) || findDupeUsernameProf != null && findDupeUsernameProf.getUsername().equalsIgnoreCase(professor.getUsername())) {
+            logger.info("User tried registering with existing username.");
+			return "RegView";
+        } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail()) || findDupeEmailProf != null && findDupeEmailProf.getEmail().equalsIgnoreCase(professor.getEmail())) {
+            logger.info("User tried registering with existing email.");
+			return "RegView";
         } else if (student.getRole() == 2) {
-            System.out.println(student.getName() + " "
-                    + student.getLastname() + " "
-                    + student.getUsername() + " "
-                    + student.getEmail() + " "
-                    + student.getRole()
-            );
             studentRepo.save(student);
-            User findbyNameAndPassw = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
-            return "redirect:/StudentMenu/" + findbyNameAndPassw.getId_u();
-        } else {
-            System.out.println(
-                    professor.getName() + " "
-                            + professor.getLastname() + " "
-                            + professor.getUsername() + " "
-                            + professor.getEmail() + " "
-                            + professor.getRole()
-            );
+            User findbyNameAndPassStud = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
+            logger.info("New student: " + findbyNameAndPassStud.getName() + " " + findbyNameAndPassStud.getLastname() + ".");
+            return "redirect:/StudentMenu/" + findbyNameAndPassStud.getId_u();
+        } else if (findDupeUsernameProf != null && findDupeUsernameProf.getUsername().equalsIgnoreCase(professor.getUsername()) || findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
+        	logger.info("User tried registering with existing username.");
+			return "RegView";
+        } else if (findDupeEmailProf != null && findDupeEmailProf.getEmail().equalsIgnoreCase(professor.getEmail()) || findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
+        	logger.info("User tried registering with existing email.");
+			return "RegView";
+        } else if (student.getRole() == 1) {
             professorRepo.save(professor);
-            User findbyNameAndPassw = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
-            return "redirect:/professorMenu/" + findbyNameAndPassw.getId_u();
-        }
+            User findbyNameAndPassProf = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
+            logger.info("New professor: " + findbyNameAndPassProf.getName() + " " + findbyNameAndPassProf.getLastname() + ".");
+            return "redirect:/professorMenu/" + findbyNameAndPassProf.getId_u();
+        } else 
+        	System.out.println("ERROR WITH REGISTRATION - LAST ELSE");
+        	return "RegView";
     }
     //--------------------------------------------------------------------//
     //-----------------------FORGOT PASSWORD------------------------------//
     @GetMapping("/forgotPass")
     public String Forgot(Student student, Professor professor) {
-        return "forgotPass";
+        return "forgotpass";
     }
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
