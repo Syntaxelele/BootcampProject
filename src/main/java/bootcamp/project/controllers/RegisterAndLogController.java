@@ -13,7 +13,6 @@ import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
 import bootcamp.project.users.User;
-
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -24,15 +23,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class RegisterAndLogController {
@@ -46,11 +50,11 @@ public class RegisterAndLogController {
     @Autowired
     GradeRepo gradeRepo;
 
-
     Logger logger = LoggerFactory.getLogger(RegisterAndLogController.class);
 
+    //-----------------------STUDENT--------------------------------------//
+
     @GetMapping("/showAllUsers")
-    //@GetMapping("/showAllStudents")
     public String showAllStudentsToView(Model model) {
         Iterable<Student> userFromDB = studentRepo.findAll();
         model.addAttribute("allUsers", userFromDB);
@@ -64,20 +68,12 @@ public class RegisterAndLogController {
         return "showAllUsers";
     }
 
-    // SHOW USER BY NAME
-    /*
-     * @GetMapping("/showUserByName") public String showUserByName(
-     *
-     * @RequestParam(name = "username", defaultValue = "Janis", required = false)
-     * String username, Model model) { //Iterable<User> userResult =
-     * userRepo.findByName(username); // model.addAttribute("allUsers", userResult);
-     * return "showAllUsers"; }
-     */
     //--------------------------------------------------------------------//
     //-----------------------STUDENT--------------------------------------//
+
     @GetMapping("/StudentMenu/{id}")
     public String doorsStudent(Student student, @PathVariable(name = "id") long id, Model model) {
-    	Student studName = studentRepo.findById(id).get();
+        Student studName = studentRepo.findById(id).get();
         model.addAttribute("getName", studName.getName());
         return "StudentMenu";
     }
@@ -93,75 +89,66 @@ public class RegisterAndLogController {
         else
             return "redirect:/ShowGrades/" + id;
     }
-    
-    
-   @GetMapping("/ShowGrades/{id}")
+
+    @GetMapping("/ShowGrades/{id}")
     public String showGradesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
-    	StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
-    	Student stud = studentRepo.findById(id).get();
+        StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
+        Student stud = studentRepo.findById(id).get();
         ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
 
-
         for (Grade g : myGrades) {
-        	if(g.getGrade()!=0)
-        	{
-            Student st = g.getStudent();
-            //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
-
-            gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
-
-            listOfStudentGrades.addNewItem(gh);
-        	}
-        	
+            if (g.getGrade() != 0) {
+                Student st = g.getStudent();
+                gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+                listOfStudentGrades.addNewItem(gh);
+            }
         }
-    	
         model.addAttribute("stGrades", listOfStudentGrades);
-    	return "ShowGrades";
+        return "ShowGrades";
 
-    }   @GetMapping("/showStudentCourses/{id}")
+    }
+
+    @GetMapping("/showStudentCourses/{id}")
     public String showAllCoursesToStudent(Student student, @PathVariable(name = "id") long id, Model model) {
         StudentsAndGradesList listOfStudentGrades = new StudentsAndGradesList();
         Student stud = studentRepo.findById(id).get();
         ArrayList<Grade> myGrades = gradeRepo.findByStudent(stud);
 
-
         for (Grade g : myGrades) {
-                Student st = g.getStudent();
-                //System.out.println(st.getName() + " " + st.getLastname() + " " + g.getGrade());
-
-                gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
-
-                listOfStudentGrades.addNewItem(gh);
-            }
+            Student st = g.getStudent();
+            gradesHelper gh = new gradesHelper(st.getName(), st.getLastname(), g.getGrade(), g.getCourse().getTitle());
+            listOfStudentGrades.addNewItem(gh);
+        }
         model.addAttribute("stCourses", listOfStudentGrades);
         return "showStudentCourses";
     }
-   
+
     //--------------------------------------------------------------------//
     //-----------------------PROFESSOR------------------------------------//
+
     @GetMapping("/professorMenu/{id}")
     public String doorsProfessor(Professor professor, @PathVariable(name = "id") long id, Model model) {
-    	Professor profName = professorRepo.findById(id).get();
+        Professor profName = professorRepo.findById(id).get();
         model.addAttribute("getName", profName.getName());
         return "professorMenu";
     }
 
     @PostMapping("/professorMenu/{id}")
     public String showProfessorMenu(Professor professor, @PathVariable(name = "id") long id, @RequestParam(name = "profButton") String button) {
-    	
         if (button.equals("showMyCourse")) {
             return "redirect:/showCourseOptions/" + id;
         } else if (button.equals("exportGrades")) {
             return "redirect:/uploadExcelFile/" + id;
         } else if (button.equals("uploadCourse")) {
             return "redirect:/DocView/" + id;
-    	} else if (button.equals("insertNewCourse")){
+        } else if (button.equals("insertNewCourse")) {
             return "redirect:/insertNewCourse/" + id;
         } else {
             return "redirect:/showAllUsers/" + id;
         }
     }
-//------------------------COURSE OPTIONS-----------------------------------//
+    //--------------------------------------------------------------------//
+    //------------------------COURSE OPTIONS------------------------------//
 
     @GetMapping("/showCourseOptions/{id}")
     public String courseOptions(Professor professor, @PathVariable(name = "id") long id) {
@@ -184,25 +171,17 @@ public class RegisterAndLogController {
 
         StudentsAndGradesList listOfdata = new StudentsAndGradesList();
         Professor myProfessor = professorRepo.findById(id).get();
-
         Course myCourse = courseRepo.findByProfessor(myProfessor);
-
         ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse);
 
-
         for (Grade g : gradesOfMyCourse) {
-
             Student stOfMyCourse = g.getStudent();
             System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
-
-            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(),g.getGrade());
-
+            gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
             listOfdata.addNewItem(gh);
         }
-
         model.addAttribute("dataToEvaluate", listOfdata);
         return "showGradesView";
-
     }
 
     @GetMapping("/setGradesView/{id}")
@@ -210,30 +189,23 @@ public class RegisterAndLogController {
 
         StudentsAndGradesList listOfdata = new StudentsAndGradesList();
         Professor myProfessor2 = professorRepo.findById(id).get();
-
         Course myCourse2 = courseRepo.findByProfessor(myProfessor2);
-
         ArrayList<Grade> gradesOfMyCourse = gradeRepo.findByCourse(myCourse2);
 
-
         for (Grade g : gradesOfMyCourse) {
-
             Student stOfMyCourse2 = g.getStudent();
             System.out.println(stOfMyCourse2.getName() + " " + stOfMyCourse2.getLastname() + " " + g.getGrade());
-
             gradesHelper gh2 = new gradesHelper(stOfMyCourse2.getName(), stOfMyCourse2.getLastname(), g.getGrade());
-
             listOfdata.addNewItem(gh2);
         }
         model.addAttribute("setStudentGrades", listOfdata);
         return "setGradesView";
-
     }
 
     @PostMapping("setGradesView/{id}")
     public String setGradesViewPost(@PathVariable(name = "id") long id, Professor professor,
-                                    StudentsAndGradesList listOfData, BindingResult result){
-        if (result.hasErrors()){
+                                    StudentsAndGradesList listOfData, BindingResult result) {
+        if (result.hasErrors()) {
             return "setGradesView";
         }
         Professor myProfessor2 = professorRepo.findById(id).get();
@@ -246,18 +218,19 @@ public class RegisterAndLogController {
             gradesOfMyCourse.get(i).setGrade(gtemp);
             gradeRepo.save(gradesOfMyCourse.get(i));
             String stude_email = gradesOfMyCourse.get(i).getStudent().getEmail();
-            if(gradesOfMyCourse.get(i).getGrade() < 4){
-                emailsnd.sendSimpleMessage(stude_email,"Your Grade in "+ myCourse2.getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade()+" and you stupid");
-            }
-            else{
-                emailsnd.sendSimpleMessage(stude_email,"Your Grade in "+ myCourse2.getTitle(),"Your grade is "+gradesOfMyCourse.get(i).getGrade()+". Congratulations");
+            if (gradesOfMyCourse.get(i).getGrade() < 4) {
+                emailsnd.sendSimpleMessage(stude_email, "Your Grade in " + myCourse2.getTitle(), "Your grade is " + gradesOfMyCourse.get(i).getGrade() + " and you stupid");
+            } else {
+                emailsnd.sendSimpleMessage(stude_email, "Your Grade in " + myCourse2.getTitle(), "Your grade is " + gradesOfMyCourse.get(i).getGrade() + ". Congratulations");
             }
         }
-		logger.info("Professor " + myProfessor2.getName() + " evaluated students and sent out emails.");
+        logger.info("Professor " + myProfessor2.getName() + " evaluated students and sent out emails.");
         return "redirect:/showGradesView/" + id;
     }
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTRATION---------------------------------//
+
     @GetMapping("/RegView")
     public String Registerer(Student student, Professor professor) {
         return "RegView";
@@ -272,45 +245,48 @@ public class RegisterAndLogController {
         Professor findDupeEmailProf = professorRepo.findByEmail(professor.getEmail());
 
         if (result.hasErrors()) {
-        	logger.info("User made validation error while registering.");
+            logger.info("User made validation error while registering.");
             return "RegView";
         } else if (findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername()) || findDupeUsernameProf != null && findDupeUsernameProf.getUsername().equalsIgnoreCase(professor.getUsername())) {
             logger.info("User tried registering with existing username.");
-			return "RegView";
+            return "RegView";
         } else if (findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail()) || findDupeEmailProf != null && findDupeEmailProf.getEmail().equalsIgnoreCase(professor.getEmail())) {
             logger.info("User tried registering with existing email.");
-			return "RegView";
+            return "RegView";
         } else if (student.getRole() == 2) {
             studentRepo.save(student);
             User findbyNameAndPassStud = studentRepo.findByUsernameAndPassword(student.getUsername(), student.getPassword());
             logger.info("New student: " + findbyNameAndPassStud.getName() + " " + findbyNameAndPassStud.getLastname() + ".");
             return "redirect:/StudentMenu/" + findbyNameAndPassStud.getId_u();
         } else if (findDupeUsernameProf != null && findDupeUsernameProf.getUsername().equalsIgnoreCase(professor.getUsername()) || findDupeUsername != null && findDupeUsername.getUsername().equalsIgnoreCase(student.getUsername())) {
-        	logger.info("User tried registering with existing username.");
-			return "RegView";
+            logger.info("User tried registering with existing username.");
+            return "RegView";
         } else if (findDupeEmailProf != null && findDupeEmailProf.getEmail().equalsIgnoreCase(professor.getEmail()) || findDupeEmail != null && findDupeEmail.getEmail().equalsIgnoreCase(student.getEmail())) {
-        	logger.info("User tried registering with existing email.");
-			return "RegView";
+            logger.info("User tried registering with existing email.");
+            return "RegView";
         } else if (student.getRole() == 1) {
             professorRepo.save(professor);
             User findbyNameAndPassProf = professorRepo.findByUsernameAndPassword(professor.getUsername(), professor.getPassword());
             logger.info("New professor: " + findbyNameAndPassProf.getName() + " " + findbyNameAndPassProf.getLastname() + ".");
             return "redirect:/professorMenu/" + findbyNameAndPassProf.getId_u();
-        } else 
-        	System.out.println("ERROR WITH REGISTRATION - LAST ELSE");
-        	return "RegView";
+        } else
+            System.out.println("ERROR WITH REGISTRATION - LAST ELSE");
+        return "RegView";
     }
+
     //--------------------------------------------------------------------//
     //-----------------------FORGOT PASSWORD------------------------------//
+
     @GetMapping("/forgotPass")
     public String Forgot(Student student, Professor professor) {
         return "forgotpass";
     }
+
     //--------------------------------------------------------------------//
     //-----------------------DOCUMENT IMPORT------------------------------//
+
     @GetMapping("/DocView/{id}")
     public String DocReader(@PathVariable(required = false, name = "id") long id, Top top) {
-
         return "DocReader";
     }
 
@@ -329,10 +305,9 @@ public class RegisterAndLogController {
                     List<XWPFTable> tableList = element.getBody().getTables();
                     XWPFTable table = tableList.get(0);
                     hot.setTitle(table.getRow(0).getCell(1).getText());
-                    hot.setCourseCode(table.getRow(2).getCell(1).getText());
                     hot.setEvaluation(table.getRow(3).getCell(1).getText());
                     hot.setProfessor(ProfFromDB.get());
-                    hot.setCP(2);
+                    hot.setCP(table.getRow(4).getCell(1).getText());
                     hot.setPrereq(table.getRow(5).getCell(1).getText());
                     hot.setObjective(table.getRow(6).getCell(1).getText());
                     hot.setOutcome(table.getRow(7).getCell(1).getText());
@@ -340,8 +315,7 @@ public class RegisterAndLogController {
                     hot.setContent(table.getRow(8).getCell(1).getText());
                     logger.info("Professor " + ProfFromDB.get().getName() + " uploaded a course document.");
                 }
-           }
-
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -359,20 +333,16 @@ public class RegisterAndLogController {
         try {
             FileReader fr = new FileReader("log-file.txt");
             BufferedReader br = new BufferedReader(fr);
-
             String str;
-            String ste="";
+            String ste = "";
             while ((str = br.readLine()) != null) {
-                System.out.println(str + "\n");
                 ste = ste + str;
             }
             br.close();
-            model.addAttribute("pop",ste);
+            model.addAttribute("pop", ste);
         } catch (IOException e) {
-            System.out.println("ewq");
+            System.out.println("Log exception!");
         }
         return "ShowLog";
-
     }
-
 }

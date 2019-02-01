@@ -7,6 +7,7 @@ public class gradesHelper {
 
     private String studentName;
     private String studentLastname;
+
     @Min(1)
     @Max(10)
     private int grade;
@@ -35,7 +36,6 @@ public class gradesHelper {
 
     public void setGrade(int grade) {
         if (grade > 10 || grade < 0)
-            //System.out.println("Grades can be from 0 to 10");
             this.grade = 0;
         else
             this.grade = grade;
@@ -64,7 +64,6 @@ public class gradesHelper {
         this.grade = grade;
     }
 
-
     public gradesHelper() {
     }
 
@@ -72,9 +71,8 @@ public class gradesHelper {
     public String toString() {
         return "setGradesView [studentName=" + studentName
                 + ", studentLastname=" + studentLastname
-                + ", grade=" + grade + ", courseName=" + courseName
+                + ", grade=" + grade
+                + ", courseName=" + courseName
                 + "]";
     }
-
-
 }

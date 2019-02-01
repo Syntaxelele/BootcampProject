@@ -18,11 +18,23 @@
 				<form action="#" method="post"
 					th:action="@{/insertNewCourse/__${id}__}" th:object="${course}">
 					<div class="form-group">
-						<div class="form-label-group">
-							<input autofocus="autofocus" class="form-control"
-								id="courseTitle" placeholder="Course title" required="required"
-								th:field="*{title}" type="text"> <label
-								for="courseTitle">Course title</label>
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input autofocus="autofocus" class="form-control"
+										   id="courseTitle" placeholder="Course title" required="required"
+										   th:field="*{title}" type="text"> <label
+										for="courseTitle">Course title</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<input class="form-control" id="CP" maxlength="1"
+										   placeholder="Credit points" required="required"
+										   th:field="*{CP}" type="text"> <label for="CP">Credit
+									points</label>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -37,31 +49,27 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-label-group">
-									<input class="form-control" id="courseCode" maxlength="30"
-										pattern="[a-zA-Z0-9]*" placeholder="Course code"
-										required="required" th:field="*{courseCode}" type="text">
-									<label for="courseCode">Course code</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="form-row">
-							<div class="col-md-6">
-								<div class="form-label-group">
 									<select name="evaluation"
-										class="custom-select custom-select-lg">
+											class="custom-select custom-select-lg">
 										<option value="test">Test</option>
 										<option value="exam">Exam</option>
 									</select>
 								</div>
 							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
 							<div class="col-md-6">
 								<div class="form-label-group">
-									<input class="form-control" id="CP" maxlength="1"
-										placeholder="Credit points" required="required"
-										th:field="*{CP}" type="text"> <label for="CP">Credit
-										points</label>
+									<textarea class="form-control" id="prereq" maxlength="999"
+											  placeholder="Prerequisites" th:field="*{prereq}">Prerequisites</textarea>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-label-group">
+									<textarea class="form-control" id="objective" maxlength="999"
+											  placeholder="Objective" th:field="*{objective}">Objective</textarea>
 								</div>
 							</div>
 						</div>
@@ -70,34 +78,14 @@
 						<div class="form-row">
 							<div class="col-md-6">
 								<div class="form-label-group">
-									<input class="form-control" id="prereq" maxlength="999"
-										placeholder="Prerequisites" th:field="*{prereq}" type="text">
-									<label for="prereq">Prerequisites</label>
+									<textarea class="form-control" id="content" maxlength="999"
+											  placeholder="Content" th:field="*{content}">Content</textarea>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-label-group">
-									<input class="form-control" id="objective" maxlength="999"
-										placeholder="Objective" th:field="*{objective}" type="text">
-									<label for="objective">Objective</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="form-row">
-							<div class="col-md-6">
-								<div class="form-label-group">
-									<input class="form-control" id="outcome" maxlength="999"
-										placeholder="Outcome" th:field="*{outcome}" type="text">
-									<label for="outcome">Outcome</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-label-group">
-									<input class="form-control" id="content" maxlength="999"
-										placeholder="Content" th:field="*{content}" type="text">
-									<label for="content">Content</label>
+									<textarea class="form-control" id="outcome" maxlength="999"
+											  placeholder="Outcome" th:field="*{outcome}">Outcome</textarea>
 								</div>
 							</div>
 						</div>
