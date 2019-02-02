@@ -176,7 +176,6 @@ public class RegisterAndLogController {
 
         for (Grade g : gradesOfMyCourse) {
             Student stOfMyCourse = g.getStudent();
-            System.out.println(stOfMyCourse.getName() + " " + stOfMyCourse.getLastname() + " " + g.getGrade());
             gradesHelper gh = new gradesHelper(stOfMyCourse.getName(), stOfMyCourse.getLastname(), g.getGrade());
             listOfdata.addNewItem(gh);
         }
@@ -194,7 +193,6 @@ public class RegisterAndLogController {
 
         for (Grade g : gradesOfMyCourse) {
             Student stOfMyCourse2 = g.getStudent();
-            System.out.println(stOfMyCourse2.getName() + " " + stOfMyCourse2.getLastname() + " " + g.getGrade());
             gradesHelper gh2 = new gradesHelper(stOfMyCourse2.getName(), stOfMyCourse2.getLastname(), g.getGrade());
             listOfdata.addNewItem(gh2);
         }
@@ -219,9 +217,9 @@ public class RegisterAndLogController {
             gradeRepo.save(gradesOfMyCourse.get(i));
             String stude_email = gradesOfMyCourse.get(i).getStudent().getEmail();
             if (gradesOfMyCourse.get(i).getGrade() < 4) {
-                emailsnd.sendSimpleMessage(stude_email, "Your Grade in " + myCourse2.getTitle(), "Your grade is " + gradesOfMyCourse.get(i).getGrade() + " and you stupid");
+                emailsnd.sendSimpleMessage(stude_email, "Your Grade in " + myCourse2.getTitle(), "Your grade is " + gradesOfMyCourse.get(i).getGrade() + " and you need to improve!");
             } else {
-                emailsnd.sendSimpleMessage(stude_email, "Your Grade in " + myCourse2.getTitle(), "Your grade is " + gradesOfMyCourse.get(i).getGrade() + ". Congratulations");
+                emailsnd.sendSimpleMessage(stude_email, "Your Grade in " + myCourse2.getTitle(), "Your grade is " + gradesOfMyCourse.get(i).getGrade() + ". Congratulations!");
             }
         }
         logger.info("Professor " + myProfessor2.getName() + " evaluated students and sent out emails.");
@@ -311,7 +309,6 @@ public class RegisterAndLogController {
                     hot.setPrereq(table.getRow(5).getCell(1).getText());
                     hot.setObjective(table.getRow(6).getCell(1).getText());
                     hot.setOutcome(table.getRow(7).getCell(1).getText());
-                    System.out.println(table.getRow(8).getCell(1).getText().length());
                     hot.setContent(table.getRow(8).getCell(1).getText());
                     logger.info("Professor " + ProfFromDB.get().getName() + " uploaded a course document.");
                 }
