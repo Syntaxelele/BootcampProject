@@ -21,13 +21,10 @@ public class SimpleController {
 
     @Autowired
     StudentRepo studentRepo;
-
     @Autowired
     ProfessorRepo professorRepo;
-
     @Autowired
     CourseRepo courseRepo;
-
     @Autowired
     GradeRepo gradeRepo;
 

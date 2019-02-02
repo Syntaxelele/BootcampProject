@@ -53,12 +53,12 @@ public class Course {
         CP = "";
         prereq = "";
         objective = "";
-        outcome = "";
         content = "";
+        outcome = "";
         gradesInCourse = null;
     }
 
-    public Course(String title, String description, Professor professor, String evaluation, String cP, String prereq, String objective, String outcome, String content) {
+    public Course(String title, String description, Professor professor, String evaluation, String cP, String prereq, String objective, String content, String outcome) {
         super();
         this.title = title;
         this.description = description;
@@ -67,8 +67,8 @@ public class Course {
         this.CP = cP;
         this.prereq = prereq;
         this.objective = objective;
-        this.outcome = outcome;
-        this.content = content;
+        this.outcome = content;
+        this.content = outcome;
     }
 
     public Course(String title, String description, Professor professor, String courseCode, String evaluation, String cP, String prereq, String objective, String outcome, String content,
