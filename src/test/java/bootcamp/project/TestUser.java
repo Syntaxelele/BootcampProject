@@ -55,13 +55,13 @@ public class TestUser {
 			
 	}
 	
-	@Test
+	/*@Test
 	public void testPassNullsToUserConstructor() {
 	    try {
 	      User user = new User(null, null, null, null, 0, null);
 	    } catch (IllegalArgumentException e) {
 	    	assertEquals("Error code doesn't match", e.getMessage());
 	    }
-	  }
+	  }*/
 	
 }

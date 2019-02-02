@@ -44,7 +44,7 @@ public class TestRepos {
 	public void updateRepoValues() {
 		Student s = new Student("Andris", "Berzinjs", "andris2", "password", 2, "inbox22@inbox.lv");
 		studentRepo.save(s);
-		System.out.println(s.getName() + " " + s.getLastname() + " " + s.getUsername());
+		//System.out.println(s.getName() + " " + s.getLastname() + " " + s.getUsername());
 		
 		Student student = studentRepo.findByUsername("andris2");
 		student.setName("Ainars");
@@ -52,8 +52,8 @@ public class TestRepos {
 		Student student1 = studentRepo.findByUsername("andris2");
 		assertEquals("Ainars", student1.getName());
 		
-		System.out.println(student.getName()+ " " + student.getLastname() + " " + student.getUsername());
-		System.out.println(s.getName() + " " + s.getLastname() + s.getUsername());
+		//System.out.println(student.getName()+ " " + student.getLastname() + " " + student.getUsername());
+		//System.out.println(s.getName() + " " + s.getLastname() + s.getUsername());
 	}
 	
 	@Test

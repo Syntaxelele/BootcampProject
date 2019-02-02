@@ -3,12 +3,15 @@ package bootcamp.project;
 
 import bootcamp.project.courses.Course;
 import bootcamp.project.repo.CourseRepo;
+import bootcamp.project.repo.GradeRepo;
 import bootcamp.project.repo.ProfessorRepo;
+import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.Assert.assertEquals;
@@ -17,8 +20,18 @@ import static org.junit.Assert.assertNull;
 import javax.validation.constraints.NotNull;
 
 //---------------------------------------------------------------------//
-
+@SpringBootTest
 public class testCourses {
+
+	@Autowired
+	StudentRepo studentRepo;
+	@Autowired
+	GradeRepo gradeRepo;
+	@Autowired
+	CourseRepo courseRepo;
+	@Autowired
+	ProfessorRepo professorRepo;
+	
     @Test
     public void testDefaultInput() {
         Course CT1 = new Course();
@@ -27,7 +40,7 @@ public class testCourses {
         assertEquals("", CT1.getDescription());
         assertNull(CT1.getProfessor());
         assertEquals("", CT1.getEvaluation());
-        assertEquals(0, CT1.getCP());
+        assertEquals("", CT1.getCP());
         assertEquals("", CT1.getPrereq());
         assertEquals("", CT1.getObjective());
         assertEquals("", CT1.getOutcome());
@@ -35,8 +48,10 @@ public class testCourses {
 
     }
 
-    @InjectMocks
+ /*   @InjectMocks
     ProfessorRepo professorRepo;
+    @InjectMocks
+    CourseRepo courseRepo;*/
 
 
     @Test
@@ -44,15 +59,15 @@ public class testCourses {
 
         Professor CP1 = new Professor("Janis", "Berzins", "jberzins", "berzins", 1, "j@gmail.com");
 
-
-        professorRepo.save(CP1);
+        System.out.println(CP1);
+        //professorRepo.save(CP1);
 
         Course CT2 = new Course("Title", "Description", CP1,
                 "Evaluation", "321",
                 "Prerequisites", "Objective", "Outcome", "Content");
 
-
-        Iterable<Professor> pFromDB = professorRepo.findByName("jberzins");
+        //courseRepo.save(CT2);
+        //Iterable<Professor> pFromDB = professorRepo.findByName("jberzins");
 
         assertEquals("Title", CT2.getTitle());
         assertEquals("Description", CT2.getDescription());
