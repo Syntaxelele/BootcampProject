@@ -13,29 +13,29 @@
 	<div class="container">
 		<div class="card card-register mx-auto mt-5">
 			<div class="card-header">Course info import</div>
-			<div class="card-body">
-				<form action="#" th:action="@{/DocView/__${id}__}" th:object="${top}" method="post">
-					<div class="form-group">
-						<div class="form-row">
-							<div class="col-md-6">
-								<div>
-									<input class="form-control custom-file-input" id="files" type="file" name="files" th:field="*{docPath}" accept=".doc, .docx">
-    								<label class="custom-file-label" for="files">Choose file</label>
-								</div>
-							</div>
-
-							<form action="#" method="get"th:object="${top}" enctype="multipart/form-data">
+				<div class="card-body">
+					<form action="#" th:action="@{/DocView/__${id}__}" th:object="${top}" method="post">
+						<div class="form-group">
+							<div class="form-row">
 								<div class="col-md-6">
-								<div>
-									<input class="form-control btn btn-primary btn-block" id="upload" type="submit" value="Upload Files"  th:field="*{docPath}"></input>
+									<div>
+										<input class="form-control custom-file-input" id="files" type="file" name="files" th:field="*{docPath}" accept=".doc, .docx">
+										<label class="custom-file-label" for="files">Choose file</label>
+									</div>
 								</div>
-								</div>
-							</form>
+								<form action="#" method="get"th:object="${top}" enctype="multipart/form-data">
+									<div class="col-md-6">
+									<div>
+										<input class="form-control btn btn-primary btn-block" id="upload" type="submit" value="Upload Files"  th:field="*{docPath}"></input>
+									</div>
+									</div>
+								</form>
+							</div>
 						</div>
+					</form>
+					<div class="text-center">
+						<a class="d-block small mt-3" th:href="@{/professorMenu/__${id}__}">Back</a>
 					</div>
-				<div class="text-center">
-					<a class="d-block small mt-3" th:href="@{/professorMenu/__${id}__}">Back</a>
-				</form>
 				</div>
 			</div>
         </div>

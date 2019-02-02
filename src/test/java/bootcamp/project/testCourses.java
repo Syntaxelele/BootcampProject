@@ -26,7 +26,6 @@ public class testCourses {
         assertEquals("", CT1.getTitle());
         assertEquals("", CT1.getDescription());
         assertNull(CT1.getProfessor());
-        assertEquals("", CT1.getCourseCode());
         assertEquals("", CT1.getEvaluation());
         assertEquals(0, CT1.getCP());
         assertEquals("", CT1.getPrereq());
@@ -49,7 +48,7 @@ public class testCourses {
         professorRepo.save(CP1);
 
         Course CT2 = new Course("Title", "Description", CP1,
-                "CourseCode", "Evaluation", 321,
+                "Evaluation", "321",
                 "Prerequisites", "Objective", "Outcome", "Content");
 
 
@@ -58,9 +57,8 @@ public class testCourses {
         assertEquals("Title", CT2.getTitle());
         assertEquals("Description", CT2.getDescription());
         assertEquals(CP1.getUsername(), CT2.getProfessor().getUsername());
-        assertEquals("CourseCode", CT2.getCourseCode());
         assertEquals("Evaluation", CT2.getEvaluation());
-        assertEquals(321, CT2.getCP());
+        assertEquals("321", CT2.getCP());
         assertEquals("Prerequisites", CT2.getPrereq());
         assertEquals("Objective", CT2.getObjective());
         assertEquals("Outcome", CT2.getOutcome());

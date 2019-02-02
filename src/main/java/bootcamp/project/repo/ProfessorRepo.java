@@ -1,19 +1,18 @@
 package bootcamp.project.repo;
 
-import org.springframework.data.repository.CrudRepository;
-
 import bootcamp.project.users.Professor;
+import org.springframework.data.repository.CrudRepository;
 
 public interface ProfessorRepo extends CrudRepository<Professor, Long> {
 
-	public Iterable<Professor> findByName(String username);
+    Iterable<Professor> findByName(String username);
 
-	Professor findByNameAndLastname(String name, String lastname);
+    Professor findByNameAndLastname(String name, String lastname);
 
-	public Professor findByUsernameAndPassword(String username, String password);
+    Professor findByUsernameAndPassword(String username, String password);
 
-	public Professor findByUsername(String username);
+    Professor findByUsername(String username);
 
-	public Professor findByEmail(String email);
+    Professor findByEmail(String email);
 
 }

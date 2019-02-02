@@ -9,7 +9,6 @@ import bootcamp.project.repo.ProfessorRepo;
 import bootcamp.project.repo.StudentRepo;
 import bootcamp.project.users.Professor;
 import bootcamp.project.users.Student;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -31,19 +29,16 @@ public class CourseController {
 
     @Autowired
     CourseRepo courseRepo;
-
     @Autowired
     ProfessorRepo professorRepo;
-
     @Autowired
     StudentRepo studentRepo;
-
     @Autowired
     GradeRepo gradeRepo;
 
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-//------------------------SHOW COURSES---------------------------------------//
+//------------------------SHOW COURSES-------------------------------//
 
     @GetMapping("/oneCourse/{id}")
     public String showOneCourse(@PathVariable(required = false, name = "id") int id, Model model) {
@@ -57,21 +52,18 @@ public class CourseController {
     @GetMapping(value = "/showAllCourses/{id}")
     public String showAllCoursesToView(Model model, @PathVariable(required = false, name = "id") long id) {
         model.addAttribute("allCourses", courseRepo.findAll());
-        courseRepo.findAll().forEach(course -> System.out.println(course));
         return "showAllCourses";
     }
 
     @GetMapping(value = "/showProfessorCourse/{id}")
     public String showProfessorCourseToView(@PathVariable(required = false, name = "id") int id, Model model) {
-        //model.addAttribute("allCourses", courseRepo.findAll());
-        //courseRepo.findAll().forEach(course -> System.out.println(course));
         Long idL = (long) id;
         Optional<Course> courseFromDB = courseRepo.findById(idL);
         model.addAttribute("course", courseFromDB.get());
         return "showMyCourse";
     }
 
-    //----------------------------------------------------------------------//
+    //-----------------------------------------------------------------//
     //---------------------------COURSE INPUT--------------------------//
 
     @GetMapping("/insertNewCourse/{id}")
@@ -94,9 +86,9 @@ public class CourseController {
                 + courseInfo.getTitle());
         return "redirect:/showProfessorCourse/" + id;
     }
+
     //--------------------------------------------------------------------//
     //-----------------------REGISTER TO COURSES--------------------------//
-
 
     @GetMapping(value = "/registerToCourse/{id}")
     public String registerToCourseView(Model model, @PathVariable(name = "id") long id,
@@ -106,17 +98,14 @@ public class CourseController {
         for (Course i : courseFromDB) {
             checkBoxList.addCheck(false);
         }
-
         model.addAttribute("regToCourse", courseFromDB);
         model.addAttribute("listOfCheck", checkBoxList);
-
         return "registerToCourse";
     }
 
     @PostMapping(value = "/registerToCourse/{id}")
     public String registerToCourseViewPost(@PathVariable(required = false, name = "id") long id,
                                            @Valid CheckBoxList checkBoxList, BindingResult result) {
-//        Student studentInfo = studentRepo.findById(id).get();
         if (result.hasErrors()) {
             return "registerToCourse";
         }

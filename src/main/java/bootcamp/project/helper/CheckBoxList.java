@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckBoxList {
+
 	List<Boolean> listOfCheck;
 
 	public List<Boolean> getListOfCheck() {
